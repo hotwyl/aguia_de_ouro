@@ -214,12 +214,10 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
     <nav class="hidden md:flex items-center gap-1" aria-label="Navegação principal">
       <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium transition-all" style="color:var(--gold); background:rgba(201,168,76,0.08);">Início</a>
       <a href="/sobre.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
-      <a href="/guia.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);">
-        <i class="fas fa-book-open mr-1"></i>Guia de Classes
-      </a>
-      <a href="/quiz.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);">
-        <i class="fas fa-dove mr-1"></i>Teste das Aves
-      </a>
+      <a href="/guia.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
+      <a href="/quiz.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-dove mr-1"></i>Teste das Aves</a>
+      <a href="/planejamento.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-file-pdf mr-1"></i>Planejamento</a>
+      <a href="/simulador_astronomia.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-star mr-1"></i>Simulador Astronomia</a>
     </nav>
     <!-- Actions -->
     <div class="flex items-center gap-2">
@@ -230,7 +228,7 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
       <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
         <i id="menuIcon" class="fas fa-bars"></i>
       </button>
-      <a href="/quiz" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
+      <a href="/quiz.html" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
         <i class="fas fa-feather"></i> Fazer o Teste
       </a>
     </div>
@@ -243,18 +241,10 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
     <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);">
       <i class="fas fa-home w-5"></i><span class="font-medium">Início</span>
     </a>
-    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)">
-      <i class="fas fa-book-open w-5" style="color:var(--gold)"></i><span>Guia de Classes Agrupadas</span>
-    </a>
-    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)">
-      <i class="fas fa-dove w-5" style="color:var(--gold)"></i><span>Teste de Personalidade das Aves</span>
-    </a>
-    <a href="/planejamento.html" onclick="closeMenu()" target="_blank" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)">
-      <i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i><span>Planejamento</span>
-    </a>
-    <a href="/simulador_astronomia.html" onclick="closeMenu()" target="_blank" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)">
-      <i class="fas fa-star w-5" style="color:var(--gold)"></i><span>Simulador Astronomia</span>
-    </a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i><span>Guia de Classes Agrupadas</span></a>
+    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-dove w-5" style="color:var(--gold)"></i><span>Teste de Personalidade das Aves</span></a>
+    <a href="/planejamento.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i><span>Planejamento</span></a>
+    <a href="/simulador_astronomia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-star w-5" style="color:var(--gold)"></i><span>Simulador Astronomia</span></a>
     <div class="mt-4 pt-4" style="border-top:1px solid rgba(201,168,76,0.2)">
       <a href="/quiz.html" class="btn-gold w-full py-3 rounded-xl text-center font-semibold block">
         <i class="fas fa-feather mr-2"></i>Iniciar Teste Agora
