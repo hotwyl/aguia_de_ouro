@@ -299,7 +299,7 @@ let rendering = false;
 async function loadPDFfromFile() {
   try {
     setLoadBar(10);
-    const loadingTask = pdfjsLib.getDocument('planejamento-classe-agrupadas.pdf');
+    const loadingTask = pdfjsLib.getDocument('0209479b9fe01537fe6b1de1866976bb.pdf');
     loadingTask.onProgress = (p) => {
       if (p.total) setLoadBar(50 + Math.round((p.loaded / p.total) * 35));
     };
