@@ -1,0 +1,1184 @@
+
+<script>
+// Bloqueios de segurança e proteção de conteúdo
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+    // Bloqueia F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+C, Ctrl+P, Ctrl+Shift+C
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+// Bloqueia seleção de texto
+document.addEventListener('selectstart', e => e.preventDefault());
+// Bloqueia PrintScreen
+document.addEventListener('keyup', function(e) {
+    if (e.key === 'PrintScreen') {
+        navigator.clipboard.writeText('Ação bloqueada');
+        alert('Captura de tela bloqueada!');
+    }
+});
+// Bloqueia impressão
+window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
+</script>
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Aeroespacial Interativo | Dev Cria</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 500: '#3b82f6', 600: '#2563eb' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Three.js & OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Inter', sans-serif; background-color: #050505; }
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            color: #1e293b;
+        }
+
+        /* Tooltip */
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 50;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+        .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+        /* Custom Scrollbar Premium */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.5); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.8); }
+
+        .modal-scrollable {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        /* Loader */
+        #loader { transition: opacity 0.5s; }
+    </style>
+</head>
+<body class="text-white dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white">
+        <i class="ph ph-rocket-launch text-6xl animate-bounce mb-4 text-blue-500"></i>
+        <h1 class="text-2xl font-bold tracking-widest">INICIALIZANDO SISTEMAS</h1>
+        <p class="text-sm text-gray-400 mt-2">Sincronizando Efemérides e Base de Dados Cósmica...</p>
+    </div>
+
+    <!-- 3D Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay -->
+    <div class="fixed inset-0 z-10 pointer-events-none flex flex-col justify-between p-2 sm:p-4">
+        
+        <!-- Top Bar -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            
+            <!-- Dashboard Lateral (Status) -->
+            <div class="glass-panel rounded-xl p-4 pointer-events-auto w-full sm:w-80 transition-all shadow-2xl">
+                <div class="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <i class="ph-fill ph-radar text-blue-500 animate-pulse"></i> Telemetria ISS
+                    </h2>
+                    <div class="tooltip cursor-help">
+                        <i class="ph ph-info text-gray-400 hover:text-white transition"></i>
+                        <span class="tooltip-text">Dados consumidos em tempo real da API WhereTheISS</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400 dark:text-gray-400">Latitude:</span>
+                        <span id="ui-lat" class="font-mono font-semibold">Carregando...</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Longitude:</span>
+                        <span id="ui-lon" class="font-mono font-semibold">Carregando...</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Altitude:</span>
+                        <span id="ui-alt" class="font-mono font-semibold">Carregando...</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Velocidade:</span>
+                        <span id="ui-vel" class="font-mono text-blue-400 font-bold">Carregando...</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-600">
+                    <label class="text-xs text-gray-400 mb-1 block">Explorador de Astros & Constelações</label>
+                    <div class="relative pointer-events-auto">
+                        <select id="astro-select" class="w-full bg-gray-800/50 border border-gray-600 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition appearance-none cursor-pointer" onchange="selectAstro()">
+                            <option value="" disabled selected>Selecione para inspecionar...</option>
+                            <optgroup label="Estrela Central">
+                                <option value="sun">O Sol</option>
+                            </optgroup>
+                            <optgroup label="Planetas Principais">
+                                <option value="mercury">Mercúrio</option>
+                                <option value="venus">Vênus</option>
+                                <option value="earth">Terra</option>
+                                <option value="mars">Marte</option>
+                                <option value="jupiter">Júpiter</option>
+                                <option value="saturn">Saturno</option>
+                                <option value="uranus">Urano</option>
+                                <option value="neptune">Netuno</option>
+                            </optgroup>
+                            <optgroup label="Planetas Anões">
+                                <option value="ceres">Ceres</option>
+                                <option value="pluto">Plutão</option>
+                                <option value="haumea">Haumea</option>
+                                <option value="makemake">Makemake</option>
+                                <option value="eris">Éris</option>
+                            </optgroup>
+                            <optgroup label="Simulador de Constelações">
+                                <option value="orion">Órion (O Caçador)</option>
+                                <option value="crux">Cruzeiro do Sul (Crux)</option>
+                                <option value="centaurus">Centauro (Centaurus)</option>
+                            </optgroup>
+                        </select>
+                        <i class="ph ph-caret-down absolute right-3 top-2.5 text-gray-400 pointer-events-none"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles Globais -->
+            <div class="flex flex-col gap-2 pointer-events-auto items-end">
+                <div class="glass-panel rounded-xl p-2 flex gap-2">
+                    <button class="p-2 rounded hover:bg-white/10 transition tooltip text-purple-400" onclick="showCosmology()">
+                        <i class="ph-fill ph-atom text-xl"></i>
+                        <span class="tooltip-text">Cosmologia Extrema & Fenômenos Espaciais</span>
+                    </button>
+                    <button class="p-2 rounded hover:bg-white/10 transition tooltip text-yellow-400" onclick="showTips()">
+                        <i class="ph-fill ph-globe-hemisphere-west text-xl"></i>
+                        <span class="tooltip-text">Fenômenos Terrestres & Leis da Física</span>
+                    </button>
+                    <button id="btn-theme" class="p-2 rounded hover:bg-white/10 transition tooltip" onclick="toggleTheme()">
+                        <i class="ph ph-sun text-xl"></i>
+                        <span class="tooltip-text">Alternar Tema</span>
+                    </button>
+                    <button id="btn-view" class="p-2 rounded hover:bg-white/10 transition tooltip text-blue-400" onclick="toggleView()">
+                        <i class="ph ph-planet text-xl"></i>
+                        <span class="tooltip-text">Visão: Sistema Solar / Terra</span>
+                    </button>
+                    <button class="p-2 rounded hover:bg-white/10 transition tooltip" onclick="showHelp()">
+                        <i class="ph ph-question text-xl"></i>
+                        <span class="tooltip-text">Ajuda & Controles</span>
+                    </button>
+                </div>
+
+                <!-- Painel de Filtros (Contextual) -->
+                <div id="panel-filters" class="glass-panel rounded-xl p-3 text-sm flex flex-col gap-2 w-48">
+                    <h3 class="font-bold border-b border-gray-600 pb-1 mb-1">Filtros & Simulação</h3>
+                    
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="toggle-atmos" checked class="form-checkbox text-blue-500 rounded bg-gray-700 border-gray-600" onchange="updateFilters()">
+                        <span>Atmosfera</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="toggle-moon" checked class="form-checkbox text-blue-500 rounded bg-gray-700 border-gray-600" onchange="updateFilters()">
+                        <span>Exibir Lua</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="toggle-rot" checked class="form-checkbox text-blue-500 rounded bg-gray-700 border-gray-600" onchange="updateFilters()">
+                        <span>Rotação Numérica</span>
+                    </label>
+                    
+                    <div class="border-t border-gray-600 pt-2 mt-1">
+                        <button class="w-full text-left px-2 py-1 rounded hover:bg-white/10 text-yellow-400 transition text-xs" onclick="simulateEclipse('solar')">
+                            <i class="ph-fill ph-circle"></i> Eclipse Solar
+                        </button>
+                        <button class="w-full text-left px-2 py-1 rounded hover:bg-white/10 text-red-400 transition text-xs mt-1" onclick="simulateEclipse('lunar')">
+                            <i class="ph ph-moon"></i> Eclipse Lunar
+                        </button>
+                        <button class="w-full text-left px-2 py-1 rounded hover:bg-white/10 text-gray-300 transition text-xs mt-1" onclick="resetSimulation()">
+                            <i class="ph ph-arrows-counter-clockwise"></i> Resetar Eclipses
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé & LGPD -->
+        <div class="flex flex-col items-center gap-2 mt-auto">
+            <div id="lgpd-banner" class="glass-panel rounded-lg p-3 sm:px-6 pointer-events-auto flex flex-col sm:flex-row items-center gap-4 text-xs max-w-2xl text-center sm:text-left">
+                <p><strong>Privacidade e LGPD:</strong> Utilizamos dados de telemetria pública. Nenhuma informação pessoal é coletada ou armazenada neste dashboard orbital. Ao continuar, você concorda com nossas diretrizes técnicas rigorosas.</p>
+                <button onclick="acceptLGPD()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded transition whitespace-nowrap font-bold">Ciente e de Acordo</button>
+            </div>
+            
+            <div class="pointer-events-auto text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 bg-black/40 px-4 py-1 rounded-full backdrop-blur-sm">
+                Sistema desenvolvido pelo desenvolvedor HOTWYL | WILLFROMBRASIL
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * ENGINE CORE - DEV CRIA
+         * Arquitetura Mobile First, ES6+, Three.js
+         */
+
+        // Estado Global
+        const AppState = {
+            view: 'earth', // 'earth', 'solar', 'constellation'
+            filters: { atmosphere: true, moon: true, rotation: true },
+            simulation: null,
+            isDark: true,
+            issData: { lat: 0, lon: 0, alt: 0, vel: 0 }
+        };
+
+        // Constantes e Variáveis Three.js
+        let scene, camera, renderer, controls;
+        let earthGroup, solarSystemGroup, constellationGroup;
+        let earthMesh, atmosphereMesh, moonMesh, moonOrbitPivot;
+        let issMesh, sunLight;
+        let sunCorona1, sunCorona2;
+        let planets = [];
+        let raycaster = new THREE.Raycaster();
+        let mouse = new THREE.Vector2();
+
+        // Texturas
+        const TEX_EARTH = 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+        const TEX_MOON = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/moon_1024.jpg';
+        const TEX_SUN = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/sun.jpg';
+
+        // Geometria de Constelações
+        const ConstellationConfig = {
+            orion: {
+                stars: [
+                    { name: 'Betelgeuse', pos: [-5, 7, 1], color: 0xffaa00, size: 0.8 },
+                    { name: 'Rigel', pos: [4, -7, -1], color: 0xaaccff, size: 0.9 },
+                    { name: 'Bellatrix', pos: [4, 5, 0], color: 0x88bbff, size: 0.5 },
+                    { name: 'Saiph', pos: [-4, -6, 1], color: 0x88bbff, size: 0.5 },
+                    { name: 'Alnitak', pos: [-1.5, -0.5, 0], color: 0x88bbff, size: 0.4 },
+                    { name: 'Alnilam', pos: [0, 0, 0], color: 0xffffff, size: 0.4 },
+                    { name: 'Mintaka', pos: [1.5, 0.5, 0], color: 0x88bbff, size: 0.4 }
+                ],
+                lines: [[0,3], [3,4], [4,5], [5,6], [6,2], [2,1], [0,2], [3,1], [4,2]]
+            },
+            crux: {
+                stars: [
+                    { name: 'Acrux', pos: [0, -4, 0], color: 0xaaccff, size: 0.7 },
+                    { name: 'Gacrux', pos: [0, 3.5, 0], color: 0xff6644, size: 0.6 },
+                    { name: 'Mimosa (Beta Crucis)', pos: [-2.5, 1, 0], color: 0xaaccff, size: 0.6 },
+                    { name: 'Imai (Delta Crucis)', pos: [2, -0.5, 0], color: 0xffffff, size: 0.4 },
+                    { name: 'Ginan', pos: [1, -2, 0], color: 0xffaa00, size: 0.2 }
+                ],
+                lines: [[0,1], [2,3]]
+            },
+            centaurus: {
+                stars: [
+                    { name: 'Alpha Centauri', pos: [-6, -4, 1], color: 0xffdd88, size: 0.8 },
+                    { name: 'Hadar', pos: [-3, -2, 0.5], color: 0xaaccff, size: 0.7 },
+                    { name: 'Menkent', pos: [2, 4, -1], color: 0xffaa00, size: 0.6 },
+                    { name: 'Muhlifain', pos: [0, 2, 0], color: 0xffffff, size: 0.4 },
+                    { name: 'Epsilon Centauri', pos: [-1, 0, 0], color: 0xaaccff, size: 0.4 }
+                ],
+                lines: [[0,1], [1,4], [4,3], [3,2]]
+            }
+        };
+
+        // Base de Dados Cósmica Master
+        const InfoData = {
+            sun: {
+                title: 'O Sol', text: 'Estrela central do sistema solar. Motor gravitacional e fonte de energia primária.',
+                stats: 'Temp: ~5.500 °C (Superfície) | Vel. da Luz: 299.792 km/s',
+                details: {
+                    age: '4.6 Bilhões de anos', surface: 'Plasma escaldante (Não possui superfície sólida)',
+                    atmosphere: 'Hidrogênio (73%) e Hélio (25%)', soil: 'Inaplicável (Estrela)',
+                    core: 'Plasma denso a 15 milhões de °C (Fusão Nuclear)', discovery: 'Antiguidade (Sempre visível)',
+                    curiosity: 'O Sol concentra 99,86% de toda a massa do Sistema Solar.'
+                }
+            },
+            mercury: {
+                title: 'Mercúrio', text: 'O menor e mais interno planeta. Extremo em temperaturas devido à falta de atmosfera.',
+                stats: 'Translação: 88 dias | Rotação: 1.408 horas', lightTime: '3.2 min', sizeRel: '0.38x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Rochosa e intensamente esburacada (Crateras)',
+                    atmosphere: 'Exosfera extremamente fina (Oxigênio, Sódio, Hidrogênio)', soil: 'Silicatos e compostos de Enxofre',
+                    core: 'Ferro maciço superdimensionado (ocupa ~85% do seu raio)', discovery: 'Antiguidade (Visível a olho nu)',
+                    curiosity: 'Um dia em Mercúrio (do amanhecer ao anoitecer) dura o equivalente a 176 dias terrestres.'
+                }
+            },
+            venus: {
+                title: 'Vênus', text: 'O planeta mais quente, vitima de um efeito estufa descontrolado. Gira em sentido retrógrado.',
+                stats: 'Translação: 225 dias | Rotação: 5.832 horas', lightTime: '6.0 min', sizeRel: '0.95x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Rochosa e vulcânica, oculta sob nuvens ácidas',
+                    atmosphere: 'Dióxido de Carbono (96%) e Nitrogênio, com nuvens de ácido sulfúrico', soil: 'Rocha basáltica',
+                    core: 'Ferro e Níquel (Provavelmente líquido/parcialmente sólido)', discovery: 'Antiguidade (A "Estrela D\'Alva")',
+                    curiosity: 'A pressão em sua superfície é 90 vezes maior que a da Terra, esmagando sondas rapidamente.'
+                }
+            },
+            earth: {
+                title: 'Terra', text: 'Nosso oásis cósmico. O único corpo celeste conhecido a abrigar e sustentar vida complexa.',
+                stats: 'Translação: 365 dias | Rotação: 24 horas | Luas: 1', lightTime: '8.3 min', sizeRel: '1.00x da Terra',
+                details: {
+                    age: '4.54 Bilhões de anos', surface: 'Rochosa, dinâmica (placas tectônicas) e 71% coberta por água líquida',
+                    atmosphere: 'Nitrogênio (78%) e Oxigênio (21%)', soil: 'Minerais ricos em silicatos e material orgânico',
+                    core: 'Ferro e Níquel (Núcleo interno sólido e externo líquido)', discovery: 'Pré-história (Lar originário)',
+                    curiosity: 'É o único planeta do sistema solar cujo nome em inglês (Earth) não deriva da mitologia greco-romana.'
+                }
+            },
+            mars: {
+                title: 'Marte', text: 'O Planeta Vermelho. Um mundo desértico e frio com evidências de rios antigos e oceanos perdidos.',
+                stats: 'Translação: 687 dias | Rotação: 24.6 horas | Luas: Fobos e Deimos', lightTime: '12.6 min', sizeRel: '0.53x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Rochosa, desértica, vulcânica e varrida por tempestades de poeira',
+                    atmosphere: 'Dióxido de Carbono (95%), muito rarefeita', soil: 'Regolito rico em Óxido de Ferro (ferrugem)',
+                    core: 'Ferro, Níquel e grande quantidade de Enxofre', discovery: 'Antiguidade',
+                    curiosity: 'Abriga o Monte Olimpo, um vulcão extinto três vezes mais alto que o Monte Everest.'
+                }
+            },
+            ceres: {
+                title: 'Ceres (Planeta Anão)', text: 'O rei do Cinturão de Asteroides. Um mundo oceânico congelado no sistema solar interno.',
+                stats: 'Translação: 1.680 dias | Rotação: 9 horas', lightTime: '22.0 min', sizeRel: '0.07x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Rochosa e gelada, com minerais hidratados e sais',
+                    atmosphere: 'Extremamente tênue e transitória (Vapor de água ocasional)', soil: 'Argilas ricas em amônia, carbonatos',
+                    core: 'Rochoso (Silicatos pesados) envolto num manto de gelo', discovery: '1801 (por Giuseppe Piazzi)',
+                    curiosity: 'Originalmente classificado como asteroide e depois promovido a Planeta Anão em 2006.'
+                }
+            },
+            jupiter: {
+                title: 'Júpiter', text: 'O Colosso Gasoso. Atua como um "aspirador cósmico" protegendo a Terra de asteroides.',
+                stats: 'Translação: 4.333 dias | Rotação: 9.9 horas | Luas: 90+', lightTime: '43.2 min', sizeRel: '11.20x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Não possui superfície sólida (Gás gradativamente denso)',
+                    atmosphere: 'Hidrogênio (89%) e Hélio (10%), com tempestades de amônia', soil: 'Inaplicável (Gás até profundidades extremas)',
+                    core: 'Presumivelmente sólido e rochoso, cercado por hidrogênio metálico sob pressão colossal', discovery: 'Antiguidade',
+                    curiosity: 'Sua Grande Mancha Vermelha é uma tempestade ciclópica que já dura mais de 300 anos.'
+                }
+            },
+            saturn: {
+                title: 'Saturno', text: 'A joia do sistema solar devido à magnitude de seu sistema de anéis de gelo e rocha.',
+                stats: 'Translação: 10.759 dias | Rotação: 10.7 horas | Luas: 140+', lightTime: '79.3 min', sizeRel: '9.45x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Não possui superfície sólida',
+                    atmosphere: 'Hidrogênio (96%) e Hélio (3%)', soil: 'Inaplicável',
+                    core: 'Rochoso e metálico, envolvido por hidrogênio líquido e metálico', discovery: 'Antiguidade',
+                    curiosity: 'É o único planeta do Sistema Solar com densidade média menor que a da água (flutuaria num oceano gigante).'
+                }
+            },
+            uranus: {
+                title: 'Urano', text: 'O Planeta Tombado. Orbita com o eixo rotacionado em 98 graus, causando estações extremas.',
+                stats: 'Translação: 30.687 dias | Rotação: 17.2 horas | Luas: 27', lightTime: '2.66 horas', sizeRel: '4.00x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Não possui (Fluidos congelados e gasosos)',
+                    atmosphere: 'Hidrogênio, Hélio e Metano (Dá a cor azul ciano)', soil: 'Manto aquoso/amoniacal sob a atmosfera',
+                    core: 'Pequeno núcleo rochoso (Silicatos e Ferro)', discovery: '1781 (por William Herschel)',
+                    curiosity: 'Urano é o planeta mais frio do sistema solar em temperatura mínima (-224 °C), superando Netuno.'
+                }
+            },
+            neptune: {
+                title: 'Netuno', text: 'Um mundo escuro, gelado e açoitado por ventos supersônicos que ultrapassam 2.000 km/h.',
+                stats: 'Translação: 60.190 dias | Rotação: 16.1 horas | Luas: 14', lightTime: '4.00 horas', sizeRel: '3.88x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Não possui (Mistura supercrítica de água, amônia e metano)',
+                    atmosphere: 'Hidrogênio, Hélio e Metano (Responsável pelo tom azul profundo)', soil: 'Oceano global fluido ("gelo quante")',
+                    core: 'Rochoso, do tamanho aproximado da Terra', discovery: '1846 (por Le Verrier, Adams e Galle)',
+                    curiosity: 'Netuno foi o primeiro planeta previsto matematicamente antes de ser observado através de um telescópio.'
+                }
+            },
+            pluto: {
+                title: 'Plutão (Planeta Anão)', text: 'Um mundo distante com geleiras em forma de coração no sombrio Cinturão de Kuiper.',
+                stats: 'Translação: 90.560 dias | Rotação: 153.3 horas | Luas: 5', lightTime: '5.50 horas', sizeRel: '0.18x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Rochosa e coberta por imensas planícies de gelo exótico',
+                    atmosphere: 'Nitrogênio, Metano e Monóxido de Carbono (Expande quando próximo ao Sol)', soil: 'Gelo de água e gelo de Nitrogênio',
+                    core: 'Rochoso maciço (Silicatos)', discovery: '1930 (por Clyde Tombaugh)',
+                    curiosity: 'Plutão e sua lua Caronte orbitam um centro de massa comum fora de Plutão, formando quase um sistema binário.'
+                }
+            },
+            haumea: {
+                title: 'Haumea (Planeta Anão)', text: 'Um bizarro mundo elipsoide. Gira tão rápido que sua forma se achatou como uma bola de rugby.',
+                stats: 'Translação: 103.416 dias | Rotação: 3.9 horas | Luas: 2', lightTime: '4.75 horas', sizeRel: '0.12x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Crosta de gelo cristalino altamente reflexiva',
+                    atmosphere: 'Indetectável / Muito rarefeita', soil: 'Gelo de água puro cobrindo um interior rochoso',
+                    core: 'Rochoso denso e alongado', discovery: '2004/2005 (Equipes de Mike Brown e J. L. Ortiz)',
+                    curiosity: 'Foi o primeiro objeto do Cinturão de Kuiper descoberto com um sistema de anéis próprio.'
+                }
+            },
+            makemake: {
+                title: 'Makemake (Planeta Anão)', text: 'Um pequeno mas brilhante habitante das bordas do sistema solar.',
+                stats: 'Translação: 112.897 dias | Rotação: 22.8 horas | Luas: 1', lightTime: '5.33 horas', sizeRel: '0.11x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Gelo avermelhado, similar a Plutão',
+                    atmosphere: 'Fina e transitória de Nitrogênio e Metano', soil: 'Metano, Etano e possivelmente gelo de Nitrogênio',
+                    core: 'Rochoso (Desconhecido detalhadamente)', discovery: '2005 (Equipe de Mike Brown)',
+                    curiosity: 'Seu nome homenageia o deus da criação na mitologia Rapa Nui (Ilha da Páscoa).'
+                }
+            },
+            eris: {
+                title: 'Éris (Planeta Anão)', text: 'O objeto mais massivo do Cinturão de Kuiper. O pivô que desencadeou a reclassificação planetária.',
+                stats: 'Translação: 203.830 dias | Rotação: 25.9 horas | Luas: 1 (Disnomia)', lightTime: '9.50 horas', sizeRel: '0.18x da Terra',
+                details: {
+                    age: '4.5 Bilhões de anos', surface: 'Extremamente branca e reflexiva (albedo alto)',
+                    atmosphere: 'Congela e colapsa sobre a superfície na maior parte de sua órbita', soil: 'Gelo de Metano quase puro',
+                    core: 'Rochoso e denso', discovery: '2005 (Equipe de Mike Brown)',
+                    curiosity: 'Éris tem uma órbita incrivelmente excêntrica e inclinada que o leva a lugares muito remotos do plano orbital terrestre.'
+                }
+            },
+            orion: {
+                title: 'Constelação de Órion (O Caçador)', text: 'Uma das constelações mais proeminentes e reconhecíveis do céu noturno em todo o mundo.',
+                stats: 'Desenho: Figura de um caçador com seu cinturão | Estrelas Principais: 7', lightTime: '~700 a 1.300 Anos-luz (Média das estrelas principais)', sizeRel: 'Titânico (Várias estrelas supergigantes)',
+                details: {
+                    age: 'Formada visualmente na Antiguidade', surface: 'Múltiplos sistemas estelares, nebulosas (Nebulosa de Órion)',
+                    atmosphere: 'N/A (Agrupamento Estelar)', soil: 'Estrelas: Betelgeuse (Gigante Vermelha - 764x o Sol), Rigel (Supergigante Azul - 79x o Sol)',
+                    core: 'Abriga o Cinturão de Órion (Três Marias): Alnitak, Alnilam e Mintaka.', discovery: 'Registrada pelos Sumérios, Gregos e Egípcios Antigos',
+                    curiosity: 'A estrela Betelgeuse está nos estágios finais de sua vida e pode explodir como uma supernova a qualquer momento (em termos astronômicos).'
+                }
+            },
+            crux: {
+                title: 'Cruzeiro do Sul (Crux)', text: 'A menor, porém uma das mais famosas constelações do hemisfério sul, essencial para a navegação histórica.',
+                stats: 'Desenho: Uma cruz em formato de pipa | Estrelas Principais: 5', lightTime: '~320 Anos-luz (Média)', sizeRel: 'Compacta no céu, porém composta por gigantes e subgigantes',
+                details: {
+                    age: 'Conhecida desde a Antiguidade (visível do norte antes da precessão dos equinócios)', surface: 'Agrupamento estelar denso',
+                    atmosphere: 'N/A', soil: 'Estrelas principais: Acrux (Sistema múltiplo, principal 25.000x mais luminosa que o Sol), Gacrux (Gigante Vermelha)',
+                    core: 'A "Intrometida" (Ginan) é a quinta estrela que compõe a constelação.', discovery: 'Mapeada oficialmente nos moldes atuais pelos navegadores europeus (Séc XVI).',
+                    curiosity: 'A linha traçada entre Gacrux e Acrux aponta aproximadamente para o Polo Sul Celeste.'
+                }
+            },
+            centaurus: {
+                title: 'Constelação do Centauro', text: 'Uma vasta constelação do hemisfério sul, abrigando o sistema estelar mais próximo do nosso Sol.',
+                stats: 'Desenho: Metade homem, metade cavalo | Estrelas Principais: Alpha e Beta Centauri', lightTime: 'Alpha Centauri: 4.37 Anos-luz', sizeRel: 'Vasta ocupação no céu noturno',
+                details: {
+                    age: 'Catalogada no século II por Ptolomeu', surface: 'Sistemas estelares e cúmulos globulares (ex: Omega Centauri)',
+                    atmosphere: 'N/A', soil: 'Estrela principal: Alpha Centauri (Sistema Triplo composto por Rigil Kentaurus, Toliman e Proxima Centauri)',
+                    core: 'Hadar (Beta Centauri) é uma gigante azul massiva a ~390 anos-luz.', discovery: 'Antiguidade Clássica',
+                    curiosity: 'Proxima Centauri, parte do sistema Alpha Centauri, é a estrela mais próxima da Terra (após o Sol) e possui um exoplaneta na zona habitável.'
+                }
+            }
+        };
+
+        // --- INICIALIZAÇÃO ---
+        window.onload = () => {
+            checkLGPD();
+            initThreeJS();
+            buildEarthSystem();
+            buildSolarSystem();
+            setupInteractions();
+            startLogicLoops();
+            
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 500);
+            }, 1500);
+            
+            animate();
+        };
+
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x020205); 
+            
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+            camera.position.set(0, 15, 40);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 12;
+            controls.maxDistance = 1000;
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.05));
+
+            earthGroup = new THREE.Group();
+            solarSystemGroup = new THREE.Group();
+            constellationGroup = new THREE.Group(); 
+            scene.add(earthGroup);
+            scene.add(solarSystemGroup);
+            scene.add(constellationGroup);
+            
+            solarSystemGroup.visible = false; 
+            constellationGroup.visible = false;
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function buildEarthSystem() {
+            const textureLoader = new THREE.TextureLoader();
+            
+            const earthGeo = new THREE.SphereGeometry(10, 64, 64);
+            const earthMat = new THREE.MeshPhongMaterial({
+                map: textureLoader.load(TEX_EARTH, undefined, undefined, () => earthMat.color.setHex(0x1a4b8c)),
+                shininess: 15
+            });
+            earthMesh = new THREE.Mesh(earthGeo, earthMat);
+            earthMesh.name = "earth";
+            earthGroup.add(earthMesh);
+
+            const atmosGeo = new THREE.SphereGeometry(10.3, 32, 32);
+            const atmosMat = new THREE.MeshBasicMaterial({
+                color: 0x4ca6ff, transparent: true, opacity: 0.15,
+                blending: THREE.AdditiveBlending, side: THREE.BackSide
+            });
+            atmosphereMesh = new THREE.Mesh(atmosGeo, atmosMat);
+            earthGroup.add(atmosphereMesh);
+
+            moonOrbitPivot = new THREE.Group();
+            earthGroup.add(moonOrbitPivot);
+
+            const moonGeo = new THREE.SphereGeometry(2.7, 32, 32); 
+            const moonMat = new THREE.MeshStandardMaterial({
+                map: textureLoader.load(TEX_MOON, undefined, undefined, () => moonMat.color.setHex(0xaaaaaa)),
+                roughness: 0.8,
+            });
+            moonMesh = new THREE.Mesh(moonGeo, moonMat);
+            moonMesh.position.set(30, 0, 0);
+            moonMesh.name = "moon";
+            moonOrbitPivot.add(moonMesh);
+
+            const issGeo = new THREE.OctahedronGeometry(0.3, 1);
+            const issMat = new THREE.MeshPhysicalMaterial({
+                color: 0xffffff, metalness: 0.9, roughness: 0.1, transmission: 0.9,
+                transparent: true, emissive: 0x3b82f6, emissiveIntensity: 0.8
+            });
+            issMesh = new THREE.Mesh(issGeo, issMat);
+            
+            const issLight = new THREE.PointLight(0x3b82f6, 1, 5);
+            issMesh.add(issLight);
+            earthGroup.add(issMesh);
+
+            sunLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            sunLight.position.set(50, 0, 50); 
+            earthGroup.add(sunLight);
+        }
+
+        function buildSolarSystem() {
+            const textureLoader = new THREE.TextureLoader();
+            
+            const sunGeo = new THREE.SphereGeometry(15, 32, 32);
+            const sunMat = new THREE.MeshBasicMaterial({ 
+                color: 0xffd700,
+                map: textureLoader.load(TEX_SUN, undefined, undefined, () => sunMat.color.setHex(0xffcc00))
+            });
+            const sunMesh = new THREE.Mesh(sunGeo, sunMat);
+            sunMesh.name = "sun";
+            solarSystemGroup.add(sunMesh);
+
+            const coronaGeo1 = new THREE.IcosahedronGeometry(15.5, 2);
+            const coronaMat1 = new THREE.MeshBasicMaterial({
+                color: 0xffea00, transparent: true, opacity: 0.3,
+                wireframe: true, blending: THREE.AdditiveBlending
+            });
+            sunCorona1 = new THREE.Mesh(coronaGeo1, coronaMat1);
+            solarSystemGroup.add(sunCorona1);
+
+            const coronaGeo2 = new THREE.IcosahedronGeometry(16.2, 3);
+            const coronaMat2 = new THREE.MeshBasicMaterial({
+                color: 0xffcc00, transparent: true, opacity: 0.15,
+                blending: THREE.AdditiveBlending
+            });
+            sunCorona2 = new THREE.Mesh(coronaGeo2, coronaMat2);
+            solarSystemGroup.add(sunCorona2);
+
+            const solarLight = new THREE.PointLight(0xfffae6, 2, 2500); 
+            solarSystemGroup.add(solarLight);
+
+            const planetData = [
+                { id: 'mercury', d: 24, r: 0.8, color: 0x888888, speed: 0.04, rotSpeed: 0.005, moons: [] },
+                { id: 'venus', d: 33, r: 1.5, color: 0xe3bb76, speed: 0.015, rotSpeed: -0.002, moons: [] },
+                { id: 'earth', d: 45, r: 1.6, color: 0x2b82c9, speed: 0.01, rotSpeed: 0.02, moons: [
+                    { r: 0.4, d: 3, color: 0xaaaaaa, speed: 0.05 }
+                ]},
+                { id: 'mars', d: 57, r: 1.1, color: 0xc1440e, speed: 0.008, rotSpeed: 0.02, moons: [
+                    { r: 0.2, d: 2.2, color: 0x888888, speed: 0.06 }, { r: 0.15, d: 3.5, color: 0x777777, speed: 0.04 }
+                ]},
+                { id: 'ceres', d: 70, r: 0.3, color: 0x999999, speed: 0.005, rotSpeed: 0.05, moons: [] },
+                { id: 'jupiter', d: 95, r: 6, color: 0xd39c7e, speed: 0.002, rotSpeed: 0.04, moons: [
+                    { r: 0.4, d: 8, color: 0xffff00, speed: 0.08 }, { r: 0.35, d: 10, color: 0xeeeeee, speed: 0.06 },
+                    { r: 0.6, d: 13, color: 0xaaaaaa, speed: 0.04 }, { r: 0.5, d: 16, color: 0x888888, speed: 0.02 }
+                ]},
+                { id: 'saturn', d: 135, r: 5, color: 0xead6b8, speed: 0.0009, rotSpeed: 0.038, hasRings: true, moons: [
+                    { r: 0.7, d: 11, color: 0xffaa00, speed: 0.03 }, { r: 0.2, d: 8, color: 0xffffff, speed: 0.05 }
+                ]},
+                { id: 'uranus', d: 175, r: 3.5, color: 0x4b70dd, speed: 0.0004, rotSpeed: 0.03, hasRings: true, ringsTilt: Math.PI/2, moons: [
+                    { r: 0.3, d: 6, color: 0xcccccc, speed: 0.04 }, { r: 0.3, d: 8, color: 0xaaaaaa, speed: 0.03 }
+                ]},
+                { id: 'neptune', d: 215, r: 3.4, color: 0x274687, speed: 0.0001, rotSpeed: 0.032, moons: [
+                    { r: 0.4, d: 6, color: 0x888888, speed: -0.04 } 
+                ]},
+                { id: 'pluto', d: 245, r: 0.6, color: 0xdddddd, speed: 0.00008, rotSpeed: 0.01, moons: [
+                    { r: 0.3, d: 2.5, color: 0x888888, speed: 0.05 }
+                ]},
+                { id: 'haumea', d: 265, r: 0.4, color: 0xeeeeee, speed: 0.00007, rotSpeed: 0.08, moons: [] },
+                { id: 'makemake', d: 285, r: 0.45, color: 0xccbbaa, speed: 0.00006, rotSpeed: 0.03, moons: [] },
+                { id: 'eris', d: 315, r: 0.6, color: 0xddccbb, speed: 0.00004, rotSpeed: 0.02, moons: [] }
+            ];
+
+            planetData.forEach((p) => {
+                const orbitPivot = new THREE.Group();
+                solarSystemGroup.add(orbitPivot);
+
+                const planetContainer = new THREE.Group();
+                planetContainer.position.set(p.d, 0, 0);
+                orbitPivot.add(planetContainer);
+
+                let geo;
+                if(p.id === 'haumea') {
+                    geo = new THREE.SphereGeometry(p.r, 32, 32);
+                    geo.scale(1.5, 0.8, 1);
+                } else {
+                    geo = new THREE.SphereGeometry(p.r, 32, 32);
+                }
+                
+                const mat = new THREE.MeshStandardMaterial({ color: p.color, roughness: 0.7 });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.name = p.id;
+                planetContainer.add(mesh);
+                
+                if(p.hasRings) {
+                    const ringGeo = new THREE.RingGeometry(p.r + 1.5, p.r + 5, 32);
+                    const ringMat = new THREE.MeshStandardMaterial({ color: p.color, side: THREE.DoubleSide, transparent: true, opacity: 0.7 });
+                    const ring = new THREE.Mesh(ringGeo, ringMat);
+                    ring.rotation.x = p.ringsTilt ? p.ringsTilt : Math.PI / 2.5;
+                    planetContainer.add(ring);
+                }
+
+                const moonPivots = [];
+                p.moons.forEach(m => {
+                    const moonOrbitPivot = new THREE.Group();
+                    const moonGeo = new THREE.SphereGeometry(m.r, 16, 16);
+                    const moonMat = new THREE.MeshStandardMaterial({ color: m.color, roughness: 0.8 });
+                    const moonMesh = new THREE.Mesh(moonGeo, moonMat);
+                    moonMesh.position.set(m.d, 0, 0);
+                    
+                    moonOrbitPivot.add(moonMesh);
+                    planetContainer.add(moonOrbitPivot);
+                    moonPivots.push({ pivot: moonOrbitPivot, speed: m.speed });
+                });
+
+                const pathGeo = new THREE.RingGeometry(p.d - 0.2, p.d + 0.2, 128);
+                const pathMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.05 });
+                const path = new THREE.Mesh(pathGeo, pathMat);
+                path.rotation.x = Math.PI / 2;
+                solarSystemGroup.add(path);
+
+                planets.push({ mesh, orbitPivot, speed: p.speed, rotSpeed: p.rotSpeed, moons: moonPivots });
+            });
+        }
+
+        function buildConstellation(key) {
+            while(constellationGroup.children.length > 0){ 
+                constellationGroup.remove(constellationGroup.children[0]); 
+            }
+
+            const config = ConstellationConfig[key];
+            if(!config) return;
+
+            const starMeshes = [];
+            
+            config.stars.forEach(star => {
+                const sGeo = new THREE.SphereGeometry(star.size, 16, 16);
+                const sMat = new THREE.MeshBasicMaterial({ color: star.color });
+                const sMesh = new THREE.Mesh(sGeo, sMat);
+                sMesh.position.set(star.pos[0], star.pos[1], star.pos[2]);
+                sMesh.name = key; 
+                
+                const glowGeo = new THREE.SphereGeometry(star.size * 2, 16, 16);
+                const glowMat = new THREE.MeshBasicMaterial({ color: star.color, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+                const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+                sMesh.add(glowMesh);
+
+                constellationGroup.add(sMesh);
+                starMeshes.push(sMesh.position);
+            });
+
+            const materialLinha = new THREE.LineBasicMaterial({ color: 0x4a5568, transparent: true, opacity: 0.6, linewidth: 2 });
+            config.lines.forEach(indices => {
+                const points = [];
+                points.push(starMeshes[indices[0]]);
+                points.push(starMeshes[indices[1]]);
+                const lGeo = new THREE.BufferGeometry().setFromPoints(points);
+                const line = new THREE.Line(lGeo, materialLinha);
+                constellationGroup.add(line);
+            });
+        }
+
+        // --- LÓGICA DE NEGÓCIO E APIS ---
+        function startLogicLoops() {
+            fetchISSData();
+            setInterval(fetchISSData, 5000);
+            updateSolarEphemeris();
+            setInterval(updateSolarEphemeris, 60000);
+        }
+
+        async function fetchISSData() {
+            try {
+                const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+                if(!response.ok) throw new Error('Falha');
+                const data = await response.json();
+                AppState.issData = { lat: data.latitude, lon: data.longitude, alt: data.altitude, vel: data.velocity };
+                updateUI();
+                updateISSPosition();
+            } catch (error) {
+                console.warn('Dev Cria Warning: API ISS offline.');
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('ui-lat').innerText = AppState.issData.lat.toFixed(4) + "°";
+            document.getElementById('ui-lon').innerText = AppState.issData.lon.toFixed(4) + "°";
+            document.getElementById('ui-alt').innerText = AppState.issData.alt.toFixed(2) + " km";
+            document.getElementById('ui-vel').innerText = new Intl.NumberFormat('pt-BR').format(Math.round(AppState.issData.vel)) + " km/h";
+        }
+
+        function updateISSPosition() {
+            if(AppState.simulation) return; 
+            const R = 10.6; 
+            const latRad = AppState.issData.lat * (Math.PI / 180);
+            const lonRad = AppState.issData.lon * (Math.PI / 180);
+            const x = R * Math.cos(latRad) * Math.cos(lonRad);
+            const z = R * Math.cos(latRad) * Math.sin(-lonRad); 
+            const y = R * Math.sin(latRad);
+            issMesh.position.set(x, y, z);
+        }
+
+        function updateSolarEphemeris() {
+            if(AppState.simulation) return;
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const declination = 23.45 * Math.sin((360/365 * (dayOfYear - 81)) * (Math.PI / 180));
+            const declRad = declination * (Math.PI / 180);
+            const utcHour = now.getUTCHours() + now.getUTCMinutes() / 60;
+            const lon = (12 - utcHour) * 15;
+            const lonRad = lon * (Math.PI / 180);
+
+            const R = 50; 
+            const x = R * Math.cos(declRad) * Math.cos(lonRad);
+            const z = R * Math.cos(declRad) * Math.sin(-lonRad);
+            const y = R * Math.sin(declRad);
+            sunLight.position.set(x, y, z);
+        }
+
+        // --- INTERAÇÕES E UI ---
+        function setupInteractions() {
+            window.addEventListener('pointerdown', (event) => {
+                if(event.target.closest('.glass-panel') || event.target.closest('#lgpd-banner')) return;
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+                raycaster.setFromCamera(mouse, camera);
+                
+                let groupToTest;
+                if(AppState.view === 'earth') groupToTest = earthGroup.children;
+                else if(AppState.view === 'solar') groupToTest = solarSystemGroup.children;
+                else groupToTest = constellationGroup.children;
+
+                const intersects = raycaster.intersectObjects(groupToTest, true);
+                const validIntersects = intersects.filter(i => i.object.name);
+
+                if (validIntersects.length > 0) {
+                    const objName = validIntersects[0].object.name;
+                    if(InfoData[objName]) showInfoModal(InfoData[objName]);
+                }
+            });
+        }
+
+        function selectAstro() {
+            const select = document.getElementById('astro-select');
+            const astroKey = select.value;
+            
+            if (astroKey && InfoData[astroKey]) {
+                if(astroKey === 'orion' || astroKey === 'crux' || astroKey === 'centaurus') {
+                    AppState.view = 'constellation';
+                    earthGroup.visible = false;
+                    solarSystemGroup.visible = false;
+                    constellationGroup.visible = true;
+                    document.getElementById('panel-filters').style.display = 'none';
+                    buildConstellation(astroKey);
+                    
+                    camera.position.set(0, 0, 18);
+                    controls.target.set(0,0,0);
+                }
+
+                showInfoModal(InfoData[astroKey]);
+                select.value = "";
+            }
+        }
+
+        function showInfoModal(data) {
+            Swal.fire({
+                title: `<span style="color:#3b82f6; font-size: 1.5rem; font-weight: 800;">${data.title}</span>`,
+                html: `
+                    <div class="text-left text-sm mt-2">
+                        <p class="mb-3 text-gray-200 border-b border-gray-600 pb-3">${data.text}</p>
+                        
+                        <div class="modal-scrollable">
+                            <div class="bg-blue-900/20 p-3 rounded-lg border border-blue-500/30 font-mono text-xs text-blue-300 flex flex-col gap-1 mb-4 shadow-inner">
+                                <div class="font-bold text-white">${data.stats}</div>
+                                ${data.lightTime ? `<div class="pt-1 mt-1 border-t border-blue-500/30"><span class="text-gray-400">Dimensão/Distância:</span> ${data.lightTime}</div>` : ''}
+                                ${data.sizeRel ? `<div><span class="text-gray-400">Proporção Volumétrica:</span> ${data.sizeRel}</div>` : ''}
+                            </div>
+
+                            ${data.details ? `
+                                <div class="space-y-3 text-xs text-gray-300">
+                                    <div class="flex items-start gap-2">
+                                        <i class="ph-fill ph-hourglass-high text-blue-400 mt-0.5"></i>
+                                        <div><strong class="text-white">Idade / Origem:</strong> ${data.details.age}</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i class="ph-fill ph-globe-hemisphere-west text-green-400 mt-0.5"></i>
+                                        <div><strong class="text-white">Estrutura / Superfície:</strong> ${data.details.surface}</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i class="ph-fill ph-wind text-gray-400 mt-0.5"></i>
+                                        <div><strong class="text-white">Atmosfera (Principais):</strong> ${data.details.atmosphere}</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i class="ph-fill ph-mountains text-yellow-600 mt-0.5"></i>
+                                        <div><strong class="text-white">Composição Estelar / Solo:</strong> ${data.details.soil}</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i class="ph-fill ph-atom text-orange-500 mt-0.5"></i>
+                                        <div><strong class="text-white">Núcleo / Componentes:</strong> ${data.details.core}</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i class="ph-fill ph-telescope text-purple-400 mt-0.5"></i>
+                                        <div><strong class="text-white">Registro / Descoberta:</strong> ${data.details.discovery}</div>
+                                    </div>
+                                    
+                                    <div class="mt-4 pt-3 border-t border-gray-700 bg-gray-800/40 p-3 rounded-lg shadow">
+                                        <strong class="text-yellow-400 flex items-center gap-1 mb-1"><i class="ph-fill ph-sparkle"></i> Curiosidade Dev Cria</strong>
+                                        <p class="italic">"${data.details.curiosity}"</p>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `,
+                background: AppState.isDark ? '#0f172a' : '#ffffff',
+                color: AppState.isDark ? '#fff' : '#1e293b',
+                confirmButtonColor: '#2563eb',
+                confirmButtonText: 'Retornar à Navegação',
+                width: '32rem',
+                customClass: { popup: 'border border-gray-700 shadow-2xl rounded-xl' }
+            });
+        }
+
+        // --- EXPANSÃO DEV CRIA: Cosmologia Extrema ---
+        function showCosmology() {
+            Swal.fire({
+                title: `<span style="color:#c084fc; font-weight: 800;"><i class="ph-fill ph-atom"></i> Cosmologia Extrema</span>`,
+                html: `
+                    <div class="text-left text-sm mt-2 modal-scrollable text-gray-300 space-y-4">
+                        
+                        <!-- Buracos Negros e Quasares -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-purple-900/50">
+                            <h4 class="text-purple-400 font-bold mb-1"><i class="ph-fill ph-aperture"></i> Singularidades & Quasares</h4>
+                            <p><strong>Buraco Negro:</strong> Região do espaço-tempo onde a gravidade é tão brutal que nada, nem a luz, atinge a velocidade de escape para fugir do seu "Horizonte de Eventos".</p>
+                            <p class="mt-1"><strong>Buraco Branco:</strong> Inversão temporal teórica da Relatividade Geral. Em vez de engolir, um buraco branco não permite que nada entre nele, apenas ejetando matéria e luz.</p>
+                            <p class="mt-1"><strong>Quasar:</strong> O núcleo galáctico ativo mais brilhante do universo. É um buraco negro supermassivo devorando matéria tão rápido que o atrito do disco emite mais energia que galáxias inteiras.</p>
+                        </div>
+
+                        <!-- Ciclo e Tipo de Estrelas -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-purple-900/50">
+                            <h4 class="text-purple-400 font-bold mb-1"><i class="ph-fill ph-star"></i> Astrofísica Estelar</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li><strong>Classificação e Cores (O,B,A,F,G,K,M):</strong> A cor indica a temperatura. Estrelas <strong>Azuis</strong> são as mais quentes e massivas (queimam rápido e morrem jovens). Estrelas <strong>Amarelas</strong> (como o Sol) são médias. Estrelas <strong>Vermelhas</strong> são as mais frias e antigas.</li>
+                                <li><strong>Ciclo de Vida:</strong> Nascem em Nebulosas -> Estrela Principal -> Expandem para Gigante/Supergigante Vermelha -> Morrem como Anã Branca (estrelas médias) ou explodem em <strong>Supernova</strong> (estrelas massivas), deixando para trás Estrelas de Nêutrons ou Buracos Negros.</li>
+                                <li><strong>Supernova:</strong> Explosão cataclísmica que forja e espalha elementos pesados (ferro, ouro, carbono) pelo cosmos. Nós somos poeira de estrelas.</li>
+                                <li><strong>Maiores Estrelas:</strong> Stephenson 2-18 e UY Scuti são supergigantes vermelhas titânicas. Se colocadas no lugar do Sol, engoliriam a órbita de Júpiter/Saturno.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Nebulosas e Pulsares -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-purple-900/50">
+                            <h4 class="text-purple-400 font-bold mb-1"><i class="ph-fill ph-cloud-moon"></i> Nebulosas & Pulsares</h4>
+                            <p><strong>Nebulosa:</strong> Berçários cósmicos. São nuvens colossais de poeira e gás (principalmente hidrogênio e hélio) onde novas estrelas nascem devido ao colapso gravitacional.</p>
+                            <p class="mt-1"><strong>Pulsar:</strong> Uma estrela de nêutrons ultradensa e altamente magnetizada que gira em altíssima velocidade, emitindo feixes de radiação eletromagnética em intervalos precisos (como um farol espacial).</p>
+                        </div>
+
+                        <!-- Corpos Celestes Menores -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-purple-900/50">
+                            <h4 class="text-purple-400 font-bold mb-1"><i class="ph-fill ph-shooting-star"></i> Corpos Menores do Sistema Solar</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li><strong>Cometa:</strong> "Bola de neve suja" de gelo e rocha. Ao se aproximar do Sol, o gelo sublima formando uma cauda luminosa (ex: Cometa Halley, Hale-Bopp).</li>
+                                <li><strong>Meteoro (Estrela Cadente):</strong> É apenas o rastro luminoso deixado por fragmentos rochosos queimando devido ao atrito ao entrar na atmosfera da Terra.</li>
+                                <li><strong>Meteorito:</strong> É a rocha física que sobrevive à queima atmosférica e atinge o solo terrestre.</li>
+                                <li><strong>Asteroides Famosos:</strong> Ceres (Planeta Anão no cinturão), Eros (pouso de sonda), e Apophis (famoso por cruzamentos próximos à Terra).</li>
+                            </ul>
+                        </div>
+
+                        <!-- Teorias de Origem -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-purple-900/50">
+                            <h4 class="text-purple-400 font-bold mb-1"><i class="ph-fill ph-infinity"></i> Teorias da Origem do Universo & Vida</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li><strong>Big Bang e Inflação:</strong> O universo começou de uma singularidade hiperdensa há ~13.8 bilhões de anos, sofrendo uma expansão exponencial e contínua.</li>
+                                <li><strong>Origem da Vida (Terra):</strong> <em>Sopa Primordial (Abiogênese):</em> Moléculas inorgânicas formaram aminoácidos via raios e calor vulcânico. <em>Panspermia:</em> A vida chegou de carona em meteoros vindos do espaço.</li>
+                                <li><strong>Espectro de Radiação:</strong> Dividido em Ionizante (Raios Gama, Raios-X - arranca elétrons e quebra DNA) e Não-Ionizante (Luz Visível, Rádio, Micro-ondas).</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                `,
+                background: AppState.isDark ? '#0f172a' : '#ffffff',
+                color: AppState.isDark ? '#fff' : '#1e293b',
+                confirmButtonColor: '#a855f7',
+                confirmButtonText: 'Absorver Conhecimento',
+                width: '40rem',
+                customClass: { popup: 'border border-purple-700/50 shadow-2xl rounded-xl' }
+            });
+        }
+
+        // --- EXPANSÃO DEV CRIA: Fenômenos Terrestres & Leis da Física ---
+        function showTips() {
+            Swal.fire({
+                title: `<span style="color:#eab308; font-weight: 800;"><i class="ph-fill ph-globe-hemisphere-west"></i> Fenômenos Terrestres & Física</span>`,
+                html: `
+                    <div class="text-left text-sm mt-2 modal-scrollable text-gray-300 space-y-4">
+                        
+                        <!-- Atmosfera e Clima -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-yellow-900/50">
+                            <h4 class="text-yellow-400 font-bold mb-1"><i class="ph-fill ph-wind"></i> Fenômenos Atmosféricos</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li><strong>Auroras (Boreais/Austrais):</strong> Brilho no céu noturno causado pelo choque de partículas carregadas de ventos solares com a magnetosfera terrestre, ionizando gases atmosféricos nos polos.</li>
+                                <li><strong>Efeito Estufa:</strong> Retenção vital do calor solar por gases como Dióxido de Carbono e Metano. Quando em excesso devido à ação humana, causa colapso climático global.</li>
+                                <li><strong>Chuvas Ácidas:</strong> Precipitação corrosiva saturada de dióxido de enxofre (SO2) e óxidos de nitrogênio (NOx), resultantes da queima de combustíveis fósseis ou vulcanismo extremo.</li>
+                                <li><strong>Ciclones / Furacões:</strong> Sistemas tempestuosos rotativos massivos de baixa pressão, formados sobre águas oceânicas quentes.</li>
+                                <li><strong>Tornados:</strong> Vórtices de ar giratórios e hiper-velozes (os ventos mais rápidos do planeta) que descem da base de nuvens supercélulas até tocar o solo firme.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Geologia e Oceanos -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-yellow-900/50">
+                            <h4 class="text-yellow-400 font-bold mb-1"><i class="ph-fill ph-mountains"></i> Fenômenos Geológicos & Oceânicos</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li><strong>Terremotos:</strong> Vibrações súbitas da crosta terrestre causadas pela liberação explosiva de energia gerada pelo atrito prolongado entre Placas Tectônicas nas falhas geológicas.</li>
+                                <li><strong>Vulcões e Erupções:</strong> Aberturas na crosta terrestre através das quais o magma (lava), gases venenosos e cinzas do manto da Terra escapam para a superfície sob extrema pressão.</li>
+                                <li><strong>Tsunamis:</strong> Parede colossal de água ou série de ondas gigantes deslocadas violentamente devido a terremotos submarinos ou deslizamentos no leito oceânico.</li>
+                                <li><strong>Ressacas:</strong> Elevação anormal e destrutiva do nível do mar na costa, causada pela união de ventos fortes sustentados e mudanças bruscas de pressão (frentes frias).</li>
+                            </ul>
+                        </div>
+
+                        <!-- Fenômenos Orbitais e Velocidades -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-yellow-900/50">
+                            <h4 class="text-yellow-400 font-bold mb-1"><i class="ph-fill ph-gauge"></i> Constantes Físicas & Órbitas</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li><strong>Velocidade da Luz (c):</strong> ~299.792 km/s. Limite de velocidade do universo. O som viaja a apenas ~343 m/s na Terra (e o som não se propaga no vácuo do espaço).</li>
+                                <li><strong>Eclipses:</strong> <em>Solar:</em> A Lua projeta sua sombra na Terra de dia. <em>Lunar:</em> A Terra bloqueia a luz solar de atingir a Lua (causando a "Lua de Sangue").</li>
+                                <li><strong>Marés Oceânicas:</strong> Elevações diárias das massas de água puxadas pela gravidade da Lua (e do Sol) somadas à força centrífuga inercial da rotação terrestre.</li>
+                                <li><strong>Estações do Ano:</strong> Existem unicamente devido à <strong>inclinação axial (23.5 graus)</strong> da Terra. Hemisférios alternam quem recebe luz solar direta durante a translação.</li>
+                            </ul>
+                        </div>
+
+                        <!-- A Via Láctea -->
+                        <div class="bg-gray-800/60 p-3 rounded border border-yellow-900/50">
+                            <h4 class="text-yellow-400 font-bold mb-1"><i class="ph-fill ph-spiral"></i> A Via Láctea</h4>
+                            <p>Nossa galáxia possui um diâmetro de até 120.000 anos-luz, abrigando centenas de bilhões de estrelas. A etimologia vem do Grego ("círculo leitoso"). Na mitologia, seria o leite derramado pela deusa Hera desenhado no firmamento.</p>
+                        </div>
+
+                    </div>
+                `,
+                background: AppState.isDark ? '#0f172a' : '#ffffff',
+                color: AppState.isDark ? '#fff' : '#1e293b',
+                confirmButtonColor: '#eab308',
+                confirmButtonText: 'Retornar à Operação',
+                width: '40rem',
+                customClass: { popup: 'border border-yellow-700/50 shadow-2xl rounded-xl' }
+            });
+        }
+
+        function showHelp() {
+            Swal.fire({
+                title: 'Controles Aeroespaciais',
+                html: `
+                    <ul class="text-left text-sm space-y-2 mt-2">
+                        <li><i class="ph-fill ph-mouse text-blue-400"></i> <b>Arrastar:</b> Rotacionar Câmera</li>
+                        <li><i class="ph-fill ph-arrows-out text-blue-400"></i> <b>Scroll:</b> Zoom In/Out</li>
+                        <li><i class="ph-fill ph-hand-pointing text-blue-400"></i> <b>Clique/Toque:</b> Interagir com Astros 3D</li>
+                        <li><i class="ph-fill ph-funnel text-blue-400"></i> <b>Filtros:</b> Simulações visuais e mecânicas.</li>
+                    </ul>
+                `,
+                background: AppState.isDark ? '#0f172a' : '#ffffff',
+                color: AppState.isDark ? '#fff' : '#1e293b',
+                confirmButtonColor: '#2563eb'
+            });
+        }
+
+        function toggleTheme() {
+            AppState.isDark = !AppState.isDark;
+            document.documentElement.classList.toggle('dark', AppState.isDark);
+            
+            if(AppState.isDark) {
+                scene.background = new THREE.Color(0x020205);
+                document.querySelector('#btn-theme i').className = 'ph ph-sun text-xl';
+            } else {
+                scene.background = new THREE.Color(0x88aacc); 
+                document.querySelector('#btn-theme i').className = 'ph ph-moon text-xl';
+            }
+        }
+
+        function toggleView() {
+            if (AppState.view === 'constellation') AppState.view = 'earth';
+            else AppState.view = AppState.view === 'earth' ? 'solar' : 'earth';
+            
+            constellationGroup.visible = false;
+
+            if(AppState.view === 'earth') {
+                earthGroup.visible = true; solarSystemGroup.visible = false;
+                document.getElementById('panel-filters').style.display = 'flex';
+                camera.position.set(0, 15, 40); controls.target.set(0,0,0);
+            } else {
+                earthGroup.visible = false; solarSystemGroup.visible = true;
+                document.getElementById('panel-filters').style.display = 'none'; 
+                camera.position.set(0, 180, 400); controls.target.set(0,0,0);
+            }
+        }
+
+        function updateFilters() {
+            AppState.filters.atmosphere = document.getElementById('toggle-atmos').checked;
+            AppState.filters.moon = document.getElementById('toggle-moon').checked;
+            AppState.filters.rotation = document.getElementById('toggle-rot').checked;
+            atmosphereMesh.visible = AppState.filters.atmosphere;
+            moonOrbitPivot.visible = AppState.filters.moon;
+        }
+
+        function simulateEclipse(type) {
+            AppState.simulation = type;
+            AppState.filters.rotation = false; 
+            document.getElementById('toggle-rot').checked = false;
+            sunLight.position.set(50, 0, 0);
+            
+            if(type === 'solar') {
+                moonOrbitPivot.rotation.y = 0; moonMesh.position.set(12, 0, 0); 
+            } else if (type === 'lunar') {
+                moonOrbitPivot.rotation.y = Math.PI; moonMesh.position.set(15, 0, 0); 
+            }
+            
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'info', title: `Simulando Eclipse ${type.charAt(0).toUpperCase() + type.slice(1)}`,
+                showConfirmButton: false, timer: 3000,
+                background: AppState.isDark ? '#1e293b' : '#fff', color: AppState.isDark ? '#fff' : '#000'
+            });
+        }
+
+        function resetSimulation() {
+            AppState.simulation = null; AppState.filters.rotation = true;
+            document.getElementById('toggle-rot').checked = true;
+            moonMesh.position.set(30, 0, 0); updateSolarEphemeris();
+            
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'success', title: 'Mecânica Celeste Restaurada',
+                showConfirmButton: false, timer: 2000,
+                background: AppState.isDark ? '#1e293b' : '#fff', color: AppState.isDark ? '#fff' : '#000'
+            });
+        }
+
+        function checkLGPD() {
+            if(localStorage.getItem('devcria_lgpd') === 'accepted') {
+                document.getElementById('lgpd-banner').style.display = 'none';
+            }
+        }
+        function acceptLGPD() {
+            localStorage.setItem('devcria_lgpd', 'accepted');
+            document.getElementById('lgpd-banner').style.display = 'none';
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if(AppState.view === 'earth' && AppState.filters.rotation && !AppState.simulation) {
+                earthMesh.rotation.y += 0.0005; atmosphereMesh.rotation.y += 0.0006;
+                moonOrbitPivot.rotation.y += 0.002; moonMesh.rotation.y += 0.005;
+            }
+
+            if(AppState.view === 'solar') {
+                const time = Date.now() * 0.001;
+                sunCorona1.rotation.x += 0.005; sunCorona1.rotation.y += 0.005;
+                sunCorona1.scale.setScalar(1 + Math.sin(time * 2) * 0.03);
+
+                sunCorona2.rotation.x -= 0.003; sunCorona2.rotation.y -= 0.004;
+                sunCorona2.scale.setScalar(1 + Math.cos(time * 1.5) * 0.04);
+
+                planets.forEach(p => {
+                    p.orbitPivot.rotation.y += p.speed; p.mesh.rotation.y += p.rotSpeed;    
+                    p.moons.forEach(m => { m.pivot.rotation.y += m.speed; });
+                });
+            }
+
+            if(AppState.view === 'constellation') {
+                constellationGroup.rotation.y += 0.001;
+                constellationGroup.rotation.x = Math.sin(Date.now() * 0.0005) * 0.05; 
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>

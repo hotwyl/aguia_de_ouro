@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guia Completo de Classes Agrupadas – Clube Águia de Ouro. Planejamento de 15 encontros e 1 acampamento para Aspirantes a Líder (16+ anos).">
+  <meta name="keywords" content="classes agrupadas, desbravadores, guia, planejamento, líder master, aspirante">
+  <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+  <title>Guia de Classes Agrupadas | Águia de Ouro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#C9A84C; --gold-light:#F0C96B; --gold-dark:#8B6914; --ink:#0D1117; --ink-2:#161B22; --ink-3:#21262D; --parchment:#F5F0E8; --parchment-2:#EDE6D6; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: #F5F0E8; }
+    body.light { background: var(--parchment); color: #1C1917; }
+    .font-display { font-family: 'Cinzel', serif; }
+    .font-body { font-family: 'Crimson Pro', serif; }
+    .text-gold { color: var(--gold); }
+    .text-gold-gradient { background: linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .nav-glass { background:rgba(13,17,23,0.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(201,168,76,0.15); }
+    body.light .nav-glass { background:rgba(245,240,232,0.92); border-bottom:1px solid rgba(201,168,76,0.3); }
+    .glass { background:rgba(255,255,255,0.04); backdrop-filter:blur(20px); border:1px solid rgba(201,168,76,0.15); }
+    body.light .glass { background:rgba(255,255,255,0.75); border:1px solid rgba(201,168,76,0.3); }
+    .divider { height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.35; }
+    .btn-gold { background:linear-gradient(135deg,#C9A84C,#F0C96B,#C9A84C); background-size:200% auto; color:#0D1117; font-weight:700; transition:all .4s ease; }
+    .btn-gold:hover { background-position:right center; transform:translateY(-2px); box-shadow:0 8px 25px -5px rgba(201,168,76,.5); }
+    .btn-outline-gold { border:2px solid var(--gold); color:var(--gold); transition:all .3s ease; }
+    .btn-outline-gold:hover { background:rgba(201,168,76,.1); transform:translateY(-2px); }
+    .nav-glass-footer { background:rgba(13,17,23,.98); border-top:1px solid rgba(201,168,76,.2); }
+    body.light .nav-glass-footer { background:rgba(237,230,214,.98); border-top:1px solid rgba(201,168,76,.35); }
+
+    /* Sidebar tabs */
+    .tab-btn { transition:all .3s ease; cursor:pointer; border-left:3px solid transparent; }
+    .tab-btn.active { border-left-color:var(--gold); background:rgba(201,168,76,.08); color:var(--gold); }
+    .tab-btn:hover:not(.active) { background:rgba(201,168,76,.04); border-left-color:rgba(201,168,76,.3); }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+
+    /* Encontro cards */
+    .enc-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,168,76,.12); border-radius:16px; transition:all .3s ease; }
+    body.light .enc-card { background:rgba(255,255,255,.65); border:1px solid rgba(201,168,76,.25); }
+    .enc-card:hover { border-color:rgba(201,168,76,.4); box-shadow:0 8px 30px -10px rgba(201,168,76,.2); }
+    .enc-num { font-family:'Cinzel',serif; font-size:1.5rem; font-weight:700; color:var(--gold); }
+
+    /* Accordion */
+    .acc-header { cursor:pointer; transition:background .2s; user-select:none; }
+    .acc-header:hover { background:rgba(201,168,76,.06); }
+    .acc-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+    .acc-body.open { max-height:2000px; }
+
+    /* Badge */
+    .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+    .badge-gold { background:rgba(201,168,76,.12); color:var(--gold); border:1px solid rgba(201,168,76,.3); }
+    .badge-blue { background:rgba(59,130,246,.12); color:#60A5FA; border:1px solid rgba(59,130,246,.25); }
+    .badge-green { background:rgba(16,185,129,.12); color:#34D399; border:1px solid rgba(16,185,129,.25); }
+    .badge-red { background:rgba(239,68,68,.12); color:#F87171; border:1px solid rgba(239,68,68,.25); }
+    .badge-purple { background:rgba(139,92,246,.12); color:#A78BFA; border:1px solid rgba(139,92,246,.25); }
+
+    /* Tooltip */
+    .has-tooltip { position:relative; }
+    .tooltip-text { visibility:hidden; opacity:0; position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:#21262D; color:#F5F0E8; padding:6px 12px; border-radius:6px; font-size:12px; white-space:nowrap; border:1px solid rgba(201,168,76,.3); transition:all .2s ease; z-index:100; pointer-events:none; max-width:200px; white-space:normal; text-align:center; }
+    .has-tooltip:hover .tooltip-text { visibility:visible; opacity:1; }
+
+    /* Mobile menu */
+    #mobileMenu { transform:translateX(-100%); transition:transform .35s ease; }
+    #mobileMenu.open { transform:translateX(0); }
+
+    /* Reveal */
+    .reveal { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* Sidebar layout */
+    .sidebar-layout { display:grid; grid-template-columns:240px 1fr; gap:0; }
+    @media(max-width:768px) { .sidebar-layout { grid-template-columns:1fr; } .sidebar-nav { display:none; } .sidebar-nav.mobile-open { display:block; } }
+
+    /* Progress tracker */
+    .prog-bar { height:6px; background:rgba(201,168,76,.12); border-radius:999px; overflow:hidden; }
+    .prog-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold)); border-radius:999px; transition:width .5s ease; }
+
+    /* Print / no-scroll */
+    body.no-scroll { overflow:hidden; }
+
+    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--ink-2); } ::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:3px; }
+    *:focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
+  </style>
+</head>
+<body>
+
+<script>
+// Bloqueios de segurança e proteção de conteúdo
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+  // Bloqueia F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+C, Ctrl+P, Ctrl+Shift+C
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) ||
+    (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))
+  ) {
+    e.preventDefault();
+    return false;
+  }
+});
+// Bloqueia seleção de texto
+document.addEventListener('selectstart', e => e.preventDefault());
+// Bloqueia PrintScreen
+document.addEventListener('keyup', function(e) {
+  if (e.key === 'PrintScreen') {
+    navigator.clipboard.writeText('Ação bloqueada');
+    alert('Captura de tela bloqueada!');
+  }
+});
+// Bloqueia impressão
+window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
+</script>
+
+<!-- Header -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));">
+        <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+      </div>
+      <div>
+        <div class="font-display font-bold text-base text-gold-gradient leading-tight">Águia de Ouro</div>
+        <div class="text-xs" style="color:#9CA3AF">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
+      <a href="/guia" class="px-4 py-2 rounded-lg text-sm font-medium" style="color:var(--gold); background:rgba(201,168,76,.08);">
+        <i class="fas fa-book-open mr-1"></i>Guia de Classes
+      </a>
+      <a href="/quiz" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:#9CA3AF">
+        <i class="fas fa-dove mr-1"></i>Teste das Aves
+      </a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" class="has-tooltip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10" aria-label="Alternar tema">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
+        <span class="tooltip-text">Alternar tema</span>
+      </button>
+      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)">
+        <i id="menuIcon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass">
+  <nav class="flex flex-col p-6 gap-2">
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+    <a href="/guia" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,.1); color:var(--gold)"><i class="fas fa-book-open w-5"></i>Guia de Classes</a>
+    <a href="/quiz" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-dove w-5" style="color:var(--gold)"></i>Teste das Aves</a>
+  </nav>
+</div>
+
+<!-- Main Content -->
+<main class="pt-20 pb-12">
+
+  <!-- Hero Banner -->
+  <div class="px-4 py-10" style="background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,.08) 0%,transparent 60%)">
+    <div class="max-w-6xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
+        <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+        <span style="color:var(--gold)">Guia de Classes Agrupadas</span>
+      </nav>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4" style="background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.25);">
+            <i class="fas fa-user-graduate text-xs" style="color:var(--gold)"></i>
+            <span class="text-xs font-semibold" style="color:var(--gold)">Público: 16 anos ou mais · Aspirante a Líder / Líder Máster</span>
+          </div>
+          <h1 class="font-display text-3xl md:text-4xl font-bold mb-3">Guia de Classes Agrupadas</h1>
+          <p class="font-body text-lg max-w-2xl" style="color:rgba(245,240,232,.7)">
+            Planejamento completo para cumprimento dos requisitos em 15 encontros + 1 acampamento. Duração recomendada: 18 a 24 meses.
+          </p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+          <button onclick="showHelp()" class="has-tooltip btn-outline-gold px-4 py-2 rounded-xl text-sm font-semibold inline-flex items-center gap-2">
+            <i class="fas fa-question-circle"></i> Ajuda
+            <span class="tooltip-text">Dicas de uso do guia</span>
+          </button>
+        </div>
+      </div>
+      <!-- Warning note -->
+      <div class="mt-6 flex items-start gap-3 p-4 rounded-xl" style="background:rgba(234,179,8,.07); border:1px solid rgba(234,179,8,.25);">
+        <i class="fas fa-exclamation-triangle mt-0.5 flex-shrink-0" style="color:#EAB308"></i>
+        <p class="text-sm" style="color:rgba(245,240,232,.8)">
+          <strong style="color:#EAB308">Nota Importante:</strong> Muitos requisitos de leitura, projetos sociais e especialidades devem ser realizados de forma <strong>contínua e fora</strong> dos encontros e acampamento, com acompanhamento do conselheiro/líder ao longo de 18 a 24 meses.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="max-w-6xl mx-auto px-4 mt-8">
+    <div class="flex flex-wrap gap-2 mb-8 p-1 rounded-2xl" style="background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.12);">
+      <button onclick="showTab('encontros')" id="tab-encontros" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all active-tab">
+        <i class="fas fa-calendar-alt mr-2"></i>15 Encontros
+      </button>
+      <button onclick="showTab('acampamento')" id="tab-acampamento" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
+        <i class="fas fa-campground mr-2"></i>Acampamento
+      </button>
+      <button onclick="showTab('continuos')" id="tab-continuos" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
+        <i class="fas fa-sync-alt mr-2"></i>Requisitos Contínuos
+      </button>
+      <button onclick="showTab('especialidades')" id="tab-especialidades" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
+        <i class="fas fa-award mr-2"></i>Especialidades
+      </button>
+      <button onclick="showTab('ideais')" id="tab-ideais" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
+        <i class="fas fa-praying-hands mr-2"></i>Ideais
+      </button>
+    </div>
+
+    <!-- TAB: ENCONTROS -->
+    <div id="panel-encontros" class="tab-content">
+      <div class="grid gap-4">
+        <!-- Encontros data rendered via JS -->
+        <div id="encontrosContainer"></div>
+      </div>
+    </div>
+
+    <!-- TAB: ACAMPAMENTO -->
+    <div id="panel-acampamento" class="tab-content hidden">
+      <div class="mb-6 p-5 rounded-2xl" style="background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.2);">
+        <h2 class="font-display text-xl font-bold mb-2"><i class="fas fa-campground mr-2" style="color:var(--gold)"></i>Acampamento de Classes – Final de Semana</h2>
+        <p class="font-body text-base" style="color:rgba(245,240,232,.75)">O acampamento é o ponto alto das atividades práticas, especialmente nas áreas de Arte de Acampar, Natureza e Desenvolvimento Espiritual e Físico.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5" id="acampamentoContainer"></div>
+    </div>
+
+    <!-- TAB: CONTÍNUOS -->
+    <div id="panel-continuos" class="tab-content hidden">
+      <div class="mb-6 p-5 rounded-2xl" style="background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.2);">
+        <h2 class="font-display text-xl font-bold mb-2"><i class="fas fa-sync-alt mr-2" style="color:var(--gold)"></i>Requisitos Contínuos</h2>
+        <p class="font-body text-base" style="color:rgba(245,240,232,.75)">Estes requisitos devem ser trabalhados ao longo dos 18 a 24 meses, com acompanhamento do líder ou instrutor.</p>
+      </div>
+      <div class="grid gap-4" id="continuosContainer"></div>
+    </div>
+
+    <!-- TAB: ESPECIALIDADES -->
+    <div id="panel-especialidades" class="tab-content hidden">
+      <div class="mb-6 p-5 rounded-2xl" style="background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.2);">
+        <h2 class="font-display text-xl font-bold mb-2"><i class="fas fa-award mr-2" style="color:var(--gold)"></i>Especialidades Obrigatórias e Opcionais</h2>
+        <p class="font-body text-base" style="color:rgba(245,240,232,.75)">Total de <strong style="color:var(--gold-light)">15 especialidades mínimas</strong>: 6 obrigatórias + 7 de escolha + 2 adicionais de Natureza.</p>
+      </div>
+      <div id="especialidadesContainer"></div>
+    </div>
+
+    <!-- TAB: IDEAIS -->
+    <div id="panel-ideais" class="tab-content hidden">
+      <div id="ideaisContainer"></div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="nav-glass-footer">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));">
+            <i class="fas fa-feather-alt text-sm" style="color:var(--ink)"></i>
+          </div>
+          <div class="font-display font-bold text-gold-gradient">Águia de Ouro</div>
+        </div>
+        <p class="text-xs" style="color:#9CA3AF">Rua Guilherme Ihlenfeldt, 778 – Tingui, Curitiba–PR</p>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4>
+        <ul class="space-y-1 text-xs">
+          <li><a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li>
+          <li><a href="/guia" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li>
+          <li><a href="/quiz" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Legal</h4>
+        <ul class="space-y-1 text-xs">
+          <li><button onclick="showLGPD()" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-shield-alt mr-1"></i>LGPD</button></li>
+          <li><button onclick="showTerms()" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-contract mr-1"></i>Termos</button></li>
+          <li><button onclick="showPrivacy()" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-user-secret mr-1"></i>Privacidade</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-4" style="border-top:1px solid rgba(201,168,76,.15)">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-2">
+        <p class="text-xs" style="color:#9CA3AF">© 2025 Águia de Ouro. Uso educacional e recreativo.</p>
+        <p class="text-xs" style="color:#9CA3AF">Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── THEME ───────────────────────────────────────
+let isLight = localStorage.getItem('theme') === 'light';
+function applyTheme() { document.body.classList.toggle('light',isLight); document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon'; }
+function toggleTheme() { isLight = !isLight; localStorage.setItem('theme',isLight?'light':'dark'); applyTheme(); }
+applyTheme();
+let menuOpen = false;
+function toggleMenu() { menuOpen=!menuOpen; document.getElementById('mobileMenu').classList.toggle('open',menuOpen); document.getElementById('menuIcon').className=menuOpen?'fas fa-times':'fas fa-bars'; }
+function closeMenu() { menuOpen=false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('menuIcon').className='fas fa-bars'; }
+
+// ─── TAB SYSTEM ──────────────────────────────────
+const tabs = ['encontros','acampamento','continuos','especialidades','ideais'];
+function showTab(name) {
+  tabs.forEach(t => {
+    document.getElementById('panel-'+t).classList.toggle('hidden', t!==name);
+    const btn = document.getElementById('tab-'+t);
+    if(btn) { btn.classList.toggle('active-tab', t===name); btn.classList.toggle('inactive-tab', t!==name); }
+  });
+  document.querySelectorAll('.tab-nav-btn').forEach(b => {
+    const active = b.id === 'tab-'+name;
+    b.style.background = active ? 'linear-gradient(135deg,#C9A84C,#F0C96B)' : 'transparent';
+    b.style.color = active ? '#0D1117' : '#9CA3AF';
+  });
+}
+showTab('encontros');
+
+// ─── DATA ────────────────────────────────────────
+const encontros = [
+  { n:1, tema:'Fundamentos do Desbravador e Nós', area:'I / VI / VIII', icon:'fa-knot', color:'#F59E0B',
+    requisitos:'I – Gerais: 1, 2, 3 · VIII – Acampar: 1 (Nós e Amarras), 14 (Nós Adicionais) · VI – Liderança: 7 (início do planejamento do acampamento)',
+    atividades:'Estudo do Voto e da Lei. Demonstração prática dos 14 nós obrigatórios. Apresentação do Acampamento de Classes.' },
+  { n:2, tema:'Ideais JA e Leitura', area:'I / II', icon:'fa-bible', color:'#8B5CF6',
+    requisitos:'I – Gerais: 4 (Lei – debate/redação), 5 (Alvo/Lema JA), 6 (Objetivo JA), 7 (Voto de Fidelidade à Bíblia), 10 (Resumo livro CL), 17 (Classe Bíblica – início)',
+    atividades:'Debate sobre o significado da Lei. Iniciar leituras obrigatórias (livros 11, 12, 16) e do Clube de Leitura.' },
+  { n:3, tema:'Estudo Bíblico – Fundamentos', area:'II / V', icon:'fa-scroll', color:'#3B82F6',
+    requisitos:'II – Espiritual: 1 (Criação, Pragas, Tribos, VT), 2 (10 Mandamentos, NT), 7 (João 3:16; Ef 6:1-3; 2Tm 3:16; Sl 1) · V – Saúde: 7 (Daniel 1:8)',
+    atividades:'Memorização dos 39 livros do AT e 27 do NT. Estudo e explicação dos versículos bíblicos.' },
+  { n:4, tema:'Estudo Bíblico – Leis e Profecias', area:'II', icon:'fa-star-of-david', color:'#EF4444',
+    requisitos:'II – Espiritual: 3 (Levítico 11), 6 (3 Mensagens Angélicas, 7 Igrejas, Pedras Preciosas), 8 (Is 41:9-10; Hb 13:5; Pv 22:6; 1Jo 1:9; Sl 8)',
+    atividades:'Estudo sobre o Santuário (req.26). Regras alimentares de Levítico 11 e profecias do Apocalipse.' },
+  { n:5, tema:'Estudo Bíblico – Caráter e Salvação', area:'II', icon:'fa-dove', color:'#10B981',
+    requisitos:'II – Espiritual: 4 (Bem-Aventuranças), 5 (12 Apóstolos, Fruto do Espírito), 12 (1Co 13; 2Cr 7:14; Ap 22:18-20; 2Tm 4:6-7; Rm 8:38-39; Mt 6:33-34)',
+    atividades:'Estudo do Sermão da Montanha. Foco no desenvolvimento do caráter (Fruto do Espírito).' },
+  { n:6, tema:'Inspiração e Vinda de Cristo', area:'II', icon:'fa-cloud-sun', color:'#F59E0B',
+    requisitos:'II – Espiritual: 24 (Inspiração da Bíblia), 25 (Eventos Finais/2ª Vinda), 28 (Sábado), 10 (Is 26:3; Rm 12:12; Jo 14:1-3; Sl 23)',
+    atividades:'Seminário com pastor sobre Inspiração (req.24). Estudo sobre o Sábado. Discussão em grupo sobre a 2ª Vinda.' },
+  { n:7, tema:'Liderança Espiritual e Pioneiros', area:'II / VI', icon:'fa-users', color:'#8B5CF6',
+    requisitos:'II – Espiritual: 19 (Cristianismo/Discípulo), 21 (Dons Espirituais), 29 (3 Histórias de Pioneiros), 11 (Rm 8:28; Ap 21:1-3; 2Pe 1:20-21)',
+    atividades:'Discussão sobre Dons Espirituais. Apresentação das histórias dos pioneiros adventistas.' },
+  { n:8, tema:'Ações Comunitárias I', area:'III / IV', icon:'fa-hands-helping', color:'#0EA5E9',
+    requisitos:'III – Outros: 1, 7, 13 · IV – Amizade: 7 (Hino Nacional)',
+    atividades:'Planejar projetos comunitários (req. 1, 9, 10, 11). Redação sobre bom cidadão. História e canto do Hino Nacional.' },
+  { n:9, tema:'Ações Comunitárias II e Evangelismo', area:'III / II', icon:'fa-bullhorn', color:'#F43F5E',
+    requisitos:'III – Outros: 3, 4, 5, 6, 9, 10, 11, 12 (Evangelismo Pessoal) · II – Espiritual: 27 (convidar 3+ pessoas para a classe bíblica)',
+    atividades:'Discussão sobre métodos de evangelismo. Acompanhamento dos projetos sociais.' },
+  { n:10, tema:'Amizade e Pressão de Grupo', area:'IV', icon:'fa-handshake', color:'#C9A84C',
+    requisitos:'IV – Amizade: 1 (10 qualidades/Regra Áurea), 2 (Respeito a culturas), 3 (Pressão de Grupo), 8 (Visita a Órgão Público – planejar/agendar)',
+    atividades:'Troca de ideias sobre amizade. Debate ou representação sobre Pressão de Grupo.' },
+  { n:11, tema:'Atitudes e Relacionamentos', area:'IV', icon:'fa-heart', color:'#EC4899',
+    requisitos:'IV – Amizade: 4 (Avaliação pessoal – 2 temas), 5 (Avaliação em grupo – 2 temas), 6 (Assistir palestra – 2 temas), 9 (Sugestões recreativas)',
+    atividades:'Avaliação sobre Auto-estima, Relacionamento Familiar, Otimismo. Palestra sobre Escolha Profissional.' },
+  { n:12, tema:'Saúde e Temperança', area:'V', icon:'fa-heartbeat', color:'#EF4444',
+    requisitos:'V – Saúde: 2 (1Co 9:24-27), 3 (Álcool), 7 (Daniel), 9 (Estilo de Vida Adventista), 11 (Dieta Saudável), 12 (Cigarro)',
+    atividades:'Discussão sobre temperança e estilo de vida adventista. Preparar quadro dos grupos de alimentos. Assinar compromissos.' },
+  { n:13, tema:'Aptidão Física e Remédios Naturais', area:'V', icon:'fa-running', color:'#10B981',
+    requisitos:'V – Saúde: 1, 4 (Programa de Exercícios), 5 (Temperança – completar especialidade), 6 (8 Remédios Naturais), 10, 13',
+    atividades:'Apresentação sobre os 8 Remédios Naturais. Apresentar o Programa de Exercícios. Acompanhar especialidades.' },
+  { n:14, tema:'Estrutura e Liderança do Clube', area:'VI', icon:'fa-sitemap', color:'#8B5CF6',
+    requisitos:'VI – Liderança: 2 (Meditação), 3 (Cerimônia de Abertura), 5 (Organograma da Igreja), 6 (Organograma da Divisão), 8 (Classe Bíblica), 13 (Ensinar 2 Requisitos) · V – Saúde: 4',
+    atividades:'Preparar e dirigir uma meditação e uma abertura. Preparar os organogramas. Planejar o ensino de 2 requisitos.' },
+  { n:15, tema:'Natureza e Revisão Geral', area:'VII / IX / I', icon:'fa-leaf', color:'#22C55E',
+    requisitos:'VII – Natureza: 3 (Alfa Centauro/Órion), 4 (Dilúvio/Fossilização), 5 (Nicodemos/Borboleta), 6 (Cap.7 Desejado), 7 (Purificar Água) · IX – Estilo de Vida: especialidades · I – Gerais: Revisão',
+    atividades:'Estudo das constelações e da história de Nicodemos/Borboleta. Demonstração de purificação da água. Revisão geral dos requisitos.' }
+];
+
+const acampamento = [
+  { area:'VIII – Arte de Acampar', icon:'fa-campground', color:'#F59E0B',
+    requisitos:'3 (6 Segredos/Cozinhar 2 Refeições), 4 (Fogo Refletor), 5 (Caminhada 20km/Pernoite), 6 (Pioneiria), 7 (Acampamento I), 10 (Arrumar Mochila), 11 (Pioneirias), 12 (Cozinhar 3 Refeições), 13 (10 Regras/Perdido), 15 (Bússola/GPS), 16 (Resgate Básico), 17 (Móvel), 18 (Pista), 19 (Especialidade p/ Mestrado)',
+    atividades:'Dia 1: Montagem de acampamento em pioneiria. Cozinhar refeição. Estudo de nós. Dia 2: Caminhada de 20km com pernoite. Uso de bússola/GPS. Fogo refletor. Pista e Sinais. Primeiros Socorros. Dia 3: Desmontar acampamento.' },
+  { area:'VII – Estudo da Natureza', icon:'fa-tree', color:'#22C55E',
+    requisitos:'2 (Jogos/Caminhada Ecológica), 13 (Montar Barraca), 14 (Diário de Observações) + especialidades 1, 8, 9, 11, 12',
+    atividades:'Caminhada Ecológica. Montagem e uso de barraca. Iniciar o Diário de Observações.' },
+  { area:'V – Saúde e Aptidão Física', icon:'fa-running', color:'#10B981',
+    requisitos:'1 (Natação/Cultura Física – Prática), 4 (Realizar Exercícios), 13 (Acampamento II – Prática)',
+    atividades:'Programa de exercícios diários planejado. Atividades de Cultura Física.' },
+  { area:'II – Descoberta Espiritual', icon:'fa-praying-hands', color:'#8B5CF6',
+    requisitos:'12 (Versículos Bíblicos), 22 (Parábola/Milagre/Sermão), 23 (Histórias de Jesus), 25 (Eventos Finais)',
+    atividades:'Devocionais e Meditações. Atividades criativas sobre o tema escolhido. Estudo em unidade sobre Eventos Finais.' },
+  { area:'VI – Organização e Liderança', icon:'fa-users-cog', color:'#0EA5E9',
+    requisitos:'7 (Execução de Excursão/Acampamento), 12 (Aventuras com Cristo – Início)',
+    atividades:'Executar as responsabilidades de planejamento do acampamento. Iniciar os requisitos da Especialidade Aventuras com Cristo.' }
+];
+
+const continuos = [
+  { titulo:'Leitura Contínua', icon:'fa-book-open', color:'#8B5CF6',
+    itens: [
+      { req:'I.10', material:'Livro do Clube de Leitura do ano em curso', detalhe:'Ler e resumir em uma página.' },
+      { req:'I.11', material:'"Vaso de Barro"', detalhe:'Leitura completa.' },
+      { req:'I.12', material:'"Caminho a Cristo"', detalhe:'Leitura completa.' },
+      { req:'I.16', material:'"Nossa Herança"', detalhe:'Leitura completa.' },
+      { req:'II.13 a 18', material:'Leitura Bíblica Anual', detalhe:'Porções de Gênesis a Apocalipse.' },
+      { req:'VII.6', material:'Cap. 7 – "O Desejado de Todas as Nações"', detalhe:'Sobre a infância de Jesus e a natureza.' }
+    ]
+  },
+  { titulo:'Serviço Comunitário', icon:'fa-hands-helping', color:'#10B981',
+    itens: [
+      { req:'III.1', material:'2 atividades (planejar)', detalhe:'2 horas de serviço mínimo.' },
+      { req:'III.9', material:'3 atividades', detalhe:'Acompanhamento contínuo.' },
+      { req:'III.10', material:'1 projeto completo – 8h', detalhe:'Serviço documentado.' },
+      { req:'III.11', material:'1 projeto completo', detalhe:'Execução com relatório.' }
+    ]
+  },
+  { titulo:'Liderança e Participação', icon:'fa-star', color:'#F59E0B',
+    itens: [
+      { req:'VI.4', material:'Participar de 1 Seminário', detalhe:'Evento da Igreja ou Campo.' },
+      { req:'VI.9', material:'Planejar 1 Atividade Social', detalhe:'Com o grupo.' },
+      { req:'VI.10', material:'Participar de 2 Programas', detalhe:'Eventos do Campo/Associação.' },
+      { req:'VI.11', material:'1 Item: Curso / Convenção / Reuniões', detalhe:'Eventos disponíveis.' }
+    ]
+  }
+];
+
+const especialidadesObrig = [
+  { sec:'V', req:'V.5', nome:'Temperança', area:'Saúde e Aptidão Física' },
+  { sec:'VI', req:'VI.12', nome:'Aventuras com Cristo', area:'Organização e Liderança' },
+  { sec:'VIII', req:'VIII.7', nome:'Acampamento I', area:'Arte de Acampar' },
+  { sec:'VIII', req:'VIII.11', nome:'Pioneirias', area:'Arte de Acampar' },
+  { sec:'VIII', req:'VIII.16', nome:'Resgate Básico', area:'Arte de Acampar' },
+  { sec:'IX', req:'IX.2', nome:'3 Especialidades de Artes e Habilidades Manuais', area:'Estilo de Vida' }
+];
+
+const especialidadesOpc = [
+  { area:'V – Saúde e Aptidão Física', itens:[
+    { req:'V.1', opcoes:'Natação Principiante I · Cultura Física · Nós e Amarras · Segurança Básica na Água' },
+    { req:'V.10', opcoes:'Nutrição · Liderar Cultura Física' },
+    { req:'V.13', opcoes:'Natação Principiante II · Acampamento II' }
+  ]},
+  { area:'VII – Estudo da Natureza', itens:[
+    { req:'VII.1', opcoes:'Felinos · Cães · Mamíferos · Sementes · Aves de Estimação' },
+    { req:'VII.8', opcoes:'Anfíbios · Aves · Aves Domésticas · Pecuária · Répteis · Moluscos · Árvores · Arbustos' },
+    { req:'VII.9', opcoes:'Astronomia · Cactos · Climatologia · Flores · Rastreio de Animais' },
+    { req:'VII.11', opcoes:'2 Especialidades de Estudos da Natureza (não realizadas anteriormente)' },
+    { req:'VII.12', opcoes:'Ecologia · Conservação Ambiental' }
+  ]},
+  { area:'VIII – Arte de Acampar', itens:[
+    { req:'VIII.9', opcoes:'Acampamento III · Primeiros Socorros – Básico' },
+    { req:'VIII.19', opcoes:'1 Especialidade para Mestrado em Aquática / Esportes / Atividades Recreativas / Vida Campestre' }
+  ]},
+  { area:'IX – Estilo de Vida', itens:[
+    { req:'IX.3', opcoes:'Atividades Missionárias · Atividades Profissionais · Atividades Agrícolas' },
+    { req:'IX.4', opcoes:'Atividades Missionárias · Atividades Agrícolas · Ciência e Saúde · Habilidades Domésticas' },
+    { req:'IX.5', opcoes:'Atividades Recreativas · Ciência e Saúde · Habilidades Domésticas · Atividades Profissionais' }
+  ]}
+];
+
+const ideais = [
+  { nome:'Voto', icon:'fa-praying-hands', color:'#C9A84C',
+    texto:'"Pela graça de Deus, serei puro, bondoso e leal; guardarei a lei do Desbravador, serei servo de Deus e amigo de todos."',
+    info:'Criado em 1921 por Harriel Holt e A.W. Spalding. Compromisso de conduta e serviço.' },
+  { nome:'Lei', icon:'fa-scroll', color:'#8B5CF6',
+    texto:'8 pontos: 1. Devoção Matinal · 2. Cumprimento Fiel da Parte · 3. Cuidado do Corpo · 4. Consciência Limpa · 5. Cortesia e Obediência · 6. Reverência na Casa de Deus · 7. Cântico no Coração · 8. Ir Aonde Deus Mandar',
+    info:'Oito princípios que orientam a vida do desbravador em todas as áreas.' },
+  { nome:'Alvo', icon:'fa-bullseye', color:'#10B981',
+    texto:'"A mensagem do advento a todo o mundo na minha geração"',
+    info:'Compromisso de mostrar Cristo antes de Sua volta.' },
+  { nome:'Lema', icon:'fa-heart', color:'#EF4444',
+    texto:'"O amor de Cristo me motiva"',
+    info:'Incentivo à melhoria pessoal e ajuda, impulsionado pelo amor de Cristo.' },
+  { nome:'Objetivo', icon:'fa-compass', color:'#3B82F6',
+    texto:'"Salvar do pecado e guiar no serviço"',
+    info:'O propósito central do movimento desbravador.' },
+  { nome:'Voto de Fidelidade à Bíblia', icon:'fa-bible', color:'#F59E0B',
+    texto:'"Prometo fidelidade à Bíblia, à sua mensagem, de um Salvador crucificado ressurreto e prestes a vir, doador de vida e liberdade a todos que nEle crêem."',
+    info:'Compromisso solene com as Escrituras.' }
+];
+
+// ─── RENDER FUNCTIONS ────────────────────────────
+function renderEncontros() {
+  const c = document.getElementById('encontrosContainer');
+  c.innerHTML = encontros.map(e => `
+    <div class="enc-card mb-4">
+      <div class="acc-header flex items-center gap-4 p-5 rounded-2xl" onclick="toggleAcc(this)">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${e.color}22; border:1px solid ${e.color}44;">
+          <span class="enc-num">${e.n}</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <h3 class="font-display font-bold text-base">${e.tema}</h3>
+            <span class="badge badge-gold text-xs">Área ${e.area}</span>
+          </div>
+          <p class="text-xs truncate" style="color:#9CA3AF">${e.requisitos.substring(0,80)}...</p>
+        </div>
+        <i class="fas fa-chevron-down text-sm flex-shrink-0 transition-transform" style="color:var(--gold)"></i>
+      </div>
+      <div class="acc-body">
+        <div class="px-5 pb-5 pt-2 grid md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-semibold text-sm mb-2 flex items-center gap-2"><i class="fas fa-list-check" style="color:var(--gold)"></i>Requisitos Principais</h4>
+            <p class="text-sm" style="color:rgba(245,240,232,.75)">${e.requisitos}</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm mb-2 flex items-center gap-2"><i class="fas fa-tasks" style="color:var(--gold)"></i>Atividades Sugeridas</h4>
+            <p class="text-sm" style="color:rgba(245,240,232,.75)">${e.atividades}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAcampamento() {
+  const c = document.getElementById('acampamentoContainer');
+  c.innerHTML = acampamento.map(a => `
+    <div class="enc-card rounded-2xl p-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${a.color}22; border:1px solid ${a.color}44;">
+          <i class="fas ${a.icon}" style="color:${a.color}"></i>
+        </div>
+        <h3 class="font-display font-semibold text-sm">${a.area}</h3>
+      </div>
+      <div class="mb-3">
+        <span class="text-xs font-semibold" style="color:var(--gold)">REQUISITOS:</span>
+        <p class="text-sm mt-1" style="color:rgba(245,240,232,.75)">${a.requisitos}</p>
+      </div>
+      <div>
+        <span class="text-xs font-semibold" style="color:var(--gold)">ATIVIDADES:</span>
+        <p class="text-sm mt-1" style="color:rgba(245,240,232,.75)">${a.atividades}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderContinuos() {
+  const c = document.getElementById('continuosContainer');
+  c.innerHTML = continuos.map(g => `
+    <div class="enc-card rounded-2xl p-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:${g.color}22; border:1px solid ${g.color}44;">
+          <i class="fas ${g.icon}" style="color:${g.color}"></i>
+        </div>
+        <h3 class="font-display font-bold">${g.titulo}</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr style="border-bottom:1px solid rgba(201,168,76,.2)">
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Requisito</th>
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Material/Livro</th>
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Detalhes</th>
+          </tr></thead>
+          <tbody>${g.itens.map(i=>`<tr style="border-bottom:1px solid rgba(201,168,76,.07)">
+            <td class="py-2 pr-3"><span class="badge badge-gold">${i.req}</span></td>
+            <td class="py-2 pr-3" style="color:rgba(245,240,232,.85)">${i.material}</td>
+            <td class="py-2" style="color:rgba(245,240,232,.6)">${i.detalhe}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderEspecialidades() {
+  const c = document.getElementById('especialidadesContainer');
+  c.innerHTML = `
+    <div class="enc-card rounded-2xl p-5 mb-5">
+      <h3 class="font-display font-bold mb-4 flex items-center gap-2"><i class="fas fa-lock text-sm" style="color:#EF4444"></i>Especialidades Obrigatórias</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr style="border-bottom:1px solid rgba(201,168,76,.2)">
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Seção</th>
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Requisito</th>
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Especialidade</th>
+            <th class="text-left pb-2 font-semibold" style="color:var(--gold)">Área</th>
+          </tr></thead>
+          <tbody>${especialidadesObrig.map(e=>`<tr style="border-bottom:1px solid rgba(201,168,76,.07)">
+            <td class="py-2 pr-3"><span class="badge badge-red">${e.sec}</span></td>
+            <td class="py-2 pr-3" style="color:rgba(245,240,232,.75)">${e.req}</td>
+            <td class="py-2 pr-3 font-medium" style="color:#F5F0E8">${e.nome}</td>
+            <td class="py-2" style="color:rgba(245,240,232,.6)">${e.area}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+      ${especialidadesOpc.map(g=>`
+        <div class="enc-card rounded-2xl p-5">
+          <h3 class="font-display font-semibold text-sm mb-3 flex items-center gap-2"><i class="fas fa-unlock-alt" style="color:var(--gold)"></i>${g.area}</h3>
+          <div class="space-y-3">${g.itens.map(i=>`
+            <div>
+              <span class="badge badge-blue mb-1">${i.req}</span>
+              <p class="text-xs" style="color:rgba(245,240,232,.7)">${i.opcoes}</p>
+            </div>`).join('')}</div>
+        </div>`).join('')}
+    </div>
+    <div class="enc-card rounded-2xl p-5 mt-4" style="background:rgba(201,168,76,.06); border-color:rgba(201,168,76,.3);">
+      <p class="text-sm" style="color:rgba(245,240,232,.85)">
+        <i class="fas fa-info-circle mr-2" style="color:var(--gold)"></i>
+        <strong style="color:var(--gold-light)">Resumo:</strong> O aspirante deverá completar um total de <strong>6 especialidades obrigatórias</strong> + <strong>7 de escolha</strong> + <strong>2 adicionais de Natureza</strong> = mínimo de <strong>15 especialidades</strong>.
+      </p>
+    </div>`;
+}
+
+function renderIdeais() {
+  const c = document.getElementById('ideaisContainer');
+  c.innerHTML = `<div class="grid md:grid-cols-2 gap-5">${ideais.map(id=>`
+    <div class="enc-card rounded-2xl p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:${id.color}22; border:1px solid ${id.color}44;">
+          <i class="fas ${id.icon} text-xl" style="color:${id.color}"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl">${id.nome}</h3>
+      </div>
+      <p class="font-body text-base italic leading-relaxed mb-3" style="color:rgba(245,240,232,.85)">${id.texto}</p>
+      <p class="text-xs" style="color:#9CA3AF">${id.info}</p>
+    </div>`).join('')}</div>`;
+}
+
+// ─── ACCORDION ───────────────────────────────────
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.fa-chevron-down');
+  const isOpen = body.classList.toggle('open');
+  if(icon) icon.style.transform = isOpen ? 'rotate(180deg)' : '';
+}
+
+// ─── INIT ────────────────────────────────────────
+renderEncontros();
+renderAcampamento();
+renderContinuos();
+renderEspecialidades();
+renderIdeais();
+
+// ─── HELP ────────────────────────────────────────
+function showHelp() {
+  Swal.fire({ title:'Como usar este Guia', html:`
+    <div class="text-left text-sm space-y-3">
+      <p><i class="fas fa-calendar-alt mr-2" style="color:#C9A84C"></i><strong>15 Encontros:</strong> Clique em cada encontro para expandir e ver os requisitos e atividades.</p>
+      <p><i class="fas fa-campground mr-2" style="color:#C9A84C"></i><strong>Acampamento:</strong> Atividades práticas de final de semana.</p>
+      <p><i class="fas fa-sync-alt mr-2" style="color:#C9A84C"></i><strong>Requisitos Contínuos:</strong> Leituras e serviços que devem ser feitos fora dos encontros.</p>
+      <p><i class="fas fa-award mr-2" style="color:#C9A84C"></i><strong>Especialidades:</strong> Lista completa de obrigatórias e opcionais.</p>
+      <p><i class="fas fa-praying-hands mr-2" style="color:#C9A84C"></i><strong>Ideais:</strong> Voto, Lei, Alvo, Lema e mais.</p>
+      <hr class="my-3" style="border-color:rgba(201,168,76,.2)">
+      <p class="text-xs" style="color:#9CA3AF">Duração recomendada: 18 a 24 meses. Público: 16 anos ou mais.</p>
+    </div>`, icon:'info', confirmButtonText:'Entendi', confirmButtonColor:'#C9A84C' });
+}
+
+// ─── LEGAL ───────────────────────────────────────
+function showLGPD() { Swal.fire({title:'Conformidade LGPD',text:'Este sistema não coleta dados pessoais. Todas as informações são de uso local e educacional.',icon:'info',confirmButtonColor:'#C9A84C'}); }
+function showTerms() { Swal.fire({title:'Termos de Uso',text:'Plataforma de caráter recreativo e educacional. Resultados e conteúdos sem fins lucrativos.',icon:'info',confirmButtonColor:'#C9A84C'}); }
+function showPrivacy() { Swal.fire({title:'Privacidade',text:'Nenhum dado pessoal é armazenado em servidores. Cookies apenas para preferências de tema.',icon:'info',confirmButtonColor:'#C9A84C'}); }
+
+// ─── GOLD GRADIENTS ──────────────────────────────
+document.querySelectorAll('.text-gold-gradient').forEach(el => {
+  el.style.background = 'linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';
+  el.style.webkitBackgroundClip = 'text'; el.style.webkitTextFillColor = 'transparent'; el.style.backgroundClip = 'text';
+});
+</script>
+</body>
+</html>
