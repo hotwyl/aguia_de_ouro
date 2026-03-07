@@ -107,10 +107,10 @@
     </a>
     <nav class="hidden md:flex items-center gap-1" aria-label="Navegação principal">
       <a href="/" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
-      <a href="/sobre.html" class="px-3 py-2 rounded-lg text-sm" style="color:var(--gold);background:rgba(201,168,76,.08);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
-      <a href="/guia.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia</a>
+      <a href="/sobre.html" class="px-3 py-2 rounded-lg text-sm" style="color:var(--gold);background:rgba(201,168,76,.08);"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
+      <a href="/guia.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
       <a href="/quiz.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a>
-      <a href="/planejamento.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento</a>
+      <a href="/planejamento.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
     </nav>
     <div class="flex items-center gap-2">
       <button onclick="toggleTheme()" class="has-tip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10" aria-label="Alternar tema">
@@ -338,6 +338,50 @@
 
   <div class="divider"></div>
 
+  <!-- ═══ ÁGUIA (AVE-SÍMBOLO) ═══ -->
+  <section class="py-10 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-6 reveal">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Ave-Símbolo do Clube</span>
+      </div>
+      <div class="bird-card reveal rd1">
+        <div class="p-5 md:p-6">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background:#C9A84C1a;border:1px solid #C9A84C44;">
+            <i class="fas fa-feather-alt text-2xl" style="color:var(--gold)"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Águia</h3>
+          <p class="text-xs mb-3 leading-relaxed" style="color:var(--gold);opacity:.9;">Visão Ampla · Liderança · Nobreza · Coragem · Perseverança · Discernimento</p>
+          <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(245,240,232,.78);">
+            A águia é uma ave de rapina de grande porte, conhecida por sua postura imponente, capacidade de planeio em altas altitudes e senso de direção preciso.
+            Na natureza, simboliza estratégia, vigilância e força. Para o clube, representa jovens que aprendem a observar antes de agir, liderar com responsabilidade e
+            manter constância mesmo em cenários desafiadores.
+          </p>
+          <div class="grid md:grid-cols-2 gap-4 pt-4" style="border-top:1px solid rgba(255,255,255,.06);">
+            <div>
+              <h4 class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--gold)">Caracteristicas</h4>
+              <ul class="space-y-2 text-xs" style="color:rgba(245,240,232,.62);">
+                <li><i class="fas fa-eye mr-2" style="color:var(--gold);"></i>Visão aguçada para localizar alvos a grandes distâncias.</li>
+                <li><i class="fas fa-feather mr-2" style="color:var(--gold);"></i>Asas amplas para planeio eficiente e economia de energia.</li>
+                <li><i class="fas fa-shield-alt mr-2" style="color:var(--gold);"></i>Garras fortes e bico curvo, adaptados para captura e proteção.</li>
+                <li><i class="fas fa-mountain mr-2" style="color:var(--gold);"></i>Comportamento territorial e preferência por pontos altos de observação.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--gold)">Curiosidades</h4>
+              <ul class="space-y-2 text-xs" style="color:rgba(245,240,232,.62);">
+                <li><i class="fas fa-lightbulb mr-2" style="color:var(--gold);"></i>Muitas espécies reaproveitam o mesmo ninho por anos, ampliando-o ciclo após ciclo.</li>
+                <li><i class="fas fa-wind mr-2" style="color:var(--gold);"></i>Usam correntes térmicas para subir com pouco esforço, quase sem bater as asas.</li>
+                <li><i class="fas fa-star mr-2" style="color:var(--gold);"></i>Filhotes passam por longo período de aprendizado até dominar voo e caça.</li>
+                <li><i class="fas fa-compass mr-2" style="color:var(--gold);"></i>Na simbologia, a águia é associada à visão de futuro, foco e renovação.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="height:4px;background:linear-gradient(90deg,#8B691444,#C9A84C);"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ UNIDADES (AVES) ═══ -->
   <section class="py-14 px-4">
     <div class="max-w-6xl mx-auto">
@@ -346,7 +390,7 @@
         <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">As 8 Unidades do Clube</h2>
         <p class="mt-3 font-body text-lg max-w-2xl mx-auto" style="color:rgba(245,240,232,.65);">O nome "Águia de Ouro" inspirou a nomeação das unidades internas com base em aves, cada uma com representação simbólica única.</p>
       </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5" id="unitsGrid"></div>
+      <div class="grid md:grid-cols-2 gap-5" id="unitsGrid"></div>
     </div>
   </section>
 
@@ -423,10 +467,11 @@
       <div>
         <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4>
         <ul class="space-y-1 text-xs">
+          <li><a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li>
           <li><a href="/sobre.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a></li>
           <li><a href="/guia.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li>
           <li><a href="/quiz.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li>
-          <li><a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento</a></li>
+          <li><a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a></li>
         </ul>
       </div>
       <div>
@@ -477,14 +522,94 @@ directors.forEach(r => {
 
 // ─── UNITS (BIRDS) DATA ───────────────────────────────────────────────────────
 const units = [
-  { name:'Falcão', icon:'fa-wind', color:'#F59E0B', traits:'Determinação · Foco · Velocidade · Precisão · Liderança · Resiliência', curiosity:'Atingem até 320 km/h em voo de caça — os animais mais rápidos do planeta. Enxergam 8× mais que humanos.' },
-  { name:'Grou', icon:'fa-crown', color:'#94A3B8', traits:'Elegância · Senso Rítmico · Conexão · Paciência · Fidelidade', curiosity:'Realizam danças elaboradas de cortejo e formam casais que duram a vida toda.' },
-  { name:'Gavião', icon:'fa-eye', color:'#EF4444', traits:'Visão Estratégica · Planejamento · Paciência · Capacidade de Análise', curiosity:'Visão até 8× mais aguçada que a humana; podem enxergar ultravioleta e analisam o terreno pairando por horas.' },
-  { name:'Bentivi', icon:'fa-shield-alt', color:'#EAB308', traits:'Coragem · Espírito Protetor · Voz Ativa · Determinação', curiosity:'Conhecidos por atacar predadores muito maiores. Seu canto é um dos mais reconhecíveis do cerrado.' },
-  { name:'Gralha Azul', icon:'fa-gem', color:'#3B82F6', traits:'Inteligência · Memória Excepcional · Cooperação · Criatividade', curiosity:'Plantam florestas ao enterrar sementes de araucária e se reconhecem em espelhos.' },
-  { name:'Andorinha', icon:'fa-feather', color:'#0EA5E9', traits:'Liberdade · Adaptabilidade · Agilidade · Comunidade', curiosity:'Voam até 11.000 km em migrações e retornam ao mesmo local. Dormem em voo.' },
-  { name:'Arara', icon:'fa-palette', color:'#F43F5E', traits:'Expressão Autêntica · Vitalidade · Vínculos Duradouros · Lealdade', curiosity:'Vivem mais de 80 anos, formam casais para a vida toda e usam penas para comunicar emoções.' },
-  { name:'Beija-flor', icon:'fa-heart', color:'#10B981', traits:'Energia Ilimitada · Resiliência · Agilidade · Beleza', curiosity:'Batem as asas até 80 vezes/seg. São os únicos pássaros que voam de ré. Coração: 1.200 bat/min em voo.' },
+  {
+    name:'Falcão',
+    icon:'fa-wind',
+    color:'#F59E0B',
+    traits:'Determinação · Foco · Velocidade · Precisão · Liderança · Resiliência',
+    description:'Ave de rapina de corpo aerodinâmico, asas longas e voo extremamente preciso. Caça com mergulhos controlados e rápida tomada de decisão, sendo referência de foco e disciplina.',
+    curiosities:[
+      'O falcão-peregrino é considerado o animal mais veloz do mundo, superando 300 km/h em mergulho.',
+      'Possui visão de alta definição para detectar pequenos movimentos a longas distâncias.'
+    ]
+  },
+  {
+    name:'Grou',
+    icon:'fa-crown',
+    color:'#94A3B8',
+    traits:'Elegância · Senso Rítmico · Conexão · Paciência · Fidelidade',
+    description:'Ave de porte esguio e movimentos harmoniosos, reconhecida por sua postura nobre e comportamento social organizado. Representa equilíbrio emocional, cooperação e constância.',
+    curiosities:[
+      'Realiza danças sincronizadas em rituais de cortejo e comunicação social.',
+      'Em diversas culturas, o grou simboliza longevidade, fidelidade e harmonia.'
+    ]
+  },
+  {
+    name:'Gavião',
+    icon:'fa-eye',
+    color:'#EF4444',
+    traits:'Visão Estratégica · Planejamento · Paciência · Capacidade de Análise',
+    description:'Predador atento, com grande domínio do território e leitura precisa do ambiente. Antes de agir, observa, calcula e escolhe o momento certo, expressando estratégia e autocontrole.',
+    curiosities:[
+      'Aproveita correntes de ar para permanecer longos períodos planando com baixo gasto de energia.',
+      'Consegue monitorar áreas amplas do alto antes de definir o momento exato de agir.'
+    ]
+  },
+  {
+    name:'Bentivi',
+    icon:'fa-shield-alt',
+    color:'#EAB308',
+    traits:'Coragem · Espírito Protetor · Voz Ativa · Determinação',
+    description:'Ave pequena, mas extremamente valente e vigilante. Destaca-se por defender seu espaço com firmeza e por manter presença ativa no grupo, mesmo diante de ameaças maiores.',
+    curiosities:[
+      'Mesmo menor que muitos predadores, protege o território com coragem e vocalização marcante.',
+      'Seu nome popular vem do canto característico que soa como "bem-te-vi".'
+    ]
+  },
+  {
+    name:'Gralha Azul',
+    icon:'fa-gem',
+    color:'#3B82F6',
+    traits:'Inteligência · Memória Excepcional · Cooperação · Criatividade',
+    description:'Ave conhecida pela inteligência e excelente memória espacial. Planeja ações, interage em grupo e contribui para o equilíbrio ambiental com atitudes de longo prazo.',
+    curiosities:[
+      'É importante para a regeneração da mata de araucária ao esconder pinhões no solo.',
+      'Lembra locais de alimento e desenvolve estratégias coletivas de proteção.'
+    ]
+  },
+  {
+    name:'Andorinha',
+    icon:'fa-feather',
+    color:'#0EA5E9',
+    traits:'Liberdade · Adaptabilidade · Agilidade · Comunidade',
+    description:'Ave leve e ágil, especialista em voos dinâmicos e em adaptação a diferentes ambientes. Sua trajetória remete a mobilidade, trabalho em equipe e espírito comunitário.',
+    curiosities:[
+      'Algumas espécies percorrem milhares de quilômetros em rotas migratórias anuais.',
+      'É especialista em manobras aéreas rápidas para capturar insetos em pleno voo.'
+    ]
+  },
+  {
+    name:'Arara',
+    icon:'fa-palette',
+    color:'#F43F5E',
+    traits:'Expressão Autêntica · Vitalidade · Vínculos Duradouros · Lealdade',
+    description:'Ave de presença marcante, cores vibrantes e alta sociabilidade. Representa comunicação, alegria e vínculo duradouro, inspirando identidade e união no grupo.',
+    curiosities:[
+      'Pode viver muitas décadas e manter forte vínculo com o parceiro.',
+      'Utiliza vocalizações variadas e linguagem corporal para comunicação no bando.'
+    ]
+  },
+  {
+    name:'Beija-flor',
+    icon:'fa-heart',
+    color:'#10B981',
+    traits:'Energia Ilimitada · Resiliência · Agilidade · Beleza',
+    description:'Ave de pequeno porte e altíssima energia, com movimentos rápidos e grande precisão. Simboliza dedicação diária, leveza nas ações e constância em tarefas importantes.',
+    curiosities:[
+      'É uma das poucas aves capazes de pairar no ar e voar para trás.',
+      'Seu metabolismo acelerado exige alimentação frequente ao longo do dia.'
+    ]
+  },
 ];
 
 const grid = document.getElementById('unitsGrid');
@@ -493,15 +618,21 @@ units.forEach((u, i) => {
   const div = document.createElement('div');
   div.className = `bird-card reveal ${delays[i]}`;
   div.style.cssText = `--unit-color:${u.color}33;`;
+  const curiosityItems = u.curiosities
+    .map(item => `<li class="leading-relaxed"><i class="fas fa-lightbulb mr-1" style="color:${u.color};opacity:.75;"></i>${item}</li>`)
+    .join('');
   div.innerHTML = `
     <div class="p-5">
       <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background:${u.color}1a;border:1px solid ${u.color}44;">
         <i class="fas ${u.icon} text-2xl" style="color:${u.color}"></i>
       </div>
       <h3 class="font-display font-bold text-lg mb-2">${u.name}</h3>
-      <p class="text-xs mb-3 leading-relaxed" style="color:${u.color};opacity:.85;">${u.traits}</p>
+      <p class="text-[11px] uppercase tracking-wider mb-1" style="color:${u.color};opacity:.9;">Características</p>
+      <p class="text-xs mb-3 leading-relaxed" style="color:${u.color};opacity:.88;">${u.traits}</p>
+      <p class="text-xs leading-relaxed mb-3" style="color:rgba(245,240,232,.72)">${u.description}</p>
       <div class="pt-3" style="border-top:1px solid rgba(255,255,255,.06);">
-        <p class="text-xs leading-relaxed" style="color:rgba(245,240,232,.55)"><i class="fas fa-lightbulb mr-1" style="color:${u.color};opacity:.7;"></i>${u.curiosity}</p>
+        <p class="text-[11px] uppercase tracking-wider mb-2" style="color:${u.color};opacity:.9;">Curiosidades</p>
+        <ul class="space-y-2 text-xs" style="color:rgba(245,240,232,.58)">${curiosityItems}</ul>
       </div>
     </div>
     <div style="height:4px;background:linear-gradient(90deg,${u.color}44,${u.color});"></div>

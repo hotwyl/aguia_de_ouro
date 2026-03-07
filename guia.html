@@ -129,12 +129,14 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
     </a>
     <nav class="hidden md:flex items-center gap-1">
       <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
+      <a href="/sobre.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
       <a href="/guia.html" class="px-4 py-2 rounded-lg text-sm font-medium" style="color:var(--gold); background:rgba(201,168,76,.08);">
         <i class="fas fa-book-open mr-1"></i>Guia de Classes
       </a>
       <a href="/quiz.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:#9CA3AF">
         <i class="fas fa-dove mr-1"></i>Teste das Aves
       </a>
+      <a href="/planejamento.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
     </nav>
     <div class="flex items-center gap-2">
       <button onclick="toggleTheme()" class="has-tooltip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10" aria-label="Alternar tema">
@@ -152,8 +154,10 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 <div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass">
   <nav class="flex flex-col p-6 gap-2">
     <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i>Sobre o Clube</a>
     <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,.1); color:var(--gold)"><i class="fas fa-book-open w-5"></i>Guia de Classes</a>
     <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-dove w-5" style="color:var(--gold)"></i>Teste das Aves</a>
+    <a href="/planejamento.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i>Planejamento PDF</a>
   </nav>
 </div>
 
@@ -277,8 +281,10 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
         <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4>
         <ul class="space-y-1 text-xs">
           <li><a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li>
+          <li><a href="/sobre.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a></li>
           <li><a href="/guia.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li>
           <li><a href="/quiz.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li>
+          <li><a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a></li>
         </ul>
       </div>
       <div>

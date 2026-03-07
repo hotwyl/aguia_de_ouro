@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root { --gold:#C9A84C; --gold-light:#F0C96B; --gold-dark:#8B6914; --ink:#0D1117; --ink-2:#161B22; --ink-3:#21262D; --parchment:#F5F0E8; }
@@ -110,10 +111,12 @@
     </a>
     <nav class="hidden md:flex items-center gap-1">
       <a href="/" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
-      <a href="/guia.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF">Guia de Classes</a>
+      <a href="/sobre.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
+      <a href="/guia.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
       <a href="/quiz.html" class="px-4 py-2 rounded-lg text-sm" style="color:var(--gold); background:rgba(201,168,76,.08);">
         <i class="fas fa-dove mr-1"></i>Teste das Aves
       </a>
+      <a href="/planejamento.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
     </nav>
     <div class="flex items-center gap-2">
       <button onclick="toggleTheme()" class="has-tooltip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10">
@@ -130,8 +133,10 @@
 <div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass">
   <nav class="flex flex-col p-6 gap-2">
     <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i>Sobre o Clube</a>
     <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i>Guia de Classes</a>
     <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,.1); color:var(--gold)"><i class="fas fa-dove w-5"></i>Teste das Aves</a>
+    <a href="/planejamento.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i>Planejamento PDF</a>
   </nav>
 </div>
 
@@ -324,7 +329,16 @@
         <div class="flex items-center gap-3 mb-3"><div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));"><i class="fas fa-feather-alt text-sm" style="color:var(--ink)"></i></div><div class="font-display font-bold text-gold-gradient">Águia de Ouro</div></div>
         <p class="text-xs" style="color:#9CA3AF">Rua Guilherme Ihlenfeldt, 778 – Tingui, Curitiba–PR</p>
       </div>
-      <div><h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4><ul class="space-y-1 text-xs"><li><a href="/" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li><li><a href="/guia.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li><li><a href="/quiz.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li></ul></div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4>
+        <ul class="space-y-1 text-xs">
+          <li><a href="/" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li>
+          <li><a href="/sobre.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a></li>
+          <li><a href="/guia.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li>
+          <li><a href="/quiz.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li>
+          <li><a href="/planejamento.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a></li>
+        </ul>
+      </div>
       <div><h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Legal</h4><ul class="space-y-1 text-xs"><li><button onclick="showLGPD()" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-shield-alt mr-1"></i>LGPD</button></li><li><button onclick="showTerms()" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-contract mr-1"></i>Termos</button></li><li><button onclick="showPrivacy()" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-user-secret mr-1"></i>Privacidade</button></li></ul></div>
     </div>
     <div class="pt-4" style="border-top:1px solid rgba(201,168,76,.15)"><div class="flex flex-col md:flex-row items-center justify-between gap-2"><p class="text-xs" style="color:#9CA3AF">© 2025 Águia de Ouro. Uso educacional e recreativo.</p><p class="text-xs" style="color:#9CA3AF">Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong></p></div></div>
@@ -502,12 +516,26 @@ function copyToClip(t){
 }
 
 // ─── PDF ─────────────────────────────────────────
+function buildUniquePdfId() {
+  if (globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') {
+    return globalThis.crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}-${performance.now().toString().replace('.', '')}`;
+}
+
+function buildMd5PdfFileName() {
+  if (typeof globalThis.md5 !== 'function') {
+    throw new TypeError('MD5 library is unavailable');
+  }
+  return `${globalThis.md5(buildUniquePdfId())}.pdf`;
+}
+
 async function generatePDF() {
   const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
   if(!sorted[0][1]){ Swal.fire({title:'Atenção',text:'Faça o teste primeiro para gerar o PDF.',icon:'warning',confirmButtonColor:'#C9A84C'}); return; }
   const lo=document.getElementById('loadingOverlay'); lo.classList.add('active');
   try {
-    const {jsPDF}=window.jspdf;
+    const {jsPDF}=globalThis.jspdf;
     const doc=new jsPDF('p','mm','a4');
     const pw=doc.internal.pageSize.getWidth(), ph=doc.internal.pageSize.getHeight(), m=20;
     let y=m;
@@ -561,7 +589,7 @@ async function generatePDF() {
     doc.setTextColor(148,163,184); doc.setFontSize(7);
     doc.text('Sistema desenvolvido por HOTWYL | WILLFROMBRASIL',pw/2,ph-12,{align:'center'});
     doc.text('Clube Águia de Ouro – Desbravadores de Curitiba. Uso recreativo e educacional.',pw/2,ph-7,{align:'center'});
-    doc.save(`aguia-de-ouro-${pb.name.toLowerCase().replace(/\s+/g,'-')}.pdf`);
+    doc.save(buildMd5PdfFileName());
     lo.classList.remove('active');
     Swal.fire({title:'PDF Gerado!',text:'Seu resultado foi salvo com sucesso.',icon:'success',confirmButtonText:'OK',confirmButtonColor:'#C9A84C'});
   } catch(e){
