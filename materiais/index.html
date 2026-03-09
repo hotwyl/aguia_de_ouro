@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Materiais do Clube de Desbravadores Águia de Ouro. Documentos protegidos – somente visualização.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Materiais | Águia de Ouro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    :root {
+      --iron: #151a21;
+      --slate: #1d2530;
+      --slate-soft: #263140;
+      --brass: #d4ab56;
+      --brass-soft: #f0ce8d;
+      --ink: #0a0d12;
+      --mist: #c8d2de;
+      --snow: #f6f7f8;
+      --danger: #f25f5c;
+      --ok: #4cc38a;
+      --ring: rgba(212,171,86,.38);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'DM Sans',sans-serif;color:var(--snow);min-height:100vh;
+      background:
+        radial-gradient(circle at 12% 20%,rgba(212,171,86,.18) 0%,rgba(212,171,86,0) 46%),
+        radial-gradient(circle at 88% 80%,rgba(76,195,138,.12) 0%,rgba(76,195,138,0) 42%),
+        linear-gradient(160deg,#0b1119,#151d29 40%,#0f1622 100%);
+      user-select:none;-webkit-user-select:none;overflow-x:hidden;
+    }
+
+    /* ── FRAME ─────────────────────────────── */
+    .frame{
+      width:min(1300px,100% - 2rem);
+      margin:1.1rem auto 1.5rem;
+      border:1px solid rgba(212,171,86,.3);
+      border-radius:24px;
+      background:linear-gradient(165deg,rgba(15,21,31,.92),rgba(11,16,24,.92));
+      box-shadow:0 22px 48px rgba(0,0,0,.35);
+      overflow:hidden;
+      backdrop-filter:blur(8px);
+    }
+
+    /* ── TOPBAR ────────────────────────────── */
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:.8rem;padding:1rem 1.15rem;
+      border-bottom:1px solid rgba(212,171,86,.24);
+      background:linear-gradient(180deg,rgba(23,31,44,.9),rgba(16,22,33,.9));
+    }
+    .brand{display:flex;align-items:center;gap:.85rem;}
+    .crest{
+      width:42px;height:42px;border-radius:12px;
+      background:linear-gradient(140deg,#81642b,#d4ab56 56%,#f0ce8d);
+      display:grid;place-items:center;color:#0d131c;font-weight:800;
+      font-family:'Cinzel',serif;font-size:13px;
+      box-shadow:inset 0 0 0 1px rgba(18,23,33,.4);
+    }
+    .brand h1{font-family:'Cinzel',serif;letter-spacing:.04em;font-size:clamp(1rem,1.5vw,1.3rem);color:var(--brass-soft);line-height:1.1;}
+    .brand p{color:rgba(246,247,248,.75);font-size:.82rem;margin-top:.12rem;}
+    .btn{
+      border:1px solid rgba(212,171,86,.42);background:rgba(212,171,86,.08);
+      color:var(--brass-soft);border-radius:10px;font-weight:600;font-size:.86rem;
+      text-decoration:none;padding:.55rem .9rem;cursor:pointer;transition:all .22s;
+    }
+    .btn:hover,.btn:focus-visible{background:rgba(212,171,86,.16);transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.25);outline:none;}
+
+    /* ── LAYOUT ────────────────────────────── */
+    .layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 120px);}
+
+    /* ── SIDEBAR ───────────────────────────── */
+    .sidebar{
+      border-right:1px solid rgba(212,171,86,.2);padding:1rem;
+      background:linear-gradient(180deg,rgba(32,42,56,.72),rgba(22,29,40,.72));
+    }
+    .secure-note{
+      border:1px solid rgba(76,195,138,.34);background:rgba(76,195,138,.1);
+      color:#b8f5d9;border-radius:12px;padding:.7rem .8rem;
+      font-size:.8rem;line-height:1.4;margin-bottom:.85rem;
+    }
+    .search{
+      width:100%;border:1px solid rgba(212,171,86,.3);background:rgba(8,12,19,.56);
+      color:var(--snow);border-radius:12px;padding:.65rem .78rem;
+      font-size:.9rem;margin-bottom:.7rem;font-family:'DM Sans',sans-serif;
+    }
+    .search:focus{outline:2px solid var(--ring);border-color:rgba(212,171,86,.65);}
+    .counter{color:rgba(246,247,248,.7);font-size:.8rem;margin-bottom:.45rem;}
+    .items{display:flex;flex-direction:column;gap:.43rem;max-height:calc(100vh - 280px);overflow:auto;padding-right:.2rem;}
+    .items::-webkit-scrollbar{width:6px;}
+    .items::-webkit-scrollbar-thumb{background:rgba(212,171,86,.44);border-radius:999px;}
+    .item{
+      width:100%;border:1px solid rgba(212,171,86,.2);background:rgba(14,21,31,.76);
+      color:#f4f6f8;border-radius:12px;text-align:left;padding:.72rem .8rem;
+      display:grid;grid-template-columns:26px 1fr;align-items:start;gap:.45rem;
+      cursor:pointer;transition:all .22s;
+    }
+    .item:hover,.item:focus-visible{border-color:rgba(212,171,86,.5);transform:translateX(2px);outline:none;}
+    .item.active{border-color:rgba(212,171,86,.92);background:linear-gradient(160deg,rgba(212,171,86,.16),rgba(212,171,86,.05));box-shadow:inset 0 0 0 1px rgba(212,171,86,.5);}
+    .item .icon{font-size:1.1rem;line-height:1.2;margin-top:1px;}
+    .item .name{font-size:.87rem;line-height:1.25;font-weight:600;color:#f4f7fa;}
+    .item .meta{font-size:.74rem;color:rgba(246,247,248,.65);margin-top:.15rem;display:block;}
+
+    /* ── VIEWER ────────────────────────────── */
+    .viewer{padding:1rem;display:flex;flex-direction:column;gap:.78rem;}
+
+    /* Toolbar PDF */
+    #pdfToolbar{
+      display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+      border:1px solid rgba(212,171,86,.24);border-radius:14px;
+      padding:.6rem .9rem;background:rgba(18,25,35,.74);
+      user-select:none;
+    }
+    .tbtn{
+      display:inline-flex;align-items:center;justify-content:center;gap:4px;
+      padding:5px 11px;border-radius:8px;border:none;cursor:pointer;
+      font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;
+      background:rgba(212,171,86,.08);color:#e8d8b2;
+      border:1px solid rgba(212,171,86,.22);transition:all .2s;
+    }
+    .tbtn:hover{background:rgba(212,171,86,.18);color:var(--brass-soft);}
+    .tbtn:disabled{opacity:.3;cursor:not-allowed;}
+    .tbtn.active{background:rgba(212,171,86,.18);color:var(--brass-soft);border-color:rgba(212,171,86,.6);}
+    #pageInfo{font-size:12px;color:rgba(246,247,248,.65);min-width:60px;text-align:center;font-family:'DM Sans',sans-serif;}
+    #zoomSelect{
+      background:rgba(8,12,19,.7);color:#e8d8b2;
+      border:1px solid rgba(212,171,86,.3);border-radius:8px;
+      padding:5px 8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;
+    }
+    .sep{width:1px;height:18px;background:rgba(212,171,86,.2);flex-shrink:0;}
+    .protect-badge{
+      margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+      padding:4px 12px;border-radius:999px;background:rgba(242,95,92,.1);
+      border:1px solid rgba(242,95,92,.3);font-size:11px;font-weight:600;color:#ffd8d7;white-space:nowrap;
+    }
+
+    /* Canvas area */
+    #canvasWrap{
+      position:relative;border:1px solid rgba(212,171,86,.28);border-radius:18px;
+      background:linear-gradient(160deg,rgba(11,15,22,.95),rgba(21,27,38,.95));
+      overflow:hidden;min-height:clamp(300px,66vh,760px);
+    }
+    .watermark{
+      position:absolute;top:.8rem;right:.8rem;z-index:3;
+      background:rgba(10,13,18,.65);color:rgba(246,247,248,.85);
+      border:1px solid rgba(212,171,86,.28);border-radius:999px;
+      padding:.35rem .62rem;font-size:.72rem;letter-spacing:.02em;
+      pointer-events:none;backdrop-filter:blur(2px);
+    }
+    #canvasArea{
+      display:flex;flex-direction:column;align-items:center;
+      padding:20px 16px;gap:18px;overflow-x:auto;
+      min-height:inherit;
+    }
+    .page-wrap{
+      position:relative;
+      box-shadow:0 4px 20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04);
+      border-radius:3px;overflow:hidden;max-width:100%;
+    }
+    .page-wrap canvas{display:block;max-width:100%;}
+    .prot-overlay{
+      position:absolute;inset:0;z-index:10;background:transparent;
+      -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    }
+    .page-num{
+      position:absolute;bottom:6px;right:8px;z-index:15;
+      background:rgba(0,0,0,.55);color:rgba(255,255,255,.55);
+      font-size:10px;padding:3px 7px;border-radius:4px;
+      font-family:'DM Sans',sans-serif;pointer-events:none;
+    }
+    .empty-state{
+      min-height:inherit;display:grid;place-items:center;
+      text-align:center;padding:1.5rem;
+    }
+    .empty-state .inner{
+      max-width:520px;border:1px dashed rgba(212,171,86,.35);border-radius:14px;
+      padding:1.5rem;background:rgba(212,171,86,.05);
+    }
+    .empty-state h3{font-family:'Cinzel',serif;color:var(--brass-soft);margin-bottom:.5rem;font-size:1.1rem;}
+    .empty-state p{color:rgba(246,247,248,.7);line-height:1.5;font-size:.92rem;}
+
+    /* Loading overlay */
+    #loadingOverlay{
+      position:fixed;inset:0;z-index:999;
+      background:rgba(11,17,25,.97);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    }
+    .spinner{width:44px;height:44px;border:3px solid rgba(212,171,86,.15);border-top-color:var(--brass);border-radius:50%;animation:spin 1s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    #loadProgress{width:200px;height:3px;background:rgba(212,171,86,.15);border-radius:999px;overflow:hidden;}
+    #loadBar{height:100%;background:linear-gradient(90deg,#81642b,var(--brass));border-radius:999px;width:0%;transition:width .3s;}
+
+    /* Tooltip */
+    .tip{position:relative;}
+    .tip::after{
+      content:attr(data-tip);visibility:hidden;opacity:0;
+      position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+      background:#21262D;color:#F5F0E8;padding:4px 10px;border-radius:6px;
+      font-size:11px;white-space:nowrap;border:1px solid rgba(212,171,86,.25);
+      transition:all .15s;z-index:100;pointer-events:none;font-family:'DM Sans',sans-serif;
+    }
+    .tip:hover::after{visibility:visible;opacity:1;}
+
+    *:focus-visible{outline:2px solid var(--ring);outline-offset:2px;}
+    ::-webkit-scrollbar{width:5px;height:5px;}
+    ::-webkit-scrollbar-track{background:rgba(10,13,20,.6);}
+    ::-webkit-scrollbar-thumb{background:rgba(212,171,86,.4);border-radius:3px;}
+
+    @media(max-width:980px){
+      .layout{grid-template-columns:1fr;}
+      .sidebar{border-right:0;border-bottom:1px solid rgba(212,171,86,.2);}
+      .items{max-height:250px;}
+      .frame{width:min(1300px,100% - 1rem);}
+    }
+    @media(max-width:640px){
+      .topbar{flex-direction:column;align-items:stretch;}
+      .brand{justify-content:center;}
+      #pdfToolbar{gap:4px;}
+      .tbtn span{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <div style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:.1em;color:var(--brass-soft);">Carregando materiais...</div>
+  <div id="loadProgress"><div id="loadBar"></div></div>
+</div>
+
+<section class="frame">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="crest" aria-hidden="true">AO</div>
+      <div>
+        <h1>Materiais Desbravadores</h1>
+        <p>Documentos em modo de consulta protegida</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:.5rem;align-items:center;">
+      <a class="btn" href="/">&#8592; Início</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="secure-note">
+        &#128274; Proteção ativa: clique direito, F12, atalhos de teclado, cópia, seleção e impressão foram bloqueados.
+      </div>
+      <input class="search" id="searchBox" type="text" placeholder="&#128269; Buscar documento..." oninput="filterItems()" aria-label="Buscar">
+      <div class="counter" id="counter">3 documento(s)</div>
+      <div class="items" id="itemList" role="list"></div>
+    </aside>
+
+    <!-- VIEWER -->
+    <div class="viewer">
+      <!-- PDF Toolbar -->
+      <div id="pdfToolbar" style="display:none;">
+        <button id="btnFirst" class="tbtn tip" data-tip="Primeira página" onclick="goToPage(1)" aria-label="Primeira página">&#9664;&#9664;</button>
+        <button id="btnPrev"  class="tbtn tip" data-tip="Página anterior" onclick="changePage(-1)" aria-label="Anterior">&#9664;</button>
+        <span id="pageInfo">– / –</span>
+        <button id="btnNext"  class="tbtn tip" data-tip="Próxima página"  onclick="changePage(1)"  aria-label="Próxima">&#9654;</button>
+        <button id="btnLast"  class="tbtn tip" data-tip="Última página"   onclick="goToPageLast()" aria-label="Última">&#9654;&#9654;</button>
+        <div class="sep"></div>
+        <button class="tbtn tip" data-tip="Zoom -" onclick="adjustZoom(-0.25)" aria-label="Zoom -">&#8722;</button>
+        <select id="zoomSelect" onchange="applyZoom(Number.parseFloat(this.value))" aria-label="Zoom">
+          <option value="0.5">50%</option>
+          <option value="0.75">75%</option>
+          <option value="1" selected>100%</option>
+          <option value="1.25">125%</option>
+          <option value="1.5">150%</option>
+          <option value="2">200%</option>
+        </select>
+        <button class="tbtn tip" data-tip="Zoom +" onclick="adjustZoom(0.25)" aria-label="Zoom +">&#43;</button>
+        <button class="tbtn tip" data-tip="Ajustar à janela" onclick="fitToWindow()" aria-label="Ajustar">&#8596;</button>
+        <div class="sep"></div>
+        <button id="btnModeSingle" class="tbtn tip" data-tip="Página única"    onclick="setMode('single')" aria-label="Página única">&#9633;</button>
+        <button id="btnModeAll"    class="tbtn active tip" data-tip="Todas as páginas" onclick="setMode('all')"    aria-label="Todas">&#9783;</button>
+        <div class="protect-badge">&#128274; Somente Visualização</div>
+      </div>
+
+      <!-- Canvas -->
+      <div id="canvasWrap">
+        <div class="watermark" id="wmLabel" style="display:none;">&#128274; Águia de Ouro</div>
+        <div id="canvasArea">
+          <div class="empty-state">
+            <div class="inner">
+              <h3>Selecione um documento</h3>
+              <p>Escolha um arquivo na lista à esquerda para iniciar a visualização protegida.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// ── DOCUMENTS ────────────────────────────────────────────────────────────────
+const DOCS = [
+  { file: '1c635ffb198ed6bdca5611adc5f9ecc4.pdf',   label: 'Passaporte do Desbravador',  desc: 'Registro de classes e conquistas' },
+  { file: '59d70654c51a1160b212ee0eb1a8a878.pdf',             label: 'PCD Desbravadores',          desc: 'Plano de curso e desenvolvimento' },
+  { file: '60e02a1102001a25b453035048892ab9.pdf',   label: 'Planejamento de Agrupadas',  desc: 'Classes agrupadas – 18-24 meses'  },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let pdfDoc      = null;
+let totalPages  = 0;
+let currentPage = 1;
+let scale       = 1;
+let viewMode    = 'all';
+let rendering   = false;
+let activeIdx   = -1;
+
+// ── SIDEBAR BUILD ─────────────────────────────────────────────────────────────
+function buildSidebar() {
+  const list = document.getElementById('itemList');
+  list.innerHTML = '';
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const visible = DOCS.filter(d => d.label.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q));
+  document.getElementById('counter').textContent = visible.length + ' documento(s)';
+  visible.forEach(doc => {
+    const idx = DOCS.indexOf(doc);
+    const btn = document.createElement('button');
+    btn.className = 'item' + (idx === activeIdx ? ' active' : '');
+    btn.setAttribute('role', 'listitem');
+    btn.setAttribute('aria-label', doc.label);
+    btn.innerHTML = `<span class="icon">&#128196;</span><span><span class="name">${doc.label}</span><span class="meta">${doc.desc}</span></span>`;
+    btn.onclick = () => openDoc(idx);
+    list.appendChild(btn);
+  });
+}
+
+function filterItems() { buildSidebar(); }
+
+// ── OPEN DOC ──────────────────────────────────────────────────────────────────
+async function openDoc(idx) {
+  if (idx === activeIdx) return;
+  activeIdx = idx;
+  buildSidebar();
+  const doc = DOCS[idx];
+
+  // reset state
+  pdfDoc = null; totalPages = 0; currentPage = 1; scale = 1; rendering = false;
+
+  document.getElementById('pdfToolbar').style.display = 'flex';
+  document.getElementById('wmLabel').style.display    = 'block';
+  document.getElementById('pageInfo').textContent     = '– / –';
+
+  const area = document.getElementById('canvasArea');
+  area.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:300px;">
+    <div class="spinner"></div>
+    <p style="color:rgba(246,247,248,.65);font-size:.85rem;font-family:'DM Sans',sans-serif;">Carregando ${doc.label}…</p>
+  </div>`;
+
+  updateNavButtons();
+
+  try {
+    const task = pdfjsLib.getDocument(doc.file);
+    task.onProgress = p => { if (p.total) setLoadBar(10 + Math.round((p.loaded / p.total) * 80)); };
+    pdfDoc = await task.promise;
+    totalPages = pdfDoc.numPages;
+    updatePageInfo();
+    await renderAllPages();
+    updateNavButtons();
+    // select zoom option closest to 1
+    document.getElementById('btnModeAll').classList.add('active');
+    document.getElementById('btnModeSingle').classList.remove('active');
+  } catch(err) {
+    area.innerHTML = `<div class="empty-state"><div class="inner"><h3 style="color:#ffd8d7;">Erro ao carregar</h3><p>${err.message}</p></div></div>`;
+  }
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+async function renderPage(pageNum, canvas) {
+  const page = await pdfDoc.getPage(pageNum);
+  const vp   = page.getViewport({ scale });
+  canvas.width  = vp.width;
+  canvas.height = vp.height;
+  canvas.style.width  = vp.width + 'px';
+  canvas.style.height = vp.height + 'px';
+  await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+}
+
+function buildPageWrapper(p) {
+  const wrap    = document.createElement('div');
+  wrap.className = 'page-wrap';
+  wrap.id        = 'pw' + p;
+  const canvas  = document.createElement('canvas');
+  canvas.id     = 'c' + p;
+  const overlay = document.createElement('div');
+  overlay.className = 'prot-overlay';
+  overlay.addEventListener('contextmenu', e => e.preventDefault());
+  overlay.addEventListener('dragstart',   e => e.preventDefault());
+  const num = document.createElement('div');
+  num.className   = 'page-num';
+  num.textContent = p + ' / ' + totalPages;
+  wrap.appendChild(canvas);
+  wrap.appendChild(overlay);
+  wrap.appendChild(num);
+  return { wrap, canvas };
+}
+
+async function renderAllPages() {
+  rendering = true;
+  const area = document.getElementById('canvasArea');
+  area.innerHTML = '';
+  for (let p = 1; p <= totalPages; p++) {
+    const { wrap, canvas } = buildPageWrapper(p);
+    if (viewMode === 'single' && p !== currentPage) wrap.style.display = 'none';
+    area.appendChild(wrap);
+    await renderPage(p, canvas);
+  }
+  rendering = false;
+  initPageObserver();
+}
+
+async function reRender() {
+  if (rendering || !pdfDoc) return;
+  rendering = true;
+  document.getElementById('canvasArea').innerHTML = '';
+  await renderAllPages();
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function scrollToPage(p) {
+  const el = document.getElementById('pw' + p);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function goToPage(p) {
+  if (!pdfDoc) return;
+  p = Math.min(Math.max(p, 1), totalPages);
+  currentPage = p;
+  updatePageInfo();
+  updateNavButtons();
+  if (viewMode === 'single') {
+    for (let i = 1; i <= totalPages; i++) {
+      const pw = document.getElementById('pw' + i);
+      if (pw) pw.style.display = i === p ? 'block' : 'none';
+    }
+  } else {
+    scrollToPage(p);
+  }
+}
+function goToPageLast() { goToPage(totalPages); }
+function changePage(dir) { if (pdfDoc) goToPage(currentPage + dir); }
+function updatePageInfo() {
+  document.getElementById('pageInfo').textContent = totalPages ? `${currentPage} / ${totalPages}` : '– / –';
+}
+function updateNavButtons() {
+  document.getElementById('btnFirst').disabled = !pdfDoc || currentPage <= 1;
+  document.getElementById('btnPrev').disabled  = !pdfDoc || currentPage <= 1;
+  document.getElementById('btnNext').disabled  = !pdfDoc || currentPage >= totalPages;
+  document.getElementById('btnLast').disabled  = !pdfDoc || currentPage >= totalPages;
+}
+
+// ── ZOOM ──────────────────────────────────────────────────────────────────────
+function adjustZoom(delta) {
+  const ns = Math.round((scale + delta) * 100) / 100;
+  applyZoom(Math.min(Math.max(ns, 0.25), 3));
+}
+function applyZoom(val) {
+  scale = Number.parseFloat(val);
+  const sel   = document.getElementById('zoomSelect');
+  const match = Array.from(sel.options).find(o => Math.abs(Number.parseFloat(o.value) - scale) < 0.005);
+  if (match) sel.value = match.value;
+  reRender();
+}
+function fitToWindow() {
+  const wrap = document.getElementById('canvasWrap');
+  const w    = wrap.clientWidth - 40;
+  if (!pdfDoc) return;
+  pdfDoc.getPage(1).then(pg => {
+    const vp  = pg.getViewport({ scale: 1 });
+    const fit = Math.round((w / vp.width) * 100) / 100;
+    applyZoom(Math.min(fit, 2));
+  });
+}
+
+// ── VIEW MODE ─────────────────────────────────────────────────────────────────
+function setMode(mode) {
+  viewMode = mode;
+  document.getElementById('btnModeSingle').classList.toggle('active', mode === 'single');
+  document.getElementById('btnModeAll').classList.toggle('active',    mode === 'all');
+  if (mode === 'all') {
+    for (let p = 1; p <= totalPages; p++) {
+      const pw = document.getElementById('pw' + p);
+      if (pw) pw.style.display = 'block';
+    }
+    scrollToPage(currentPage);
+  } else {
+    goToPage(currentPage);
+  }
+}
+
+// ── LOAD BAR ──────────────────────────────────────────────────────────────────
+function setLoadBar(pct) {
+  const bar = document.getElementById('loadBar');
+  if (bar) bar.style.width = pct + '%';
+}
+
+// ── INTERSECTION OBSERVER ─────────────────────────────────────────────────────
+function initPageObserver() {
+  if (!('IntersectionObserver' in globalThis)) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && viewMode === 'all') {
+        const id = Number.parseInt(e.target.id.replace('pw', ''), 10);
+        if (!Number.isNaN(id)) { currentPage = id; updatePageInfo(); updateNavButtons(); }
+      }
+    });
+  }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+  for (let p = 1; p <= totalPages; p++) {
+    const el = document.getElementById('pw' + p);
+    if (el) obs.observe(el);
+  }
+}
+
+// ── PROTECTION ────────────────────────────────────────────────────────────────
+function showProtMsg() {
+  Swal.fire({
+    title: '&#128274; Documento Protegido',
+    text: 'Este material é de uso exclusivo para visualização. Download, impressão e cópia não são permitidos.',
+    icon: 'warning',
+    confirmButtonText: 'Entendido',
+    confirmButtonColor: '#d4ab56',
+    background: '#161B22',
+    color: '#F5F0E8'
+  });
+}
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart',   e => e.preventDefault());
+document.addEventListener('copy',        e => e.preventDefault());
+document.addEventListener('keyup', e => {
+  if (e.key === 'PrintScreen') {
+    navigator.clipboard && navigator.clipboard.writeText('Ação bloqueada').catch(() => {});
+    showProtMsg();
+  }
+});
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  const blocked =
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(k)) ||
+    (e.ctrlKey && ['s','p','u','a','c','x'].includes(k));
+  if (blocked) { e.preventDefault(); e.stopPropagation(); showProtMsg(); return; }
+  if (e.ctrlKey && (e.key === '+' || e.key === '=')) { e.preventDefault(); adjustZoom(0.25); }
+  if (e.ctrlKey && e.key === '-')                     { e.preventDefault(); adjustZoom(-0.25); }
+  if (!pdfDoc) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') changePage(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'PageUp')   changePage(-1);
+  if (e.key === 'Home') goToPage(1);
+  if (e.key === 'End')  goToPageLast();
+}, true);
+globalThis.addEventListener('beforeprint', e => { e.preventDefault(); showProtMsg(); });
+
+// DevTools gap detector
+(function devGuard() {
+  const THRESH = 170;
+  setInterval(() => {
+    const open = (globalThis.outerWidth - globalThis.innerWidth > THRESH) ||
+                 (globalThis.outerHeight - globalThis.innerHeight > THRESH);
+    const wrap = document.getElementById('canvasWrap');
+    if (wrap) {
+      const lock = document.getElementById('devtoolsLock');
+      if (open && lock) { lock.style.display = 'grid'; }
+      else if (!open && lock) { lock.style.display = 'none'; }
+    }
+  }, 1200);
+})();
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildSidebar();
+  setTimeout(() => {
+    document.getElementById('loadingOverlay').style.display = 'none';
+  }, 500);
+});
+</script>
+
+<!-- DevTools lock overlay (inside canvasWrap) -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const lock = document.createElement('div');
+  lock.id = 'devtoolsLock';
+  lock.style.cssText = 'position:absolute;inset:0;z-index:4;background:rgba(5,8,12,.92);display:none;place-items:center;text-align:center;padding:1rem;';
+  lock.innerHTML = `<div style="max-width:460px;border:1px solid rgba(242,95,92,.45);background:rgba(242,95,92,.12);border-radius:14px;padding:1.2rem;color:#ffd8d7;line-height:1.5;font-family:'DM Sans',sans-serif;font-size:.94rem;">
+    &#128274; <strong>Ferramentas de desenvolvedor detectadas.</strong><br>Feche o DevTools para continuar visualizando o documento.
+  </div>`;
+  document.getElementById('canvasWrap').appendChild(lock);
+});
+</script>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(212,171,86,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
+  <div style="max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(140deg,#81642b,#d4ab56 56%,#f0ce8d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;color:#0d131c;font-weight:800;font-size:11px;">AO</div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#d4ab56;">Águia de Ouro</div><div style="font-size:11px;color:rgba(246,247,248,.6);">Clube de Desbravadores · Curitiba</div></div>
+    </div>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
+      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
+      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128193; Materiais</a>
+      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128101; Ordem Unida</a>
+      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
+      <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8962; Início</a>
+    </nav>
+    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(212,171,86,.1);">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+  </div>
+</footer>
+</body>
+</html>

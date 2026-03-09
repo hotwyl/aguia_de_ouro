@@ -120,6 +120,36 @@
     body.light ::-webkit-scrollbar-track{background:#EDE6D6;}
     *:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
+<<<<<<< HEAD
+=======
+    /* FOOTER */
+    .site-footer{
+      border-top:1px solid rgba(201,168,76,.18);
+      background:rgba(13,17,23,.96);
+      padding:24px 16px;
+      margin-top:0;
+    }
+    body.light .site-footer{background:rgba(240,234,220,.96);border-top:1px solid rgba(201,168,76,.3);}
+    .footer-inner{
+      max-width:1200px;margin:0 auto;
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      gap:16px;
+    }
+    .footer-brand{display:flex;align-items:center;gap:10px;}
+    .footer-brand span{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);}
+    .footer-brand small{font-size:11px;color:#9CA3AF;display:block;margin-top:2px;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:8px;}
+    .footer-link{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;
+      border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);
+      color:#D1B96A;text-decoration:none;transition:all .2s;
+    }
+    .footer-link:hover{background:rgba(201,168,76,.14);color:var(--gold);border-color:rgba(201,168,76,.5);}
+    body.light .footer-link{color:var(--gold-dark);}
+    .footer-copy{font-size:11px;color:#9CA3AF;width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);}
+
+>>>>>>> master
     /* PAGE COUNTER OVERLAY */
     .page-num{
       position:absolute;bottom:8px;right:8px;z-index:15;
@@ -131,6 +161,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 <script>
 // Bloqueios de segurança e proteção de conteúdo
 document.addEventListener('contextmenu', e => e.preventDefault());
@@ -158,6 +189,8 @@ document.addEventListener('keyup', function(e) {
 window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 </script>
 
+=======
+>>>>>>> master
 <!-- LOADING OVERLAY -->
 <div id="loadingOverlay">
   <div class="spinner"></div>
@@ -177,7 +210,11 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
         <div style="font-size:11px;color:#9CA3AF;">Desbravadores · Curitiba</div>
       </div>
     </a>
+<<<<<<< HEAD
     <nav style="display:none;" id="desktopNav">
+=======
+    <nav style="display:none;" id="desktopNav" aria-label="Navegação principal">
+>>>>>>> master
       <a href="/" class="nav-link">Início</a>
       <a href="/sobre.html" class="nav-link">Sobre o Clube</a>
       <a href="/guia.html" class="nav-link">Guia de Classes</a>
@@ -197,7 +234,11 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 
 <!-- MOBILE MENU -->
 <div id="mobileMenu" class="nav-glass">
+<<<<<<< HEAD
   <nav style="display:flex;flex-direction:column;padding:20px 16px;gap:4px;">
+=======
+  <nav style="display:flex;flex-direction:column;padding:20px 16px;gap:4px;" aria-label="Menu mobile">
+>>>>>>> master
     <a href="/" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-home" style="color:var(--gold);width:18px;"></i>Início</a>
     <a href="/sobre.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-info-circle" style="color:var(--gold);width:18px;"></i>Sobre o Clube</a>
     <a href="/guia.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-book-open" style="color:var(--gold);width:18px;"></i>Guia de Classes</a>
@@ -209,8 +250,13 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 <!-- TOOLBAR -->
 <div id="toolbar" style="margin-top:64px;">
   <!-- Breadcrumb (desktop) -->
+<<<<<<< HEAD
   <nav id="breadNav" style="display:none;align-items:center;gap:6px;font-size:11px;margin-right:12px;">
     <a href="/" style="color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-home"></i></a>
+=======
+  <nav id="breadNav" aria-label="Breadcrumb" style="display:none;align-items:center;gap:6px;font-size:11px;margin-right:12px;">
+    <a href="/" style="color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#9CA3AF'" onfocus="this.style.color='var(--gold)'" onblur="this.style.color='#9CA3AF'"><i class="fas fa-home"></i></a>
+>>>>>>> master
     <i class="fas fa-chevron-right" style="color:#9CA3AF;font-size:9px;"></i>
     <span style="color:var(--gold);font-weight:600;">Planejamento</span>
   </nav>
@@ -282,6 +328,39 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
   <!-- rendered by JS -->
 </div>
 
+<<<<<<< HEAD
+=======
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;">
+        <i class="fas fa-feather-alt" style="color:var(--ink);font-size:12px;"></i>
+      </div>
+      <div>
+        <span>Águia de Ouro</span>
+        <small>Clube de Desbravadores · Curitiba</small>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Links rápidos">
+      <a href="/astronomia/index.html" class="footer-link">
+        <i class="fas fa-star"></i> Astronomia
+      </a>
+      <a href="/materiais/index.html" class="footer-link">
+        <i class="fas fa-folder-open"></i> Materiais
+      </a>
+      <a href="/ordem_unida/index.html" class="footer-link">
+        <i class="fas fa-users"></i> Ordem Unida
+      </a>
+      <a href="/" class="footer-link">
+        <i class="fas fa-home"></i> Início
+      </a>
+    </nav>
+    <p class="footer-copy">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+  </div>
+</footer>
+
+>>>>>>> master
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -290,7 +369,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 let pdfDoc = null;
 let totalPages = 0;
 let currentPage = 1;
+<<<<<<< HEAD
 let scale = 1.0;
+=======
+let scale = 1;
+>>>>>>> master
 let viewMode = 'all'; // 'all' | 'single'
 let rendering = false;
 // ─── PDF LOAD FROM FILE ───────────────────────────────────────────────────────
@@ -299,7 +382,11 @@ let rendering = false;
 async function loadPDFfromFile() {
   try {
     setLoadBar(10);
+<<<<<<< HEAD
     const loadingTask = pdfjsLib.getDocument('0209479b9fe01537fe6b1de1866976bb.pdf');
+=======
+    const loadingTask = pdfjsLib.getDocument('materiais/60e02a1102001a25b453035048892ab9.pdf');
+>>>>>>> master
     loadingTask.onProgress = (p) => {
       if (p.total) setLoadBar(50 + Math.round((p.loaded / p.total) * 35));
     };
@@ -321,6 +408,7 @@ async function loadPDFfromFile() {
   }
 }
 
+<<<<<<< HEAD
 // Chama o carregamento ao iniciar
 window.addEventListener('DOMContentLoaded', loadPDFfromFile);
 
@@ -353,6 +441,9 @@ async function initViewer() {
       <p style="color:#9CA3AF;font-family:'DM Sans',sans-serif;">Erro ao carregar o documento.<br><small>${err.message}</small></p>`;
   }
 }
+=======
+
+>>>>>>> master
 
 function setLoadBar(pct) {
   const bar = document.getElementById('loadBar');
@@ -469,12 +560,21 @@ function updateNavButtons() {
 // ─── ZOOM ─────────────────────────────────────────────────────────────────────
 function adjustZoom(delta) {
   const ns = Math.round((scale + delta) * 100) / 100;
+<<<<<<< HEAD
   applyZoom(Math.min(Math.max(ns, 0.25), 3.0));
 }
 function applyZoom(val) {
   scale = parseFloat(val);
   const sel = document.getElementById('zoomSelect');
   const match = Array.from(sel.options).find(o => Math.abs(parseFloat(o.value) - scale) < 0.005);
+=======
+  applyZoom(Math.min(Math.max(ns, 0.25), 3));
+}
+function applyZoom(val) {
+  scale = Number.parseFloat(val);
+  const sel = document.getElementById('zoomSelect');
+  const match = Array.from(sel.options).find(o => Math.abs(Number.parseFloat(o.value) - scale) < 0.005);
+>>>>>>> master
   if (match) sel.value = match.value;
   reRender();
 }
@@ -485,7 +585,11 @@ function fitToWindow() {
   pdfDoc.getPage(1).then(pg => {
     const vp = pg.getViewport({ scale: 1 });
     const fit = Math.round((w / vp.width) * 100) / 100;
+<<<<<<< HEAD
     applyZoom(Math.min(fit, 2.0));
+=======
+    applyZoom(Math.min(fit, 2));
+>>>>>>> master
   });
 }
 
@@ -520,16 +624,39 @@ function showProtMsg() {
 
 // Global protection
 document.addEventListener('contextmenu', e => e.preventDefault());
+<<<<<<< HEAD
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && ['s','p','u','a'].includes(e.key.toLowerCase())) { e.preventDefault(); showProtMsg(); }
+=======
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('keyup', e => {
+  if (e.key === 'PrintScreen') {
+    navigator.clipboard && navigator.clipboard.writeText('Ação bloqueada').catch(() => {});
+    showProtMsg();
+  }
+});
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  const blocked =
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(k)) ||
+    (e.ctrlKey && ['s','p','u','a','c','x'].includes(k));
+  if (blocked) { e.preventDefault(); e.stopPropagation(); showProtMsg(); return; }
+>>>>>>> master
   if (e.ctrlKey && (e.key === '+' || e.key === '=')) { e.preventDefault(); adjustZoom(0.25); }
   if (e.ctrlKey && e.key === '-') { e.preventDefault(); adjustZoom(-0.25); }
   if (e.key === 'ArrowRight' || e.key === 'PageDown') changePage(1);
   if (e.key === 'ArrowLeft' || e.key === 'PageUp') changePage(-1);
   if (e.key === 'Home') goToPage(1);
   if (e.key === 'End') goToPageLast();
+<<<<<<< HEAD
 });
 window.onbeforeprint = e => { e.preventDefault(); showProtMsg(); };
+=======
+}, true);
+globalThis.addEventListener('beforeprint', e => { e.preventDefault(); showProtMsg(); });
+>>>>>>> master
 
 // ─── INFO MODAL ───────────────────────────────────────────────────────────────
 function showInfo() {
@@ -580,17 +707,30 @@ function checkLayout() {
   if (bs) bs.style.display = isMd ? 'block' : 'none';
 }
 checkLayout();
+<<<<<<< HEAD
 window.addEventListener('resize', checkLayout);
 
 // ─── INTERSECTION OBSERVER (track current page) ───────────────────────────────
 function initPageObserver() {
   if (!('IntersectionObserver' in window)) return;
+=======
+globalThis.addEventListener('resize', checkLayout);
+
+// ─── INTERSECTION OBSERVER (track current page) ───────────────────────────────
+function initPageObserver() {
+  if (!('IntersectionObserver' in globalThis)) return;
+>>>>>>> master
   const opts = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 };
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting && viewMode === 'all') {
+<<<<<<< HEAD
         const id = parseInt(e.target.id.replace('pw', ''));
         if (!isNaN(id)) { currentPage = id; updatePageInfo(); updateNavButtons(); }
+=======
+        const id = Number.parseInt(e.target.id.replace('pw', ''), 10);
+        if (!Number.isNaN(id)) { currentPage = id; updatePageInfo(); updateNavButtons(); }
+>>>>>>> master
       }
     });
   }, opts);
@@ -602,7 +742,11 @@ function initPageObserver() {
 
 // ─── START ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+<<<<<<< HEAD
   await initViewer();
+=======
+  await loadPDFfromFile();
+>>>>>>> master
   initPageObserver();
 });
 </script>

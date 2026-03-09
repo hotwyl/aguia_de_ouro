@@ -1,0 +1,84 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^Get-ChildItem \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\" \\| Select-Object -ExpandProperty Name \\| ConvertTo-Json -Compress$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$folderPath = \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\"; \\$name = \"civismo e ordem unida - comandos com apito\\.mp4\"; \\$shell = New-Object -ComObject Shell\\.Application; \\$folder = \\$shell\\.Namespace\\(\\$folderPath\\); \\$item = \\$folder\\.ParseName\\(\\$name\\); for \\(\\$i = 0; \\$i -lt 350; \\$i\\+\\+\\) \\{ \\$propName = \\$folder\\.GetDetailsOf\\(\\$null, \\$i\\); \\$val = \\$folder\\.GetDetailsOf\\(\\$item, \\$i\\); if \\(-not \\[string\\]::IsNullOrWhiteSpace\\(\\$propName\\) -and -not \\[string\\]::IsNullOrWhiteSpace\\(\\$val\\)\\) \\{ Write-Output \\(\"\\[\\{0\\}\\] \\{1\\}: \\{2\\}\" -f \\$i, \\$propName, \\$val\\) \\} \\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$folderPath = \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\"; \\$files = @\\(\"civismo e ordem unida - comandos  por corneta\\.mp4\",\"civismo e ordem unida - comandos com apito\\.mp4\"\\); \\$shell = New-Object -ComObject Shell\\.Application; \\$folder = \\$shell\\.Namespace\\(\\$folderPath\\); \\$indices = @\\(27,28,311,312,313,314,315,316,320\\); foreach\\(\\$name in \\$files\\)\\{ \\$item = \\$folder\\.ParseName\\(\\$name\\); Write-Output \"=== \\$name ===\"; foreach\\(\\$i in \\$indices\\)\\{ \\$propName = \\$folder\\.GetDetailsOf\\(\\$null, \\$i\\); \\$val = \\$folder\\.GetDetailsOf\\(\\$item, \\$i\\); Write-Output \\(\"\\{0\\}: \\{1\\}\" -f \\$propName, \\$val\\) \\} \\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^Get-Command winget -ErrorAction SilentlyContinue \\| Select-Object -ExpandProperty Source$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^Get-Command choco -ErrorAction SilentlyContinue \\| Select-Object -ExpandProperty Source$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^Get-Command scoop -ErrorAction SilentlyContinue \\| Select-Object -ExpandProperty Source$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^winget install --id Gyan\\.FFmpeg -e --accept-package-agreements --accept-source-agreements$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$ffmpegPath = Join-Path \\$env:LOCALAPPDATA \"Microsoft\\\\WinGet\\\\Links\\\\ffmpeg\\.exe\"; if \\(-not \\(Test-Path \\$ffmpegPath\\)\\) \\{ \\$ffmpegPath = \\(Get-Command ffmpeg -ErrorAction SilentlyContinue\\)\\.Source \\}; Write-Output \"FFMPEG_PATH=\\$ffmpegPath\"; & \\$ffmpegPath -version \\| Select-Object -First 1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$ffmpeg = \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Gyan\\.FFmpeg_Microsoft\\.Winget\\.Source_8wekyb3d8bbwe\\\\ffmpeg-8\\.0\\.1-full_build\\\\bin\\\\ffmpeg\\.exe\"; \\$base = \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\"; \\$in1 = Join-Path \\$base \"civismo e ordem unida - comandos  por corneta\\.mp4\"; \\$out1 = Join-Path \\$base \"civismo e ordem unida - comandos por corneta_h264\\.mp4\"; \\$in2 = Join-Path \\$base \"civismo e ordem unida - comandos com apito\\.mp4\"; \\$out2 = Join-Path \\$base \"civismo e ordem unida - comandos com apito_h264\\.mp4\"; & \\$ffmpeg -y -i \\$in1 -c:v libx264 -pix_fmt yuv420p -profile:v high -level 4\\.1 -preset medium -crf 22 -movflags \\+faststart -c:a aac -b:a 128k \\$out1; if \\(\\$LASTEXITCODE -ne 0\\) \\{ exit \\$LASTEXITCODE \\}; & \\$ffmpeg -y -i \\$in2 -c:v libx264 -pix_fmt yuv420p -profile:v high -level 4\\.1 -preset medium -crf 22 -movflags \\+faststart -c:a aac -b:a 128k \\$out2; exit \\$LASTEXITCODE$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Gyan\\.FFmpeg_Microsoft\\.Winget\\.Source_8wekyb3d8bbwe\\\\ffmpeg-8\\.0\\.1-full_build\\\\bin\\\\ffmpeg\\.exe\" -y -i \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\\\\civismo e ordem unida - comandos  por corneta\\.mp4\" -c:v libx264 -pix_fmt yuv420p -profile:v high -level 4\\.1 -preset medium -crf 22 -movflags \\+faststart -c:a aac -b:a 128k \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\\\\civismo e ordem unida - comandos por corneta_h264\\.mp4\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$folderPath = \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\"; \\$files = @\\(\"civismo e ordem unida - comandos por corneta_h264\\.mp4\",\"civismo e ordem unida - comandos com apito_h264\\.mp4\"\\); \\$shell = New-Object -ComObject Shell\\.Application; \\$folder = \\$shell\\.Namespace\\(\\$folderPath\\); foreach\\(\\$name in \\$files\\)\\{ \\$item = \\$folder\\.ParseName\\(\\$name\\); Write-Output \"=== \\$name ===\"; Write-Output \\(\\(\"\\{0\\}: \\{1\\}\" -f \\$folder\\.GetDetailsOf\\(\\$null,311\\), \\$folder\\.GetDetailsOf\\(\\$item,311\\)\\)\\); Write-Output \\(\\(\"\\{0\\}: \\{1\\}\" -f \\$folder\\.GetDetailsOf\\(\\$null,314\\), \\$folder\\.GetDetailsOf\\(\\$item,314\\)\\)\\); Write-Output \\(\\(\"\\{0\\}: \\{1\\}\" -f \\$folder\\.GetDetailsOf\\(\\$null,316\\), \\$folder\\.GetDetailsOf\\(\\$item,316\\)\\)\\); \\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Gyan\\.FFmpeg_Microsoft\\.Winget\\.Source_8wekyb3d8bbwe\\\\ffmpeg-8\\.0\\.1-full_build\\\\bin\\\\ffprobe\\.exe\" -v error -select_streams v:0 -show_entries stream=codec_name,codec_long_name -of default=noprint_wrappers=1 \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\\\\civismo e ordem unida - comandos por corneta_h264\\.mp4\"; & \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Gyan\\.FFmpeg_Microsoft\\.Winget\\.Source_8wekyb3d8bbwe\\\\ffmpeg-8\\.0\\.1-full_build\\\\bin\\\\ffprobe\\.exe\" -v error -select_streams v:0 -show_entries stream=codec_name,codec_long_name -of default=noprint_wrappers=1 \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\\\\civismo e ordem unida - comandos com apito_h264\\.mp4\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$files = @\\(\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\index\\.html\",\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\guia\\.html\",\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\quiz\\.html\",\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\sobre\\.html\",\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\astronomia\\\\index\\.html\",\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\materiais\\\\index\\.html\",\n  \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\ordem_unida\\\\index\\.html\"\n\\)\nforeach \\(\\$f in \\$files\\) \\{\n  \\$lines = Get-Content \\$f\n  \\$total = \\$lines\\.Count\n  Write-Host \"=== \\$f \\(\\$total lines\\) ===\"\n  # Find last </body> line\n  \\$bodyLine = \\(\\$lines \\| Select-String \"</body>\" \\| Select-Object -Last 1\\)\\.LineNumber\n  Write-Host \"  </body> at line \\$bodyLine\"\n  # Show lines around </body>\n  \\$start = \\[Math\\]::Max\\(0, \\$bodyLine - 5\\)\n  \\$lines\\[\\$start\\.\\.\\(\\$bodyLine-1\\)\\] \\| ForEach-Object \\{ Write-Host \"  \\$_\" \\}\n  Write-Host \"\"\n\\}\n$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^foreach \\(\\$name in @\\(\"guia\\.html\",\"quiz\\.html\",\"sobre\\.html\"\\)\\) \\{\n  \\$lines = Get-Content \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\\\$name\"\n  \\$n = \\$lines\\.Count\n  Write-Host \"=== \\$name ===\"\n  \\$lines\\[\\(\\$n-6\\)\\.\\.\\(\\$n-1\\)\\] \\| ForEach-Object \\{ Write-Host \"  \\$_\" \\}\n  Write-Host \"\"\n\\}\n$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$files = @\\(\"index\\.html\",\"guia\\.html\",\"quiz\\.html\",\"sobre\\.html\"\\)\nforeach \\(\\$f in \\$files\\) \\{\n  \\$lines = Get-Content \"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\\\$f\"\n  Write-Host \"=== \\$f \\(\\$\\(\\(\\$lines\\)\\.Count\\) lines\\) ===\"\n  \\$lines\\[\\(\\$lines\\.Count-10\\)\\.\\.\\(\\$lines\\.Count-1\\)\\] \\| ForEach-Object \\{ Write-Host \"  \\|\\$_\" \\}\n  Write-Host \"\"\n\\}\n$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$f=\"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\index\\.html\"; \\$l=Get-Content \\$f; Write-Host \"Lines: \\$\\(\\$l\\.Count\\)\"; \\$l\\[\\(\\$l\\.Count-12\\)\\.\\.\\(\\$l\\.Count-1\\)\\] \\| %\\{\"  \\|\\$_\"\\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$f=\"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\guia\\.html\"; \\$l=Get-Content \\$f; \\$l\\[\\(\\$l\\.Count-8\\)\\.\\.\\(\\$l\\.Count-1\\)\\] \\| %\\{\"  \\|\\$_\"\\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$f=\"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\quiz\\.html\"; \\$l=Get-Content \\$f; \\$l\\[\\(\\$l\\.Count-8\\)\\.\\.\\(\\$l\\.Count-1\\)\\] \\| %\\{\"  \\|\\$_\"\\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$f=\"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\sobre\\.html\"; \\$l=Get-Content \\$f; \\$l\\[\\(\\$l\\.Count-8\\)\\.\\.\\(\\$l\\.Count-1\\)\\] \\| %\\{\"  \\|\\$_\"\\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\$f=\"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\planejamento\\.html\"; \\$l=Get-Content \\$f; \\$bodyIdx=\\(\\$l \\| Select-String \"</footer>\" \\| Select-Object -Last 1\\)\\.LineNumber; \\$l\\[\\(\\$bodyIdx-3\\)\\.\\.\\(\\$bodyIdx\\+2\\)\\] \\| %\\{\"  \\|\\$_\"\\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
