@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teste de Personalidade das Aves – Clube Águia de Ouro. Descubra qual das 8 aves representa sua personalidade com 25 perguntas.">
+  <meta name="keywords" content="teste personalidade, aves, desbravadores, quiz, falcão, grou, gavião, bentivi">
+  <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+  <title>Teste das Aves | Águia de Ouro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#C9A84C; --gold-light:#F0C96B; --gold-dark:#8B6914; --ink:#0D1117; --ink-2:#161B22; --ink-3:#21262D; --parchment:#F5F0E8; }
+    body { font-family:'DM Sans',sans-serif; background:var(--ink); color:#F5F0E8; }
+    body.light { background:var(--parchment); color:#1C1917; }
+    .font-display { font-family:'Cinzel',serif; }
+    .font-body { font-family:'Crimson Pro',serif; }
+    .text-gold { color:var(--gold); }
+    .text-gold-gradient { background:linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .nav-glass { background:rgba(13,17,23,.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(201,168,76,.15); }
+    body.light .nav-glass { background:rgba(245,240,232,.92); border-bottom:1px solid rgba(201,168,76,.3); }
+    .glass { background:rgba(255,255,255,.04); backdrop-filter:blur(20px); border:1px solid rgba(201,168,76,.15); }
+    body.light .glass { background:rgba(255,255,255,.75); border:1px solid rgba(201,168,76,.3); }
+    .btn-gold { background:linear-gradient(135deg,#C9A84C,#F0C96B,#C9A84C); background-size:200% auto; color:#0D1117; font-weight:700; transition:all .4s ease; }
+    .btn-gold:hover { background-position:right center; transform:translateY(-2px); box-shadow:0 8px 25px -5px rgba(201,168,76,.5); }
+    .btn-outline-gold { border:2px solid var(--gold); color:var(--gold); transition:all .3s ease; }
+    .btn-outline-gold:hover { background:rgba(201,168,76,.1); transform:translateY(-2px); }
+    .section-hidden { display:none !important; }
+
+    /* Progress */
+    .prog-track { height:8px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; }
+    body.light .prog-track { background:rgba(0,0,0,.08); }
+    .prog-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold-light)); border-radius:999px; transition:width .5s ease; position:relative; overflow:hidden; }
+    .prog-fill::after { content:''; position:absolute; top:0; left:-100%; right:0; bottom:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent); animation:shimmer 2s infinite; }
+    @keyframes shimmer { to { left:100%; } }
+
+    /* Option cards */
+    .opt-card { background:rgba(255,255,255,.04); border:2px solid rgba(255,255,255,.07); border-radius:16px; cursor:pointer; transition:all .3s ease; position:relative; overflow:hidden; }
+    body.light .opt-card { background:rgba(255,255,255,.6); border-color:rgba(0,0,0,.07); }
+    .opt-card:hover { border-color:rgba(201,168,76,.4); background:rgba(201,168,76,.06); transform:translateY(-2px); }
+    .opt-card.selected { border-color:var(--gold); background:rgba(201,168,76,.1); }
+    .opt-card.selected .opt-letter { background:linear-gradient(135deg,#C9A84C,#F0C96B); color:#0D1117; }
+
+    /* Letter circle */
+    .opt-letter { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; background:rgba(255,255,255,.07); transition:all .3s ease; flex-shrink:0; }
+    body.light .opt-letter { background:rgba(0,0,0,.06); }
+
+    /* Result glow */
+    .result-glow { position:relative; }
+    .result-glow::before { content:''; position:absolute; inset:-1px; background:linear-gradient(45deg,var(--gold),var(--gold-light),var(--gold)); border-radius:inherit; z-index:-1; opacity:.4; animation:glowSpin 4s linear infinite; }
+    @keyframes glowSpin { to { filter:hue-rotate(30deg); } }
+
+    /* Score bar */
+    .score-bar { height:8px; background:rgba(255,255,255,.07); border-radius:999px; overflow:hidden; }
+    body.light .score-bar { background:rgba(0,0,0,.07); }
+    .score-fill { height:100%; border-radius:999px; transition:width 1s ease; }
+
+    /* Animations */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes scaleIn { from{opacity:0;transform:scale(.92);} to{opacity:1;transform:scale(1);} }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+    .anim-fade-up { animation:fadeUp .6s ease forwards; }
+    .anim-scale-in { animation:scaleIn .5s ease forwards; }
+    .anim-float { animation:float 3.5s ease-in-out infinite; }
+
+    /* Tooltip */
+    .has-tooltip { position:relative; }
+    .tooltip-text { visibility:hidden; opacity:0; position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:#21262D; color:#F5F0E8; padding:6px 12px; border-radius:6px; font-size:12px; white-space:nowrap; border:1px solid rgba(201,168,76,.3); transition:all .2s ease; z-index:100; pointer-events:none; }
+    .has-tooltip:hover .tooltip-text { visibility:visible; opacity:1; }
+
+    /* Mobile menu */
+    #mobileMenu { transform:translateX(-100%); transition:transform .35s ease; }
+    #mobileMenu.open { transform:translateX(0); }
+
+    /* Loading */
+    .loader { width:48px; height:48px; border:3px solid rgba(201,168,76,.2); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg);} }
+    .loading-overlay { position:fixed; inset:0; background:rgba(13,17,23,.9); display:flex; align-items:center; justify-content:center; z-index:9999; opacity:0; visibility:hidden; transition:all .3s; }
+    .loading-overlay.active { opacity:1; visibility:visible; }
+
+    ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:#161B22;} ::-webkit-scrollbar-thumb{background:#8B6914;border-radius:3px;}
+    *:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+    body.light ::-webkit-scrollbar-track{background:#EDE6D6;}
+  </style>
+</head>
+<body>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="text-center">
+    <div class="loader mx-auto mb-4"></div>
+    <p style="color:#9CA3AF" id="loadingText">Gerando PDF...</p>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-40">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));">
+        <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+      </div>
+      <div>
+        <div class="font-display font-bold text-base text-gold-gradient leading-tight">Águia de Ouro</div>
+        <div class="text-xs" style="color:#9CA3AF">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="/" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
+      <a href="/sobre.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
+      <a href="/guia.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
+      <a href="/quiz.html" class="px-4 py-2 rounded-lg text-sm" style="color:var(--gold); background:rgba(201,168,76,.08);">
+        <i class="fas fa-dove mr-1"></i>Teste das Aves
+      </a>
+      <a href="/planejamento.html" class="px-4 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" class="has-tooltip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
+        <span class="tooltip-text">Alternar tema</span>
+      </button>
+      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg" style="color:var(--gold)">
+        <i id="menuIcon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass">
+  <nav class="flex flex-col p-6 gap-2">
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i>Sobre o Clube</a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i>Guia de Classes</a>
+    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,.1); color:var(--gold)"><i class="fas fa-dove w-5"></i>Teste das Aves</a>
+    <a href="/planejamento.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i>Planejamento PDF</a>
+  </nav>
+</div>
+
+<!-- ═══ HOME SECTION ═══ -->
+<section id="homeSection" class="min-h-screen pt-20 pb-12 px-4 flex items-center" style="background:radial-gradient(ellipse at 30% 40%,rgba(201,168,76,.08) 0%,transparent 60%)">
+  <div class="max-w-4xl mx-auto w-full">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm mb-8">
+      <a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
+      <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+      <span style="color:var(--gold)">Teste de Personalidade das Aves</span>
+    </nav>
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5" style="background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.25);">
+        <i class="fas fa-star text-xs" style="color:var(--gold)"></i>
+        <span class="text-xs font-semibold" style="color:var(--gold)">Teste de Personalidade</span>
+      </div>
+      <h1 class="font-display text-4xl md:text-5xl font-bold mb-4">
+        Qual Ave Habita<br><span class="text-gold-gradient">em Você?</span>
+      </h1>
+      <p class="font-body text-xl max-w-2xl mx-auto mb-8" style="color:rgba(245,240,232,.7)">
+        Descubra qual das 8 aves do Clube Águia de Ouro representa sua personalidade. 25 perguntas e um resultado único com PDF para guardar.
+      </p>
+    </div>
+    <!-- Cards de aves -->
+    <div class="grid grid-cols-4 md:grid-cols-8 gap-3 mb-10">
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3)"><i class="fas fa-wind" style="color:#F59E0B"></i></div><span class="text-xs" style="color:#9CA3AF">Falcão</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(148,163,184,.15); border:1px solid rgba(148,163,184,.3)"><i class="fas fa-crown" style="color:#94A3B8"></i></div><span class="text-xs" style="color:#9CA3AF">Grou</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(239,68,68,.15); border:1px solid rgba(239,68,68,.3)"><i class="fas fa-eye" style="color:#EF4444"></i></div><span class="text-xs" style="color:#9CA3AF">Gavião</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(234,179,8,.15); border:1px solid rgba(234,179,8,.3)"><i class="fas fa-shield-alt" style="color:#EAB308"></i></div><span class="text-xs" style="color:#9CA3AF">Bentivi</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.3)"><i class="fas fa-gem" style="color:#3B82F6"></i></div><span class="text-xs" style="color:#9CA3AF">Gralha</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(14,165,233,.15); border:1px solid rgba(14,165,233,.3)"><i class="fas fa-feather" style="color:#0EA5E9"></i></div><span class="text-xs" style="color:#9CA3AF">Andorinha</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(244,63,94,.15); border:1px solid rgba(244,63,94,.3)"><i class="fas fa-palette" style="color:#F43F5E"></i></div><span class="text-xs" style="color:#9CA3AF">Arara</span></div>
+      <div class="text-center"><div class="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2" style="background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.3)"><i class="fas fa-heart" style="color:#10B981"></i></div><span class="text-xs" style="color:#9CA3AF">Beija-flor</span></div>
+    </div>
+    <!-- Info boxes -->
+    <div class="grid md:grid-cols-3 gap-4 mb-10">
+      <div class="glass rounded-2xl p-5 text-center">
+        <i class="fas fa-brain text-2xl mb-3" style="color:var(--gold)"></i>
+        <h3 class="font-semibold text-sm mb-1">Análise Profunda</h3>
+        <p class="text-xs" style="color:#9CA3AF">25 perguntas sobre personalidade, hábitos e comportamento</p>
+      </div>
+      <div class="glass rounded-2xl p-5 text-center">
+        <i class="fas fa-dove text-2xl mb-3" style="color:var(--gold)"></i>
+        <h3 class="font-semibold text-sm mb-1">8 Perfis Únicos</h3>
+        <p class="text-xs" style="color:#9CA3AF">Cada ave com características e curiosidades fascinantes</p>
+      </div>
+      <div class="glass rounded-2xl p-5 text-center">
+        <i class="fas fa-file-pdf text-2xl mb-3" style="color:var(--gold)"></i>
+        <h3 class="font-semibold text-sm mb-1">Resultado em PDF</h3>
+        <p class="text-xs" style="color:#9CA3AF">Baixe e compartilhe seu resultado personalizado</p>
+      </div>
+    </div>
+    <div class="text-center">
+      <button onclick="startTest()" class="btn-gold px-8 py-4 rounded-2xl font-bold text-lg inline-flex items-center gap-3">
+        <i class="fas fa-feather"></i> Iniciar Teste
+      </button>
+      <p class="mt-4 text-xs" style="color:#9CA3AF"><i class="fas fa-lock mr-1"></i>Nenhum dado pessoal é armazenado – LGPD</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TEST SECTION ═══ -->
+<section id="testSection" class="section-hidden min-h-screen pt-20 pb-12 px-4">
+  <div class="max-w-3xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm mb-6">
+      <a href="/" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
+      <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+      <button onclick="goHome()" class="hover:text-gold" style="color:#9CA3AF">Teste das Aves</button>
+      <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+      <span style="color:var(--gold)">Pergunta <span id="bcQ">1</span> de 25</span>
+    </nav>
+    <!-- Progress -->
+    <div class="mb-8">
+      <div class="flex justify-between text-sm mb-2">
+        <span style="color:#9CA3AF">Pergunta <span id="qCurrent">1</span> de 25</span>
+        <span style="color:var(--gold)"><span id="qPercent">4</span>%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="progBar" style="width:4%"></div></div>
+    </div>
+    <!-- Question card -->
+    <div class="glass rounded-3xl p-6 md:p-8 mb-6" id="questionCard">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05)); border:1px solid rgba(201,168,76,.3);">
+          <span class="font-display font-bold text-lg" style="color:var(--gold)" id="qNum">1</span>
+        </div>
+        <div>
+          <span class="inline-flex px-3 py-1 rounded-full text-xs font-semibold mb-2" style="background:rgba(201,168,76,.1); color:var(--gold)" id="qCat">Personalidade</span>
+          <h2 class="font-body text-xl leading-relaxed" id="qText">Carregando...</h2>
+        </div>
+      </div>
+      <div class="space-y-3" id="optionsContainer"></div>
+    </div>
+    <!-- Navigation -->
+    <div class="flex items-center justify-between">
+      <button onclick="prevQ()" id="prevBtn" disabled class="btn-outline-gold px-5 py-3 rounded-xl font-semibold inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+        <i class="fas fa-arrow-left"></i> Anterior
+      </button>
+      <button onclick="showQInfo()" class="has-tooltip w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gold/10">
+        <i class="fas fa-info-circle" style="color:#9CA3AF"></i>
+        <span class="tooltip-text">Dica da pergunta</span>
+      </button>
+      <button onclick="nextQ()" id="nextBtn" disabled class="btn-gold px-5 py-3 rounded-xl font-semibold inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+        Próxima <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESULT SECTION ═══ -->
+<section id="resultSection" class="section-hidden pt-20 pb-12 px-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm mb-6">
+      <a href="/" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
+      <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+      <button onclick="goHome()" class="hover:text-gold" style="color:#9CA3AF">Teste das Aves</button>
+      <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+      <span style="color:var(--gold)">Resultado</span>
+    </nav>
+    <div class="text-center mb-8">
+      <h1 class="font-display text-3xl md:text-4xl font-bold mb-2">Seu Resultado</h1>
+      <p style="color:#9CA3AF">Descubra qual ave representa sua essência</p>
+    </div>
+    <!-- Action buttons -->
+    <div class="flex flex-wrap gap-3 justify-center mb-8">
+      <button onclick="generatePDF()" class="btn-gold px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-file-pdf"></i>Baixar PDF</button>
+      <button onclick="shareResult()" class="btn-outline-gold px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-share-alt"></i>Compartilhar</button>
+    </div>
+    <!-- Primary bird -->
+    <div class="glass rounded-3xl p-6 md:p-8 mb-5 result-glow anim-scale-in">
+      <div class="flex items-center gap-2 mb-4">
+        <i class="fas fa-crown" style="color:var(--gold)"></i>
+        <span class="text-xs font-bold tracking-widest" style="color:var(--gold)">AVE PREDOMINANTE</span>
+      </div>
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <div id="primaryBirdIconWrap" class="w-24 h-24 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.25);">
+          <i class="fas fa-feather text-5xl anim-float" style="color:var(--gold)"></i>
+        </div>
+        <div class="flex-1 text-center md:text-left">
+          <h2 class="font-display text-2xl md:text-3xl font-bold mb-2" id="primaryName">—</h2>
+          <p class="font-body text-base mb-3" style="color:rgba(245,240,232,.8)" id="primaryDesc">—</p>
+          <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="primaryTags"></div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 mt-6 pt-6" style="border-top:1px solid rgba(201,168,76,.15)">
+        <div>
+          <h4 class="font-semibold text-sm mb-2 flex items-center gap-2"><i class="fas fa-lightbulb" style="color:var(--gold)"></i>Curiosidade</h4>
+          <p class="text-sm" style="color:rgba(245,240,232,.7)" id="primaryCuriosity">—</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-2 flex items-center gap-2"><i class="fas fa-star" style="color:var(--gold)"></i>Pontos Fortes</h4>
+          <p class="text-sm" style="color:rgba(245,240,232,.7)" id="primaryStrengths">—</p>
+        </div>
+      </div>
+    </div>
+    <!-- Adjacent bird -->
+    <div class="glass rounded-3xl p-6 md:p-8 mb-5">
+      <div class="flex items-center gap-2 mb-4"><i class="fas fa-medal" style="color:#9CA3AF"></i><span class="text-xs font-bold tracking-widest" style="color:#9CA3AF">AVE ADJACENTE</span></div>
+      <div class="flex flex-col md:flex-row items-center gap-5">
+        <div id="adjBirdIconWrap" class="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);">
+          <i class="fas fa-feather text-3xl" style="color:#9CA3AF"></i>
+        </div>
+        <div class="flex-1 text-center md:text-left">
+          <h3 class="font-display text-xl font-bold mb-1" id="adjName">—</h3>
+          <p class="text-sm mb-3" style="color:rgba(245,240,232,.7)" id="adjDesc">—</p>
+          <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="adjTags"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Score distribution -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h4 class="font-semibold mb-4 flex items-center gap-2"><i class="fas fa-chart-bar" style="color:var(--gold)"></i>Distribuição dos Resultados</h4>
+      <div class="space-y-3" id="scoreChart"></div>
+    </div>
+    <!-- Actions bottom -->
+    <div class="flex flex-wrap gap-4 justify-center">
+      <button onclick="restartTest()" class="btn-gold px-7 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-redo"></i>Refazer Teste</button>
+      <a href="/guia.html" class="btn-outline-gold px-7 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-book-open"></i>Ver Guia de Classes</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="background:rgba(13,17,23,.98); border-top:1px solid rgba(201,168,76,.2);">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="grid md:grid-cols-3 gap-6 mb-5">
+      <div>
+        <div class="flex items-center gap-3 mb-3"><div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));"><i class="fas fa-feather-alt text-sm" style="color:var(--ink)"></i></div><div class="font-display font-bold text-gold-gradient">Águia de Ouro</div></div>
+        <p class="text-xs" style="color:#9CA3AF">Rua Guilherme Ihlenfeldt, 778 – Tingui, Curitiba–PR</p>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4>
+        <ul class="space-y-1 text-xs">
+          <li><a href="/" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li>
+          <li><a href="/sobre.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a></li>
+          <li><a href="/guia.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li>
+          <li><a href="/quiz.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li>
+          <li><a href="/planejamento.html" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a></li>
+        </ul>
+      </div>
+      <div><h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Legal</h4><ul class="space-y-1 text-xs"><li><button onclick="showLGPD()" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-shield-alt mr-1"></i>LGPD</button></li><li><button onclick="showTerms()" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-contract mr-1"></i>Termos</button></li><li><button onclick="showPrivacy()" class="hover:text-gold" style="color:#9CA3AF"><i class="fas fa-user-secret mr-1"></i>Privacidade</button></li></ul></div>
+    </div>
+    <div class="pt-4" style="border-top:1px solid rgba(201,168,76,.15)"><div class="flex flex-col md:flex-row items-center justify-between gap-2"><p class="text-xs" style="color:#9CA3AF">© 2025 Águia de Ouro. Uso educacional e recreativo.</p><p class="text-xs" style="color:#9CA3AF">Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong></p></div></div>
+  </div>
+</footer>
+
+<script>
+// ─── THEME ───────────────────────────────────────
+let isLight = localStorage.getItem('theme') === 'light';
+function applyTheme() { document.body.classList.toggle('light',isLight); document.getElementById('themeIcon').className = isLight?'fas fa-sun':'fas fa-moon'; }
+function toggleTheme() { isLight=!isLight; localStorage.setItem('theme',isLight?'light':'dark'); applyTheme(); }
+applyTheme();
+let menuOpen = false;
+function toggleMenu() { menuOpen=!menuOpen; document.getElementById('mobileMenu').classList.toggle('open',menuOpen); document.getElementById('menuIcon').className=menuOpen?'fas fa-times':'fas fa-bars'; }
+function closeMenu() { menuOpen=false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('menuIcon').className='fas fa-bars'; }
+
+// ─── BIRDS DATA ──────────────────────────────────
+const birds = {
+  falcao:{ name:'Falcão', icon:'fa-wind', iconColor:'#F59E0B', description:'Você é determinado, focado e incansável na perseguição dos seus objetivos. Como o falcão, possui uma visão aguçada para oportunidades e age com precisão cirúrgica quando decide agir.', curiosity:'Falcões atingem até 320 km/h no voo de caça e enxergam oito vezes melhor que os humanos.', strengths:'Determinação incomparável, foco em objetivos, decisões rápidas, liderança natural e resiliência.', tags:['Determinação','Foco','Velocidade','Precisão','Liderança','Resiliência'] },
+  grou:{ name:'Grou', icon:'fa-crown', iconColor:'#94A3B8', description:'Você possui elegância natural e senso rítmico único. Como o grou, valoriza a dança da vida e tem uma presença que encanta quem está ao seu redor.', curiosity:'Grous realizam danças elaboradas que podem durar horas e formam casais que duram a vida toda.', strengths:'Elegância natural, conexões profundas, paciência, senso artístico e fidelidade.', tags:['Elegância','Ritmo','Conexão','Fidelidade','Paciência','Lealdade'] },
+  gaviao:{ name:'Gavião', icon:'fa-eye', iconColor:'#EF4444', description:'Você tem visão panorâmica da vida, conseguindo enxergar detalhes que passam despercebidos pela maioria. Como o gavião, planeja estrategicamente e age com calma.', curiosity:'Gaviões têm visão até oito vezes mais aguçada que a humana e pairam por horas analisando o terreno.', strengths:'Visão estratégica, planejamento meticuloso, paciência e análise profunda.', tags:['Visão','Estratégia','Paciência','Análise','Adaptabilidade'] },
+  bentivi:{ name:'Bentivi', icon:'fa-shield-alt', iconColor:'#EAB308', description:'Você é um protetor nato, que não hesita em defender o que é importante. Como o bentivi, possui voz forte e coragem para enfrentar desafios maiores que você mesmo.', curiosity:'Bentivis são conhecidos por atacar predadores muito maiores. Seu canto é um dos mais reconhecíveis do cerrado.', strengths:'Coragem extraordinária, espírito protetor, voz ativa e determinação.', tags:['Coragem','Proteção','Voz Ativa','Determinação','Comunicação'] },
+  gralha:{ name:'Gralha Azul', icon:'fa-gem', iconColor:'#3B82F6', description:'Você possui inteligência notável e capacidade de planejar o futuro. Como a gralha azul, tem memória excepcional, valoriza a cooperação e encontra soluções criativas.', curiosity:'Gralhas azuis plantam florestas ao enterrar sementes de araucária e se reconhecem em espelhos.', strengths:'Inteligência superior, memória excepcional, planejamento de longo prazo e criatividade.', tags:['Inteligência','Memória','Planejamento','Cooperação','Criatividade'] },
+  andorinha:{ name:'Andorinha', icon:'fa-feather', iconColor:'#0EA5E9', description:'Você é livre por natureza e encontra alegria na jornada. Como a andorinha, possui agilidade para se adaptar a diferentes situações e um forte espírito comunitário.', curiosity:'Andorinhas voam até 11.000 km em migrações e dormem em voo durante trajetos longos.', strengths:'Liberdade espiritual, adaptabilidade, agilidade mental e senso de comunidade.', tags:['Liberdade','Adaptabilidade','Agilidade','Comunidade','Gentileza'] },
+  arara:{ name:'Arara', icon:'fa-palette', iconColor:'#F43F5E', description:'Você é vibrante e colore os ambientes com sua presença. Como a arara, valoriza conexões duradouras e se expressa de forma autêntica.', curiosity:'Araras vivem mais de 80 anos, formam casais para a vida toda e usam as penas para comunicar emoções.', strengths:'Expressão autêntica, vínculos duradouros, energia vibrante e lealdade.', tags:['Expressão','Conexão','Lealdade','Vitalidade','Carisma'] },
+  beijaflor:{ name:'Beija-flor', icon:'fa-heart', iconColor:'#10B981', description:'Você possui energia contagiante e capacidade de encontrar beleza em tudo. Como o beija-flor, é ágil, resiliente e traz alegria por onde passa.', curiosity:'Beija-flores batem as asas até 80 vezes por segundo e são os únicos pássaros que voam de ré.', strengths:'Energia ilimitada, resiliência extraordinária, agilidade e independência.', tags:['Energia','Resiliência','Beleza','Agilidade','Independência'] }
+};
+
+const questions = [
+  { id:1, cat:'Personalidade', text:'Quando você enfrenta um desafio importante, como costuma reagir?', opts:[{t:'Ataco de frente com toda determinação',s:{falcao:4,bentivi:2}},{t:'Analiso todas as possibilidades antes de agir',s:{gaviao:4,gralha:2}},{t:'Busco apoio de pessoas próximas',s:{arara:2,andorinha:3}},{t:'Encontro uma solução criativa e inesperada',s:{beijaflor:3,gralha:2}},{t:'Mantenho elegância e calma durante o processo',s:{grou:4,gaviao:1}}] },
+  { id:2, cat:'Hábitos', text:'Como é a sua rotina diária?', opts:[{t:'Intensa e produtiva, sempre buscando novos objetivos',s:{falcao:3,beijaflor:3}},{t:'Organizada com momentos de planejamento',s:{gaviao:3,gralha:3}},{t:'Flexível, me adapto conforme as necessidades',s:{andorinha:4,beijaflor:1}},{t:'Ritmada, valorizando momentos de conexão',s:{grou:3,arara:2}},{t:'Ativa na proteção e cuidado com quem amo',s:{bentivi:4,arara:1}}] },
+  { id:3, cat:'Comportamento', text:'Em situações de conflito, você tende a:', opts:[{t:'Enfrentar diretamente em defesa do que acredita',s:{falcao:2,bentivi:4}},{t:'Observar de longe antes de intervir',s:{gaviao:4,grou:1}},{t:'Buscar mediar e criar harmonia',s:{arara:3,grou:2}},{t:'Encontrar soluções criativas que satisfaçam todos',s:{gralha:3,beijaflor:2}},{t:'Me adaptar para evitar desgastes desnecessários',s:{andorinha:3,beijaflor:2}}] },
+  { id:4, cat:'Personalidade', text:'Qual palavra melhor descreve sua essência?', opts:[{t:'Determinação',s:{falcao:4,bentivi:1}},{t:'Sabedoria',s:{gaviao:3,gralha:3}},{t:'Liberdade',s:{andorinha:4,beijaflor:1}},{t:'Conexão',s:{arara:3,grou:2}},{t:'Vitalidade',s:{beijaflor:3,falcao:1}}] },
+  { id:5, cat:'Hábitos', text:'Como você lida com mudanças na vida?', opts:[{t:'Encaro como oportunidades de crescimento',s:{falcao:2,andorinha:3}},{t:'Planejo cada passo da transição',s:{gaviao:3,gralha:2}},{t:'Me adapto rapidamente sem muito estresse',s:{andorinha:4,beijaflor:2}},{t:'Busco manter o que é importante enquanto me ajusto',s:{arara:3,grou:1}},{t:'Protejo o que é essencial durante o processo',s:{bentivi:3,gralha:1}}] },
+  { id:6, cat:'Comportamento', text:'Em grupos, você geralmente:', opts:[{t:'Assume a liderança naturalmente',s:{falcao:3,bentivi:2}},{t:'Observa e contribui com insights estratégicos',s:{gaviao:4,gralha:1}},{t:'Fortalece conexões entre os membros',s:{arara:4,grou:1}},{t:'Traz energia e entusiasmo ao ambiente',s:{beijaflor:4,andorinha:1}},{t:'Colabora de forma prática e eficiente',s:{gralha:3,andorinha:2}}] },
+  { id:7, cat:'Personalidade', text:'O que mais te motiva na vida?', opts:[{t:'Alcançar grandes objetivos e conquistas',s:{falcao:4,gaviao:1}},{t:'Construir relacionamentos profundos',s:{arara:3,grou:2}},{t:'Explorar novos horizontes e experiências',s:{andorinha:4,beijaflor:1}},{t:'Proteger e cuidar de quem é importante',s:{bentivi:4,arara:1}},{t:'Entender o mundo e encontrar soluções',s:{gralha:3,gaviao:2}}] },
+  { id:8, cat:'Hábitos', text:'Como você toma decisões importantes?', opts:[{t:'Rapidamente, confiando no meu instinto',s:{falcao:3,beijaflor:2}},{t:'Analiso todas as variáveis profundamente',s:{gaviao:4,gralha:1}},{t:'Consulto pessoas de confiança',s:{arara:3,grou:1}},{t:'Considero o impacto nos outros',s:{bentivi:3,arara:2}},{t:'Sigo meu coração e intuição',s:{beijaflor:3,andorinha:1}}] },
+  { id:9, cat:'Comportamento', text:'Quando alguém precisa de ajuda, você:', opts:[{t:'Age imediatamente para resolver',s:{falcao:2,bentivi:3}},{t:'Oferece conselhos bem pensados',s:{gaviao:3,gralha:2}},{t:'Dá suporte emocional constante',s:{arara:4,grou:1}},{t:'Encontra soluções práticas e criativas',s:{gralha:3,beijaflor:1}},{t:'Acompanha de perto até resolver',s:{andorinha:2,bentivi:2}}] },
+  { id:10, cat:'Personalidade', text:'Qual ambiente você mais se identifica?', opts:[{t:'Ambientes competitivos e desafiadores',s:{falcao:4,bentivi:1}},{t:'Espaços tranquilos para reflexão',s:{gaviao:3,grou:2}},{t:'Lugares com liberdade de movimento',s:{andorinha:4,beijaflor:1}},{t:'Ambientes sociais e vibrantes',s:{arara:3,beijaflor:2}},{t:'Locais onde posso construir e criar',s:{gralha:3,arara:1}}] },
+  { id:11, cat:'Hábitos', text:'Como você lida com o estresse?', opts:[{t:'Canalizo em ação e produtividade',s:{falcao:3,beijaflor:2}},{t:'Me retiro para analisar a situação',s:{gaviao:4,grou:1}},{t:'Busco pessoas próximas para conversar',s:{arara:3,andorinha:1}},{t:'Encontro formas criativas de liberar tensão',s:{beijaflor:3,gralha:1}},{t:'Protejo meu espaço até passar',s:{bentivi:3,gaviao:1}}] },
+  { id:12, cat:'Comportamento', text:'Em relações de amizade ou amor, você:', opts:[{t:'Sou intensamente dedicado e protetor',s:{bentivi:3,falcao:1}},{t:'Valorizo lealdade e compromisso de longo prazo',s:{arara:4,grou:2}},{t:'Preciso de espaço e liberdade',s:{andorinha:3,beijaflor:2}},{t:'Trago alegria e energia ao relacionamento',s:{beijaflor:3,arara:1}},{t:'Construo algo significativo junto',s:{gralha:3,gaviao:1}}] },
+  { id:13, cat:'Personalidade', text:'O que você valoriza em outras pessoas?', opts:[{t:'Determinação e coragem',s:{falcao:3,bentivi:2}},{t:'Inteligência e sabedoria',s:{gaviao:3,gralha:2}},{t:'Autenticidade e liberdade',s:{andorinha:3,beijaflor:2}},{t:'Lealdade e conexão genuína',s:{arara:4,grou:1}},{t:'Criatividade e perspectiva única',s:{beijaflor:2,gralha:2}}] },
+  { id:14, cat:'Hábitos', text:'Como você prefere passar seu tempo livre?', opts:[{t:'Praticando atividades intensas e desafiadoras',s:{falcao:3,beijaflor:2}},{t:'Observando, lendo, aprendendo',s:{gaviao:4,gralha:1}},{t:'Explorando novos lugares',s:{andorinha:4,beijaflor:1}},{t:'Com amigos e família',s:{arara:4,grou:1}},{t:'Cuidando de projetos pessoais',s:{gralha:3,bentivi:1}}] },
+  { id:15, cat:'Comportamento', text:'Quando falha em algo, você:', opts:[{t:'Levanta rapidamente e tenta de novo',s:{falcao:4,beijaflor:1}},{t:'Analisa o que deu errado para melhorar',s:{gaviao:3,gralha:2}},{t:'Busca apoio e perspectiva de outros',s:{arara:3,grou:1}},{t:'Encara como aprendizado e parte da jornada',s:{andorinha:3,beijaflor:2}},{t:'Protege minha confiança e sigo em frente',s:{bentivi:3,falcao:1}}] },
+  { id:16, cat:'Personalidade', text:'Qual o seu maior medo?', opts:[{t:'Não alcançar meu potencial',s:{falcao:3,gaviao:2}},{t:'Perder pessoas importantes',s:{arara:3,grou:1}},{t:'Ficar preso ou limitado',s:{andorinha:4,beijaflor:1}},{t:'Não conseguir proteger quem ama',s:{bentivi:4,arara:1}},{t:'Não ser útil ou relevante',s:{gralha:3,bentivi:1}}] },
+  { id:17, cat:'Hábitos', text:'Como você expressa suas emoções?', opts:[{t:'De forma direta e intensa',s:{falcao:2,bentivi:3}},{t:'Com cuidado e reflexão antes',s:{gaviao:3,grou:2}},{t:'Através de arte, música ou criação',s:{beijaflor:3,arara:2}},{t:'Compartilhando com pessoas próximas',s:{arara:3,andorinha:1}},{t:'De forma prática, através de ações',s:{gralha:2,falcao:2}}] },
+  { id:18, cat:'Comportamento', text:'Diante de uma injustiça, você:', opts:[{t:'Confronta imediatamente',s:{falcao:2,bentivi:4}},{t:'Planeja a melhor forma de intervir',s:{gaviao:3,gralha:2}},{t:'Busca mobilizar outros para ajudar',s:{arara:2,andorinha:2}},{t:'Age de forma criativa para resolver',s:{beijaflor:2,gralha:2}},{t:'Se posiciona de forma elegante mas firme',s:{grou:3,bentivi:1}}] },
+  { id:19, cat:'Personalidade', text:'O que te faz sentir realizado(a)?', opts:[{t:'Conquistar objetivos desafiadores',s:{falcao:4,gaviao:1}},{t:'Ver pessoas queridas bem e felizes',s:{arara:3,bentivi:2}},{t:'Explorar e descobrir coisas novas',s:{andorinha:4,beijaflor:1}},{t:'Resolver problemas complexos',s:{gralha:4,gaviao:1}},{t:'Criar beleza e alegria ao meu redor',s:{beijaflor:3,arara:1}}] },
+  { id:20, cat:'Hábitos', text:'Como você lida com críticas?', opts:[{t:'Considero se são válidas e sigo em frente',s:{falcao:3,gaviao:1}},{t:'Analiso profundamente para aprender',s:{gralha:3,gaviao:2}},{t:'Posso me afetar emocionalmente',s:{arara:2,grou:2}},{t:'Defendo meu ponto de vista quando necessário',s:{bentivi:3,falcao:1}},{t:'Encaro como parte do crescimento',s:{andorinha:2,beijaflor:2}}] },
+  { id:21, cat:'Comportamento', text:'Como você planeja seu futuro?', opts:[{t:'Metas claras e objetivos ambiciosos',s:{falcao:3,gaviao:2}},{t:'Planejamento detalhado de longo prazo',s:{gralha:4,gaviao:1}},{t:'Mantenho flexibilidade para oportunidades',s:{andorinha:4,beijaflor:1}},{t:'Foco em construir relacionamentos duradouros',s:{arara:3,grou:2}},{t:'Priorizo segurança e estabilidade',s:{bentivi:3,gralha:1}}] },
+  { id:22, cat:'Personalidade', text:'Qual o seu estilo de comunicação?', opts:[{t:'Direto e objetivo',s:{falcao:3,bentivi:2}},{t:'Pensativo e profundo',s:{gaviao:3,gralha:2}},{t:'Expressivo e vibrante',s:{arara:3,beijaflor:2}},{t:'Adaptável ao contexto',s:{andorinha:3,grou:1}},{t:'Protetor e cuidadoso',s:{bentivi:2,arara:2}}] },
+  { id:23, cat:'Hábitos', text:'Como você cuida da sua saúde e bem-estar?', opts:[{t:'Rotina intensa de exercícios e disciplina',s:{falcao:3,beijaflor:2}},{t:'Práticas de meditação e reflexão',s:{gaviao:3,grou:2}},{t:'Atividades ao ar livre e exploração',s:{andorinha:3,beijaflor:2}},{t:'Conexão social e atividades em grupo',s:{arara:3,andorinha:1}},{t:'Planejamento nutricional e cuidados preventivos',s:{gralha:3,bentivi:1}}] },
+  { id:24, cat:'Comportamento', text:'Em situações de pressão extrema, você:', opts:[{t:'Fica mais focado e determinado',s:{falcao:4,bentivi:1}},{t:'Mantém calma e analisa opções',s:{gaviao:4,gralha:1}},{t:'Busca saídas rápidas e criativas',s:{beijaflor:3,andorinha:2}},{t:'Protege quem está ao seu redor',s:{bentivi:3,arara:1}},{t:'Encontra formas elegantes de resolver',s:{grou:3,gaviao:1}}] },
+  { id:25, cat:'Personalidade', text:'Que legado você gostaria de deixar?', opts:[{t:'Conquistas marcantes e impacto significativo',s:{falcao:4,gaviao:1}},{t:'Conhecimento e sabedoria compartilhados',s:{gralha:4,gaviao:1}},{t:'Liberdade inspiradora e aventuras vividas',s:{andorinha:4,beijaflor:1}},{t:'Relacionamentos profundos e duradouros',s:{arara:4,grou:1}},{t:'Proteção e cuidado com os outros',s:{bentivi:4,arara:1}}] }
+];
+
+// ─── STATE ───────────────────────────────────────
+let curIdx = 0, answers = [], scores = {};
+function resetScores() { scores={falcao:0,grou:0,gaviao:0,bentivi:0,gralha:0,andorinha:0,arara:0,beijaflor:0}; }
+resetScores();
+
+// ─── SECTIONS ────────────────────────────────────
+function showSection(id) {
+  ['homeSection','testSection','resultSection'].forEach(s => document.getElementById(s).classList.toggle('section-hidden', s!==id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goHome() {
+  if(answers.length > 0) {
+    Swal.fire({title:'Sair do teste?',text:'Seu progresso será perdido.',icon:'question',showCancelButton:true,confirmButtonText:'Sim, sair',cancelButtonText:'Continuar',confirmButtonColor:'#C9A84C',cancelButtonColor:'#475569'})
+    .then(r => { if(r.isConfirmed){ answers=[];resetScores();curIdx=0;showSection('homeSection'); } });
+  } else { showSection('homeSection'); }
+}
+
+// ─── TEST ─────────────────────────────────────────
+function startTest() {
+  answers=[]; resetScores(); curIdx=0;
+  showSection('testSection');
+  renderQ();
+}
+
+function renderQ() {
+  const q = questions[curIdx];
+  document.getElementById('qNum').textContent = q.id;
+  document.getElementById('qCurrent').textContent = q.id;
+  document.getElementById('bcQ').textContent = q.id;
+  document.getElementById('qCat').textContent = q.cat;
+  document.getElementById('qText').textContent = q.text;
+  const pct = Math.round((q.id/25)*100);
+  document.getElementById('qPercent').textContent = pct;
+  document.getElementById('progBar').style.width = pct + '%';
+  const hasAns = answers[curIdx] !== undefined;
+  document.getElementById('prevBtn').disabled = curIdx === 0;
+  const nBtn = document.getElementById('nextBtn');
+  nBtn.disabled = !hasAns;
+  nBtn.innerHTML = curIdx === questions.length-1 ? '<span>Ver Resultado</span><i class="fas fa-check ml-2"></i>' : '<span>Próxima</span><i class="fas fa-arrow-right ml-2"></i>';
+  const c = document.getElementById('optionsContainer');
+  c.innerHTML = q.opts.map((o,i) => {
+    const sel = answers[curIdx]===i;
+    return `<button autocomplete="off" onclick="selectOpt(${i})" class="opt-card w-full p-4 text-left ${sel?'selected':''}">
+      <div class="flex items-start gap-3">
+        <div class="opt-letter">${String.fromCharCode(65+i)}</div>
+        <span class="flex-1 text-sm leading-relaxed">${o.t}</span>
+        ${sel?'<i class="fas fa-check flex-shrink-0 mt-0.5" style="color:var(--gold)"></i>':''}
+      </div>
+    </button>`;
+  }).join('');
+}
+
+function selectOpt(i) { answers[curIdx]=i; renderQ(); }
+function prevQ() { if(curIdx>0){curIdx--;renderQ();} }
+function nextQ() {
+  if(answers[curIdx]===undefined){ Swal.fire({title:'Atenção',text:'Selecione uma opção para continuar.',icon:'warning',confirmButtonText:'OK',confirmButtonColor:'#C9A84C'}); return; }
+  if(curIdx<questions.length-1){ curIdx++; renderQ(); }
+  else calcResults();
+}
+
+// ─── RESULTS ─────────────────────────────────────
+function calcResults() {
+  resetScores();
+  answers.forEach((ai,qi) => {
+    const os = questions[qi].opts[ai].s;
+    Object.entries(os).forEach(([b,v]) => scores[b] += v);
+  });
+  showResults();
+}
+
+function showResults() {
+  showSection('resultSection');
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const [pk, pv] = sorted[0], [ak] = sorted[1];
+  const pb = birds[pk], ab = birds[ak];
+  // Primary
+  document.getElementById('primaryBirdIconWrap').innerHTML = `<i class="fas ${pb.icon} text-5xl anim-float" style="color:${pb.iconColor}"></i>`;
+  document.getElementById('primaryName').textContent = pb.name;
+  document.getElementById('primaryDesc').textContent = pb.description;
+  document.getElementById('primaryCuriosity').textContent = pb.curiosity;
+  document.getElementById('primaryStrengths').textContent = pb.strengths;
+  document.getElementById('primaryTags').innerHTML = pb.tags.map(t=>`<span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold)">${t}</span>`).join('');
+  // Adjacent
+  document.getElementById('adjBirdIconWrap').innerHTML = `<i class="fas ${ab.icon} text-4xl" style="color:${ab.iconColor}"></i>`;
+  document.getElementById('adjName').textContent = ab.name;
+  document.getElementById('adjDesc').textContent = ab.description;
+  document.getElementById('adjTags').innerHTML = ab.tags.map(t=>`<span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#9CA3AF">${t}</span>`).join('');
+  // Chart
+  const maxV = sorted[0][1];
+  document.getElementById('scoreChart').innerHTML = sorted.map(([k,v],i)=>{
+    const b=birds[k]; const pct=Math.round((v/maxV)*100); const isTop=i===0;
+    return `<div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background:${isTop?`${b.iconColor}22`:'rgba(255,255,255,.05)'}">
+        <i class="fas ${b.icon} text-sm" style="color:${isTop?b.iconColor:'#9CA3AF'}"></i>
+      </div>
+      <div class="flex-1">
+        <div class="flex justify-between text-xs mb-1"><span>${b.name}</span><span style="color:#9CA3AF">${v} pts</span></div>
+        <div class="score-bar"><div class="score-fill" style="width:${pct}%;background:${isTop?`linear-gradient(90deg,${b.iconColor},${b.iconColor}aa)`:'rgba(148,163,184,.4)'}"></div></div>
+      </div>
+      ${isTop?'<i class="fas fa-crown flex-shrink-0" style="color:var(--gold)"></i>':''}
+    </div>`;
+  }).join('');
+}
+
+function restartTest() {
+  Swal.fire({title:'Refazer o Teste?',text:'Suas respostas anteriores serão perdidas.',icon:'question',showCancelButton:true,confirmButtonText:'Sim, refazer',cancelButtonText:'Cancelar',confirmButtonColor:'#C9A84C',cancelButtonColor:'#475569'})
+  .then(r=>{ if(r.isConfirmed) startTest(); });
+}
+
+function shareResult() {
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const pb = birds[sorted[0][0]];
+  const txt = `Descobri que sou um(a) ${pb.name} no teste Águia de Ouro! Qual ave habita em você? Teste disponível no clube Águia de Ouro – Desbravadores de Curitiba.`;
+  if(navigator.share){ navigator.share({title:'Águia de Ouro – Meu Resultado',text:txt}).catch(()=>copyToClip(txt)); }
+  else copyToClip(txt);
+}
+function copyToClip(t){
+  navigator.clipboard.writeText(t).then(()=>Swal.fire({title:'Copiado!',text:'Resultado copiado para a área de transferência.',icon:'success',confirmButtonText:'OK',confirmButtonColor:'#C9A84C'}));
+}
+
+// ─── PDF ─────────────────────────────────────────
+function buildUniquePdfId() {
+  if (globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') {
+    return globalThis.crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}-${performance.now().toString().replace('.', '')}`;
+}
+
+function buildMd5PdfFileName() {
+  if (typeof globalThis.md5 !== 'function') {
+    throw new TypeError('MD5 library is unavailable');
+  }
+  return `${globalThis.md5(buildUniquePdfId())}.pdf`;
+}
+
+async function generatePDF() {
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  if(!sorted[0][1]){ Swal.fire({title:'Atenção',text:'Faça o teste primeiro para gerar o PDF.',icon:'warning',confirmButtonColor:'#C9A84C'}); return; }
+  const lo=document.getElementById('loadingOverlay'); lo.classList.add('active');
+  try {
+    const {jsPDF}=globalThis.jspdf;
+    const doc=new jsPDF('p','mm','a4');
+    const pw=doc.internal.pageSize.getWidth(), ph=doc.internal.pageSize.getHeight(), m=20;
+    let y=m;
+    const pb=birds[sorted[0][0]], ab=birds[sorted[1][0]];
+    // Header
+    doc.setFillColor(13,17,23); doc.rect(0,0,pw,55,'F');
+    doc.setFillColor(201,168,76); doc.rect(0,53,pw,2,'F');
+    doc.setTextColor(248,250,252); doc.setFontSize(24); doc.setFont('helvetica','bold');
+    doc.text('ÁGUIA DE OURO',pw/2,22,{align:'center'});
+    doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(148,163,184);
+    doc.text('Clube de Desbravadores – Resultado do Teste das Aves',pw/2,31,{align:'center'});
+    doc.setFontSize(9); doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}),pw/2,39,{align:'center'});
+    y=65;
+    // Primary
+    doc.setFillColor(30,41,59); doc.roundedRect(m,y,pw-m*2,80,5,5,'F');
+    doc.setDrawColor(201,168,76); doc.setLineWidth(0.5); doc.roundedRect(m,y,pw-m*2,80,5,5,'S');
+    doc.setFillColor(201,168,76); doc.roundedRect(m+5,y+5,48,7,2,2,'F');
+    doc.setTextColor(13,17,23); doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.text('AVE PREDOMINANTE',m+29,y+9.8,{align:'center'});
+    doc.setTextColor(248,250,252); doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.text(pb.name.toUpperCase(),m+10,y+26);
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(201,168,76);
+    doc.text(pb.tags.join(' · '),m+10,y+34);
+    doc.setTextColor(148,163,184); doc.setFontSize(9);
+    const dl=doc.splitTextToSize(pb.description,pw-m*2-20); doc.text(dl,m+10,y+43);
+    doc.setTextColor(248,250,252); doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.text('Curiosidade:',m+10,y+62);
+    doc.setFont('helvetica','normal'); doc.setTextColor(148,163,184);
+    const cl=doc.splitTextToSize(pb.curiosity,pw-m*2-20); doc.text(cl,m+10,y+69);
+    y+=90;
+    // Adjacent
+    doc.setFillColor(30,41,59); doc.roundedRect(m,y,pw-m*2,45,5,5,'F');
+    doc.setFillColor(71,85,105); doc.roundedRect(m+5,y+5,38,7,2,2,'F');
+    doc.setTextColor(248,250,252); doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.text('AVE ADJACENTE',m+24,y+9.8,{align:'center'});
+    doc.setFontSize(16); doc.text(ab.name,m+10,y+24);
+    doc.setFont('helvetica','normal'); doc.setTextColor(148,163,184); doc.setFontSize(9);
+    const adl=doc.splitTextToSize(ab.description,pw-m*2-20); doc.text(adl.slice(0,2),m+10,y+32);
+    y+=55;
+    // Scores
+    doc.setTextColor(248,250,252); doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.text('Pontuação Completa',m,y); y+=10;
+    const maxV=sorted[0][1]; const bw=pw-m*2-28;
+    sorted.forEach(([k,v],i)=>{
+      const b=birds[k]; const pct=v/maxV; const top=i===0;
+      doc.setTextColor(top?201:148,top?168:163,top?76:184); doc.setFontSize(9); doc.setFont('helvetica',top?'bold':'normal');
+      doc.text(b.name,m,y+4);
+      doc.setFillColor(51,65,85); doc.roundedRect(m+32,y,bw,5,1,1,'F');
+      if(top){doc.setFillColor(201,168,76);}else{doc.setFillColor(100,116,139);}
+      doc.roundedRect(m+32,y,bw*pct,5,1,1,'F');
+      doc.setTextColor(148,163,184); doc.setFontSize(8); doc.text(`${v}`,pw-m,y+4,{align:'right'});
+      y+=10;
+    });
+    // Footer
+    doc.setFillColor(13,17,23); doc.rect(0,ph-20,pw,20,'F');
+    doc.setTextColor(148,163,184); doc.setFontSize(7);
+    doc.text('Sistema desenvolvido por HOTWYL | WILLFROMBRASIL',pw/2,ph-12,{align:'center'});
+    doc.text('Clube Águia de Ouro – Desbravadores de Curitiba. Uso recreativo e educacional.',pw/2,ph-7,{align:'center'});
+    doc.save(buildMd5PdfFileName());
+    lo.classList.remove('active');
+    Swal.fire({title:'PDF Gerado!',text:'Seu resultado foi salvo com sucesso.',icon:'success',confirmButtonText:'OK',confirmButtonColor:'#C9A84C'});
+  } catch(e){
+    lo.classList.remove('active');
+    Swal.fire({title:'Erro',text:'Não foi possível gerar o PDF. Tente novamente.',icon:'error',confirmButtonColor:'#C9A84C'});
+  }
+}
+
+// ─── HELPERS ─────────────────────────────────────
+function showQInfo() {
+  const q=questions[curIdx];
+  Swal.fire({title:q.cat,html:`<p class="text-left">Esta pergunta avalia aspectos de <strong>${q.cat.toLowerCase()}</strong>. Não há respostas certas ou erradas – escolha a opção que mais combina com você.</p>`,icon:'info',confirmButtonText:'OK',confirmButtonColor:'#C9A84C'});
+}
+function showLGPD(){Swal.fire({title:'LGPD',text:'Este sistema não coleta dados pessoais. Respostas processadas localmente no seu navegador.',icon:'info',confirmButtonColor:'#C9A84C'});}
+function showTerms(){Swal.fire({title:'Termos de Uso',text:'Plataforma de caráter recreativo e educacional. Sem fins lucrativos.',icon:'info',confirmButtonColor:'#C9A84C'});}
+function showPrivacy(){Swal.fire({title:'Privacidade',text:'Nenhum dado é enviado a servidores. Apenas cookies de preferência de tema.',icon:'info',confirmButtonColor:'#C9A84C'});}
+
+// ─── GOLD GRADIENTS ──────────────────────────────
+document.querySelectorAll('.text-gold-gradient').forEach(el=>{
+  el.style.background='linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';
+  el.style.webkitBackgroundClip='text'; el.style.webkitTextFillColor='transparent'; el.style.backgroundClip='text';
+});
+</script>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(201,168,76,.18);background:rgba(13,17,23,.96);padding:24px 16px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#8B6914,#C9A84C);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-feather-alt" style="color:#0D1117;font-size:12px;"></i></div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#C9A84C;">Águia de Ouro</div><div style="font-size:11px;color:#9CA3AF;">Clube de Desbravadores · Curitiba</div></div>
+    </div>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
+      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-star"></i> Astronomia</a>
+      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-folder-open"></i> Materiais</a>
+      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-users"></i> Ordem Unida</a>
+      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-file-pdf"></i> Planejamento</a>
+    </nav>
+    <p style="font-size:11px;color:#9CA3AF;width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+  </div>
+</footer>
+</body>
+</html>

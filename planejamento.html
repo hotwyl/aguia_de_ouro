@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Visualize o Planejamento de Classes Agrupadas do Clube Águia de Ouro. Documento protegido – somente visualização.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Planejamento de Classes Agrupadas | Águia de Ouro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    :root{--gold:#C9A84C;--gold-light:#F0C96B;--gold-dark:#8B6914;--ink:#0D1117;--ink-2:#161B22;--ink-3:#21262D;--parchment:#F5F0E8;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--ink);color:#F5F0E8;overflow-x:hidden;}
+    body.light{background:var(--parchment);color:#1C1917;}
+    .font-display{font-family:'Cinzel',serif;}
+    .text-gold-gradient{background:linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* NAV */
+    .nav-glass{background:rgba(13,17,23,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(201,168,76,.18);}
+    body.light .nav-glass{background:rgba(245,240,232,.96);border-bottom:1px solid rgba(201,168,76,.3);}
+    .nav-link{padding:6px 12px;border-radius:8px;font-size:13px;transition:all .2s;color:#9CA3AF;}
+    .nav-link:hover{color:var(--gold);background:rgba(201,168,76,.08);}
+    .nav-link.active{color:var(--gold);background:rgba(201,168,76,.1);}
+
+    /* MOBILE MENU */
+    #mobileMenu{position:fixed;inset:0;z-index:30;padding-top:64px;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+    #mobileMenu.open{transform:translateX(0);}
+
+    /* TOOLBAR */
+    #toolbar{
+      position:sticky;top:64px;z-index:20;
+      background:rgba(22,27,34,.98);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(201,168,76,.18);
+      padding:8px 16px;
+      display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+      user-select:none;
+    }
+    body.light #toolbar{background:rgba(240,234,220,.98);border-bottom:1px solid rgba(201,168,76,.3);}
+    .tbtn{
+      display:inline-flex;align-items:center;justify-content:center;gap:5px;
+      padding:6px 12px;border-radius:8px;border:none;cursor:pointer;
+      font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;
+      background:rgba(255,255,255,.07);color:#E5E7EB;
+      transition:all .2s;
+    }
+    body.light .tbtn{background:rgba(0,0,0,.06);color:#374151;}
+    .tbtn:hover{background:rgba(201,168,76,.18);color:var(--gold);}
+    .tbtn:disabled{opacity:.3;cursor:not-allowed;}
+    .tbtn.active{background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.3);}
+    #pageInfo{font-size:12px;color:#9CA3AF;min-width:60px;text-align:center;font-family:'DM Sans',sans-serif;}
+    body.light #pageInfo{color:#6B5E45;}
+    #zoomSelect{
+      background:rgba(255,255,255,.07);color:#E5E7EB;
+      border:1px solid rgba(201,168,76,.2);border-radius:8px;
+      padding:5px 8px;font-size:12px;cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+    }
+    body.light #zoomSelect{background:rgba(0,0,0,.05);color:#374151;}
+    .sep{width:1px;height:20px;background:rgba(201,168,76,.2);flex-shrink:0;}
+    .protect-badge{
+      margin-left:auto;
+      display:inline-flex;align-items:center;gap:6px;
+      padding:5px 12px;border-radius:999px;
+      background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
+      font-size:11px;font-weight:600;color:#EF4444;
+      white-space:nowrap;
+    }
+
+    /* CANVAS AREA */
+    #canvasArea{
+      min-height:calc(100vh - 130px);
+      background:rgba(0,0,0,.45);
+      display:flex;flex-direction:column;align-items:center;
+      padding:24px 16px;gap:20px;
+      overflow-x:auto;
+    }
+    body.light #canvasArea{background:rgba(0,0,0,.1);}
+
+    .page-wrap{
+      position:relative;
+      box-shadow:0 4px 24px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05);
+      border-radius:3px;overflow:hidden;
+      max-width:100%;
+    }
+    .page-wrap canvas{display:block;max-width:100%;height:auto;}
+
+    /* Protection overlay */
+    .prot-overlay{
+      position:absolute;inset:0;z-index:10;
+      background:transparent;
+      -webkit-user-select:none;user-select:none;
+      -webkit-touch-callout:none;
+    }
+
+    /* LOADING */
+    #loadingOverlay{
+      position:fixed;inset:0;z-index:999;
+      background:rgba(13,17,23,.95);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    }
+    .spinner{width:44px;height:44px;border:3px solid rgba(201,168,76,.15);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    #loadProgress{width:200px;height:3px;background:rgba(201,168,76,.15);border-radius:999px;overflow:hidden;}
+    #loadBar{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:999px;width:0%;transition:width .3s;}
+
+    /* TOOLTIP */
+    .tip{position:relative;}
+    .tip::after{content:attr(data-tip);visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#21262D;color:#F5F0E8;padding:4px 10px;border-radius:6px;font-size:11px;white-space:nowrap;border:1px solid rgba(201,168,76,.25);transition:all .15s;z-index:100;pointer-events:none;font-family:'DM Sans',sans-serif;}
+    .tip:hover::after{visibility:visible;opacity:1;}
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar{width:5px;height:5px;}
+    ::-webkit-scrollbar-track{background:#161B22;}
+    ::-webkit-scrollbar-thumb{background:#8B6914;border-radius:3px;}
+    body.light ::-webkit-scrollbar-track{background:#EDE6D6;}
+    *:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+    /* FOOTER */
+    .site-footer{
+      border-top:1px solid rgba(201,168,76,.18);
+      background:rgba(13,17,23,.96);
+      padding:24px 16px;
+      margin-top:0;
+    }
+    body.light .site-footer{background:rgba(240,234,220,.96);border-top:1px solid rgba(201,168,76,.3);}
+    .footer-inner{
+      max-width:1200px;margin:0 auto;
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      gap:16px;
+    }
+    .footer-brand{display:flex;align-items:center;gap:10px;}
+    .footer-brand span{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);}
+    .footer-brand small{font-size:11px;color:#9CA3AF;display:block;margin-top:2px;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:8px;}
+    .footer-link{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;
+      border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);
+      color:#D1B96A;text-decoration:none;transition:all .2s;
+    }
+    .footer-link:hover{background:rgba(201,168,76,.14);color:var(--gold);border-color:rgba(201,168,76,.5);}
+    body.light .footer-link{color:var(--gold-dark);}
+    .footer-copy{font-size:11px;color:#9CA3AF;width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);}
+
+    /* PAGE COUNTER OVERLAY */
+    .page-num{
+      position:absolute;bottom:8px;right:8px;z-index:15;
+      background:rgba(0,0,0,.5);color:rgba(255,255,255,.6);
+      font-size:10px;padding:3px 7px;border-radius:4px;
+      font-family:'DM Sans',sans-serif;pointer-events:none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING OVERLAY -->
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <p class="font-display text-sm" style="color:#9CA3AF;letter-spacing:.05em;">Carregando documento...</p>
+  <div id="loadProgress"><div id="loadBar"></div></div>
+</div>
+
+<!-- HEADER -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-40" style="height:64px;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 16px;height:100%;display:flex;align-items:center;justify-content:space-between;">
+    <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;">
+        <i class="fas fa-feather-alt" style="color:var(--ink);font-size:14px;"></i>
+      </div>
+      <div>
+        <div class="font-display text-gold-gradient" style="font-size:14px;font-weight:700;line-height:1.2;">Águia de Ouro</div>
+        <div style="font-size:11px;color:#9CA3AF;">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav style="display:none;" id="desktopNav" aria-label="Navegação principal">
+      <a href="/" class="nav-link">Início</a>
+      <a href="/sobre.html" class="nav-link">Sobre o Clube</a>
+      <a href="/guia.html" class="nav-link">Guia de Classes</a>
+      <a href="/quiz.html" class="nav-link">Teste das Aves</a>
+      <a href="/planejamento.html" class="nav-link active"><i class="fas fa-file-pdf" style="margin-right:4px;"></i>Planejamento PDF</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button onclick="toggleTheme()" class="tip" data-tip="Alternar tema" style="width:36px;height:36px;border-radius:8px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" aria-label="Tema">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold);font-size:15px;"></i>
+      </button>
+      <button onclick="toggleMenu()" id="menuBtn" style="width:36px;height:36px;border-radius:8px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" aria-label="Menu">
+        <i id="menuIcon" class="fas fa-bars" style="color:var(--gold);font-size:16px;"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" class="nav-glass">
+  <nav style="display:flex;flex-direction:column;padding:20px 16px;gap:4px;" aria-label="Menu mobile">
+    <a href="/" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-home" style="color:var(--gold);width:18px;"></i>Início</a>
+    <a href="/sobre.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-info-circle" style="color:var(--gold);width:18px;"></i>Sobre o Clube</a>
+    <a href="/guia.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-book-open" style="color:var(--gold);width:18px;"></i>Guia de Classes</a>
+    <a href="/quiz.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-dove" style="color:var(--gold);width:18px;"></i>Teste das Aves</a>
+    <a href="/planejamento.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(201,168,76,.1);color:var(--gold);text-decoration:none;font-size:14px;font-weight:600;"><i class="fas fa-file-pdf" style="width:18px;"></i>Planejamento PDF</a>
+  </nav>
+</div>
+
+<!-- TOOLBAR -->
+<div id="toolbar" style="margin-top:64px;">
+  <!-- Breadcrumb (desktop) -->
+  <nav id="breadNav" aria-label="Breadcrumb" style="display:none;align-items:center;gap:6px;font-size:11px;margin-right:12px;">
+    <a href="/" style="color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#9CA3AF'" onfocus="this.style.color='var(--gold)'" onblur="this.style.color='#9CA3AF'"><i class="fas fa-home"></i></a>
+    <i class="fas fa-chevron-right" style="color:#9CA3AF;font-size:9px;"></i>
+    <span style="color:var(--gold);font-weight:600;">Planejamento</span>
+  </nav>
+  <div class="sep" id="breadSep" style="display:none;"></div>
+
+  <!-- First / Prev -->
+  <button id="btnFirst" class="tbtn tip" data-tip="Primeira página" onclick="goToPage(1)" aria-label="Primeira página">
+    <i class="fas fa-step-backward"></i>
+  </button>
+  <button id="btnPrev" class="tbtn tip" data-tip="Página anterior" onclick="changePage(-1)" aria-label="Anterior">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <span id="pageInfo">– / –</span>
+  <button id="btnNext" class="tbtn tip" data-tip="Próxima página" onclick="changePage(1)" aria-label="Próxima">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+  <button id="btnLast" class="tbtn tip" data-tip="Última página" onclick="goToPageLast()" aria-label="Última página">
+    <i class="fas fa-step-forward"></i>
+  </button>
+
+  <div class="sep"></div>
+
+  <!-- Zoom -->
+  <button class="tbtn tip" data-tip="Diminuir zoom" onclick="adjustZoom(-0.25)" aria-label="Zoom -">
+    <i class="fas fa-search-minus"></i>
+  </button>
+  <select id="zoomSelect" onchange="applyZoom(parseFloat(this.value))" aria-label="Zoom">
+    <option value="0.5">50%</option>
+    <option value="0.75">75%</option>
+    <option value="1.0" selected>100%</option>
+    <option value="1.25">125%</option>
+    <option value="1.5">150%</option>
+    <option value="1.75">175%</option>
+    <option value="2.0">200%</option>
+  </select>
+  <button class="tbtn tip" data-tip="Aumentar zoom" onclick="adjustZoom(0.25)" aria-label="Zoom +">
+    <i class="fas fa-search-plus"></i>
+  </button>
+  <button class="tbtn tip" data-tip="Ajustar à janela" onclick="fitToWindow()" aria-label="Ajustar">
+    <i class="fas fa-compress-arrows-alt"></i>
+  </button>
+
+  <div class="sep"></div>
+
+  <!-- View mode -->
+  <button id="btnModeSingle" class="tbtn tip" data-tip="Página única" onclick="setMode('single')" aria-label="Página única">
+    <i class="fas fa-file"></i>
+  </button>
+  <button id="btnModeAll" class="tbtn active tip" data-tip="Todas as páginas" onclick="setMode('all')" aria-label="Todas as páginas">
+    <i class="fas fa-th-list"></i>
+  </button>
+
+  <div class="sep"></div>
+
+  <!-- Info -->
+  <button class="tbtn tip" data-tip="Sobre o documento" onclick="showInfo()" aria-label="Informações">
+    <i class="fas fa-info-circle"></i>
+  </button>
+
+  <!-- Protected badge -->
+  <div class="protect-badge">
+    <i class="fas fa-lock"></i>
+    <span>Somente Visualização</span>
+  </div>
+</div>
+
+<!-- CANVAS AREA -->
+<div id="canvasArea">
+  <!-- rendered by JS -->
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;">
+        <i class="fas fa-feather-alt" style="color:var(--ink);font-size:12px;"></i>
+      </div>
+      <div>
+        <span>Águia de Ouro</span>
+        <small>Clube de Desbravadores · Curitiba</small>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Links rápidos">
+      <a href="/astronomia/index.html" class="footer-link">
+        <i class="fas fa-star"></i> Astronomia
+      </a>
+      <a href="/materiais/index.html" class="footer-link">
+        <i class="fas fa-folder-open"></i> Materiais
+      </a>
+      <a href="/ordem_unida/index.html" class="footer-link">
+        <i class="fas fa-users"></i> Ordem Unida
+      </a>
+      <a href="/" class="footer-link">
+        <i class="fas fa-home"></i> Início
+      </a>
+    </nav>
+    <p class="footer-copy">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let pdfDoc = null;
+let totalPages = 0;
+let currentPage = 1;
+let scale = 1;
+let viewMode = 'all'; // 'all' | 'single'
+let rendering = false;
+// ─── PDF LOAD FROM FILE ───────────────────────────────────────────────────────
+
+// Carrega o PDF diretamente do arquivo usando PDF.js
+async function loadPDFfromFile() {
+  try {
+    setLoadBar(10);
+    const loadingTask = pdfjsLib.getDocument('materiais/60e02a1102001a25b453035048892ab9.pdf');
+    loadingTask.onProgress = (p) => {
+      if (p.total) setLoadBar(50 + Math.round((p.loaded / p.total) * 35));
+    };
+    pdfDoc = await loadingTask.promise;
+    totalPages = pdfDoc.numPages;
+    setLoadBar(90);
+    updatePageInfo();
+    await renderAllPages();
+    setLoadBar(100);
+    setTimeout(() => {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }, 300);
+    updateNavButtons();
+  } catch(err) {
+    console.error('PDF init error:', err);
+    document.getElementById('loadingOverlay').innerHTML = `
+      <i class="fas fa-exclamation-circle" style="font-size:2rem;color:#EF4444;"></i>
+      <p style="color:#9CA3AF;font-family:'DM Sans',sans-serif;">Erro ao carregar o documento.<br><small>${err.message}</small></p>`;
+  }
+}
+
+
+
+function setLoadBar(pct) {
+  const bar = document.getElementById('loadBar');
+  if (bar) bar.style.width = pct + '%';
+}
+
+// ─── RENDER ALL PAGES ─────────────────────────────────────────────────────────
+async function renderAllPages() {
+  const area = document.getElementById('canvasArea');
+  area.innerHTML = '';
+  for (let p = 1; p <= totalPages; p++) {
+    const wrap = buildPageWrapper(p);
+    area.appendChild(wrap);
+    await renderPage(p, wrap.querySelector('canvas'));
+    if (viewMode === 'single' && p !== currentPage) {
+      wrap.style.display = 'none';
+    }
+  }
+}
+
+function buildPageWrapper(p) {
+  const wrap = document.createElement('div');
+  wrap.className = 'page-wrap';
+  wrap.id = 'pw' + p;
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'pc' + p;
+
+  // Page number label
+  const num = document.createElement('div');
+  num.className = 'page-num';
+  num.textContent = `Página ${p} de ${totalPages}`;
+
+  // Protection overlay — blocks right-click, drag, selection
+  const overlay = document.createElement('div');
+  overlay.className = 'prot-overlay';
+  overlay.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); showProtMsg(); });
+  overlay.addEventListener('mousedown', e => { if (e.button !== 0) e.preventDefault(); });
+  overlay.addEventListener('dragstart', e => e.preventDefault());
+  overlay.addEventListener('selectstart', e => e.preventDefault());
+  overlay.addEventListener('touchstart', e => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+
+  wrap.appendChild(canvas);
+  wrap.appendChild(num);
+  wrap.appendChild(overlay);
+  return wrap;
+}
+
+// ─── RENDER SINGLE PAGE ───────────────────────────────────────────────────────
+async function renderPage(pageNum, canvas) {
+  try {
+    const page = await pdfDoc.getPage(pageNum);
+    const viewport = page.getViewport({ scale });
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    await page.render({ canvasContext: ctx, viewport }).promise;
+  } catch(e) {
+    console.error(`Render error page ${pageNum}:`, e);
+  }
+}
+
+// ─── RE-RENDER ALL (on zoom change) ──────────────────────────────────────────
+async function reRender() {
+  if (rendering) return;
+  rendering = true;
+  document.getElementById('loadingOverlay').style.display = 'flex';
+  document.getElementById('loadingOverlay').innerHTML = '<div class="spinner"></div><p style="color:#9CA3AF;font-family:\'DM Sans\',sans-serif;font-size:13px;">Aplicando zoom...</p>';
+  await new Promise(r => setTimeout(r, 40));
+  for (let p = 1; p <= totalPages; p++) {
+    const canvas = document.getElementById('pc' + p);
+    if (canvas) await renderPage(p, canvas);
+  }
+  document.getElementById('loadingOverlay').style.display = 'none';
+  rendering = false;
+  if (viewMode === 'single') scrollToPage(currentPage);
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function changePage(delta) {
+  const np = currentPage + delta;
+  if (np >= 1 && np <= totalPages) goToPage(np);
+}
+function goToPage(n) {
+  n = Math.min(Math.max(n, 1), totalPages);
+  currentPage = n;
+  updatePageInfo();
+  updateNavButtons();
+  if (viewMode === 'single') {
+    for (let p = 1; p <= totalPages; p++) {
+      const pw = document.getElementById('pw' + p);
+      if (pw) pw.style.display = p === n ? 'block' : 'none';
+    }
+  } else {
+    scrollToPage(n);
+  }
+}
+function goToPageLast() { goToPage(totalPages); }
+function scrollToPage(n) {
+  const el = document.getElementById('pw' + n);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function updatePageInfo() {
+  document.getElementById('pageInfo').textContent = totalPages ? `${currentPage} / ${totalPages}` : '– / –';
+}
+function updateNavButtons() {
+  document.getElementById('btnFirst').disabled = currentPage <= 1;
+  document.getElementById('btnPrev').disabled = currentPage <= 1;
+  document.getElementById('btnNext').disabled = currentPage >= totalPages;
+  document.getElementById('btnLast').disabled = currentPage >= totalPages;
+}
+
+// ─── ZOOM ─────────────────────────────────────────────────────────────────────
+function adjustZoom(delta) {
+  const ns = Math.round((scale + delta) * 100) / 100;
+  applyZoom(Math.min(Math.max(ns, 0.25), 3));
+}
+function applyZoom(val) {
+  scale = Number.parseFloat(val);
+  const sel = document.getElementById('zoomSelect');
+  const match = Array.from(sel.options).find(o => Math.abs(Number.parseFloat(o.value) - scale) < 0.005);
+  if (match) sel.value = match.value;
+  reRender();
+}
+function fitToWindow() {
+  const area = document.getElementById('canvasArea');
+  const w = area.clientWidth - 48;
+  if (!pdfDoc) return;
+  pdfDoc.getPage(1).then(pg => {
+    const vp = pg.getViewport({ scale: 1 });
+    const fit = Math.round((w / vp.width) * 100) / 100;
+    applyZoom(Math.min(fit, 2));
+  });
+}
+
+// ─── VIEW MODE ────────────────────────────────────────────────────────────────
+function setMode(mode) {
+  viewMode = mode;
+  document.getElementById('btnModeSingle').classList.toggle('active', mode === 'single');
+  document.getElementById('btnModeAll').classList.toggle('active', mode === 'all');
+  if (mode === 'all') {
+    for (let p = 1; p <= totalPages; p++) {
+      const pw = document.getElementById('pw' + p);
+      if (pw) pw.style.display = 'block';
+    }
+    scrollToPage(currentPage);
+  } else {
+    goToPage(currentPage);
+  }
+}
+
+// ─── PROTECTION ───────────────────────────────────────────────────────────────
+function showProtMsg() {
+  Swal.fire({
+    title: '🔒 Documento Protegido',
+    text: 'Este documento é de uso exclusivo para visualização. Download, impressão e cópia não são permitidos.',
+    icon: 'warning',
+    confirmButtonText: 'Entendido',
+    confirmButtonColor: '#C9A84C',
+    background: '#161B22',
+    color: '#F5F0E8'
+  });
+}
+
+// Global protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('keyup', e => {
+  if (e.key === 'PrintScreen') {
+    navigator.clipboard && navigator.clipboard.writeText('Ação bloqueada').catch(() => {});
+    showProtMsg();
+  }
+});
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  const blocked =
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(k)) ||
+    (e.ctrlKey && ['s','p','u','a','c','x'].includes(k));
+  if (blocked) { e.preventDefault(); e.stopPropagation(); showProtMsg(); return; }
+  if (e.ctrlKey && (e.key === '+' || e.key === '=')) { e.preventDefault(); adjustZoom(0.25); }
+  if (e.ctrlKey && e.key === '-') { e.preventDefault(); adjustZoom(-0.25); }
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') changePage(1);
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') changePage(-1);
+  if (e.key === 'Home') goToPage(1);
+  if (e.key === 'End') goToPageLast();
+}, true);
+globalThis.addEventListener('beforeprint', e => { e.preventDefault(); showProtMsg(); });
+
+// ─── INFO MODAL ───────────────────────────────────────────────────────────────
+function showInfo() {
+  Swal.fire({
+    title: 'Sobre este Documento',
+    html: `
+      <div style="text-align:left;font-size:13px;line-height:1.7;">
+        <p><i class="fas fa-file-pdf" style="color:#C9A84C;margin-right:8px;"></i><strong>Título:</strong> Planejamento de Classes Agrupadas</p>
+        <p><i class="fas fa-users" style="color:#C9A84C;margin-right:8px;"></i><strong>Público:</strong> Aspirantes a Líder / Líder Máster (16+ anos)</p>
+        <p><i class="fas fa-calendar-alt" style="color:#C9A84C;margin-right:8px;"></i><strong>Duração:</strong> 15 encontros + 1 acampamento (18–24 meses)</p>
+        <p><i class="fas fa-book-open" style="color:#C9A84C;margin-right:8px;"></i><strong>Páginas:</strong> ${totalPages}</p>
+        <hr style="border:none;border-top:1px solid rgba(201,168,76,.2);margin:10px 0;">
+        <p><i class="fas fa-lock" style="color:#EF4444;margin-right:8px;"></i><strong style="color:#EF4444;">Proteção ativa:</strong> Download, impressão e cópia bloqueados.</p>
+      </div>`,
+    confirmButtonText: 'Fechar',
+    confirmButtonColor: '#C9A84C',
+    background: '#161B22',
+    color: '#F5F0E8'
+  });
+}
+
+// ─── THEME ────────────────────────────────────────────────────────────────────
+let isLight = localStorage.getItem('theme') === 'light';
+function applyTheme() {
+  document.body.classList.toggle('light', isLight);
+  document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+}
+function toggleTheme() { isLight = !isLight; localStorage.setItem('theme', isLight ? 'light' : 'dark'); applyTheme(); }
+applyTheme();
+
+// ─── MOBILE MENU ─────────────────────────────────────────────────────────────
+let menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
+  document.getElementById('menuIcon').className = menuOpen ? 'fas fa-times' : 'fas fa-bars';
+}
+function closeMenu() { menuOpen = false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('menuIcon').className = 'fas fa-bars'; }
+
+// ─── RESPONSIVE ───────────────────────────────────────────────────────────────
+function checkLayout() {
+  const isMd = window.innerWidth >= 768;
+  const dn = document.getElementById('desktopNav');
+  const bn = document.getElementById('breadNav');
+  const bs = document.getElementById('breadSep');
+  if (dn) dn.style.display = isMd ? 'flex' : 'none';
+  if (bn) bn.style.display = isMd ? 'flex' : 'none';
+  if (bs) bs.style.display = isMd ? 'block' : 'none';
+}
+checkLayout();
+globalThis.addEventListener('resize', checkLayout);
+
+// ─── INTERSECTION OBSERVER (track current page) ───────────────────────────────
+function initPageObserver() {
+  if (!('IntersectionObserver' in globalThis)) return;
+  const opts = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 };
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && viewMode === 'all') {
+        const id = Number.parseInt(e.target.id.replace('pw', ''), 10);
+        if (!Number.isNaN(id)) { currentPage = id; updatePageInfo(); updateNavButtons(); }
+      }
+    });
+  }, opts);
+  for (let p = 1; p <= totalPages; p++) {
+    const el = document.getElementById('pw' + p);
+    if (el) obs.observe(el);
+  }
+}
+
+// ─── START ────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadPDFfromFile();
+  initPageObserver();
+});
+</script>
+</body>
+</html>

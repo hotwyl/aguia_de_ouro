@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>500 – Erro Interno | Águia de Ouro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold:#C9A84C;--ink:#0D1117;}
+    body{font-family:'DM Sans',sans-serif;background:var(--ink);color:#F5F0E8;min-height:100vh;display:flex;flex-direction:column;}
+    .font-display{font-family:'Cinzel',serif;}
+    .text-gold-gradient{background:linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    @keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    .anim-pulse{animation:pulse 2s ease-in-out infinite;}
+    .anim-fade{animation:fadeUp .7s ease forwards;}
+    .btn-gold{background:linear-gradient(135deg,#C9A84C,#F0C96B);color:#0D1117;font-weight:700;transition:all .3s;}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,.4);}
+    .btn-outline{border:2px solid var(--gold);color:var(--gold);transition:all .3s;}
+    .btn-outline:hover{background:rgba(201,168,76,.1);transform:translateY(-2px);}
+    nav a{color:#9CA3AF;transition:color .2s;} nav a:hover{color:var(--gold);}
+    .nav-glass{background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.15);}
+  </style>
+</head>
+<body>
+  <header class="nav-glass fixed top-0 left-0 right-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#8B6914,#C9A84C)"><i class="fas fa-feather-alt" style="color:#0D1117"></i></div>
+        <div class="font-display font-bold text-gold-gradient">Águia de Ouro</div>
+      </a>
+      <nav class="hidden md:flex gap-2 text-sm">
+        <a href="/" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Início</a>
+        <a href="/sobre.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Sobre o Clube</a>
+        <a href="/guia.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Guia de Classes</a>
+        <a href="/quiz.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Teste das Aves</a>
+        <a href="/planejamento.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Planejamento PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center pt-20 pb-12 px-4">
+    <div class="text-center max-w-lg anim-fade">
+      <div class="mb-8">
+        <i class="fas fa-exclamation-triangle anim-pulse" style="font-size:4rem;color:#EF4444;display:inline-block;"></i>
+      </div>
+      <div class="font-display text-8xl font-black mb-4 leading-none" style="color:#EF4444">500</div>
+      <h1 class="font-display text-2xl font-bold mb-4">Erro Interno do Servidor</h1>
+      <p class="font-body text-lg mb-3" style="color:rgba(245,240,232,.65)">
+        Algo saiu errado em nosso servidor. Nossa equipe já foi notificada e está trabalhando para resolver.
+      </p>
+      <p class="text-sm mb-8" style="color:rgba(245,240,232,.45)">Tente atualizar a página em alguns instantes ou volte para o início.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button onclick="location.reload()" class="btn-gold px-6 py-3 rounded-xl inline-flex items-center gap-2"><i class="fas fa-sync-alt"></i>Tentar Novamente</button>
+        <a href="/" class="btn-outline px-6 py-3 rounded-xl inline-flex items-center gap-2"><i class="fas fa-home"></i>Ir para o Início</a>
+      </div>
+    </div>
+  </main>
+
+  <footer style="background:rgba(13,17,23,.98);border-top:1px solid rgba(201,168,76,.2);">
+    <div class="max-w-6xl mx-auto px-4 py-5">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs mb-3">
+        <a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
+        <a href="/sobre.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
+        <a href="/guia.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
+        <a href="/quiz.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a>
+        <a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
+      </div>
+      <p class="text-xs" style="color:#9CA3AF">Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong></p>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.text-gold-gradient').forEach(el=>{
+      el.style.background='linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';
+      el.style.webkitBackgroundClip='text';el.style.webkitTextFillColor='transparent';el.style.backgroundClip='text';
+    });
+  </script>
+</body>
+</html>

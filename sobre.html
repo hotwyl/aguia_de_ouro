@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça o Clube de Desbravadores Águia de Ouro – história, diretores, unidades (aves), conquistas e muito mais. Fundado em 1998 no Tingui, Curitiba-PR.">
+  <meta name="keywords" content="clube águia de ouro, desbravadores curitiba, história, unidades, fanfarra, tingui, adventista, falcão, grou, gavião">
+  <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Sobre o Clube | Águia de Ouro – Desbravadores Curitiba">
+  <meta property="og:description" content="História, diretores, unidades e conquistas do Clube Águia de Ouro desde 1998.">
+  <meta property="og:type" content="website">
+  <title>Sobre o Clube | Águia de Ouro – Desbravadores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold:#C9A84C;--gold-light:#F0C96B;--gold-dark:#8B6914;--ink:#0D1117;--ink-2:#161B22;--ink-3:#21262D;--parchment:#F5F0E8;--parchment-2:#EDE6D6;}
+    body{font-family:'DM Sans',sans-serif;background:var(--ink);color:#F5F0E8;}
+    body.light{background:var(--parchment);color:#1C1917;}
+    .font-display{font-family:'Cinzel',serif;}
+    .font-body{font-family:'Crimson Pro',serif;}
+    .text-gold{color:var(--gold);}
+    .text-gold-gradient{background:linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .nav-glass{background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.15);}
+    body.light .nav-glass{background:rgba(245,240,232,.92);border-bottom:1px solid rgba(201,168,76,.3);}
+    .glass{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);}
+    body.light .glass{background:rgba(255,255,255,.75);border:1px solid rgba(201,168,76,.3);}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.3;}
+    .btn-gold{background:linear-gradient(135deg,#C9A84C,#F0C96B,#C9A84C);background-size:200% auto;color:#0D1117;font-weight:700;transition:all .4s;}
+    .btn-gold:hover{background-position:right center;transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,.45);}
+    .btn-outline-gold{border:2px solid var(--gold);color:var(--gold);transition:all .3s;}
+    .btn-outline-gold:hover{background:rgba(201,168,76,.1);transform:translateY(-2px);}
+    .footer-bg{background:rgba(13,17,23,.98);border-top:1px solid rgba(201,168,76,.2);}
+    body.light .footer-bg{background:rgba(237,230,214,.98);}
+
+    /* Cards */
+    .card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.12);border-radius:18px;transition:all .35s;}
+    body.light .card{background:rgba(255,255,255,.68);border:1px solid rgba(201,168,76,.28);}
+    .card:hover{border-color:rgba(201,168,76,.45);transform:translateY(-5px);box-shadow:0 16px 40px -12px rgba(201,168,76,.2);}
+
+    /* Timeline */
+    .tl{position:relative;padding-left:1.75rem;}
+    .tl::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.5);}
+    .tl::after{content:'';position:absolute;left:4px;top:22px;width:2px;height:calc(100% + 12px);background:linear-gradient(180deg,rgba(201,168,76,.4),transparent);}
+    .tl:last-child::after{display:none;}
+
+    /* Director table */
+    .dir-table tbody tr{transition:background .2s;border-bottom:1px solid rgba(201,168,76,.07);}
+    .dir-table tbody tr:hover{background:rgba(201,168,76,.05);}
+
+    /* Stat card */
+    .stat-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.15);border-radius:16px;text-align:center;transition:all .3s;}
+    body.light .stat-card{background:rgba(255,255,255,.7);}
+    .stat-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-3px);}
+
+    /* Bird unit card */
+    .bird-card{border-radius:20px;transition:all .4s;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);}
+    body.light .bird-card{background:rgba(255,255,255,.7);border:1px solid rgba(201,168,76,.2);}
+    .bird-card:hover{transform:translateY(-6px);}
+
+    /* Badge */
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid;}
+
+    /* Mobile menu */
+    #mobileMenu{transform:translateX(-100%);transition:transform .35s;}
+    #mobileMenu.open{transform:translateX(0);}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .rd1{transition-delay:.08s;}.rd2{transition-delay:.18s;}.rd3{transition-delay:.28s;}.rd4{transition-delay:.38s;}.rd5{transition-delay:.48s;}.rd6{transition-delay:.58s;}.rd7{transition-delay:.68s;}.rd8{transition-delay:.78s;}
+
+    /* Animations */
+    @keyframes float{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-10px) rotate(2deg);}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4);}50%{box-shadow:0 0 0 8px rgba(201,168,76,0);}}
+    .anim-float{animation:float 5s ease-in-out infinite;}
+    .anim-fade{opacity:0;animation:fadeUp .7s ease forwards;}
+    .ad1{animation-delay:.1s;}.ad2{animation-delay:.25s;}.ad3{animation-delay:.4s;}.ad4{animation-delay:.55s;}
+    .anim-pulse{animation:pulse 2.5s ease-in-out infinite;}
+
+    /* Tooltip */
+    .has-tip{position:relative;}
+    .tip-text{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#21262D;color:#F5F0E8;padding:5px 10px;border-radius:6px;font-size:11px;white-space:nowrap;border:1px solid rgba(201,168,76,.3);transition:all .2s;z-index:100;pointer-events:none;}
+    .has-tip:hover .tip-text{visibility:visible;opacity:1;}
+
+    ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:#161B22;}::-webkit-scrollbar-thumb{background:#8B6914;border-radius:3px;}
+    body.light ::-webkit-scrollbar-track{background:#EDE6D6;}
+    *:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));">
+        <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+      </div>
+      <div>
+        <div class="font-display font-bold text-base text-gold-gradient leading-tight">Águia de Ouro</div>
+        <div class="text-xs" style="color:#9CA3AF">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-1" aria-label="Navegação principal">
+      <a href="/" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
+      <a href="/sobre.html" class="px-3 py-2 rounded-lg text-sm" style="color:var(--gold);background:rgba(201,168,76,.08);"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
+      <a href="/guia.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
+      <a href="/quiz.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a>
+      <a href="/planejamento.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" class="has-tip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10" aria-label="Alternar tema">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
+        <span class="tip-text">Alternar tema</span>
+      </button>
+      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg" style="color:var(--gold)" aria-label="Menu">
+        <i id="menuIcon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass">
+  <nav class="flex flex-col p-6 gap-2 text-sm">
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,.1);color:var(--gold)"><i class="fas fa-info-circle w-5"></i>Sobre o Clube</a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i>Guia de Classes</a>
+    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-dove w-5" style="color:var(--gold)"></i>Teste das Aves</a>
+    <a href="/planejamento.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i>Planejamento PDF</a>
+  </nav>
+</div>
+
+<main class="pt-20">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="py-14 px-4" style="background:radial-gradient(ellipse at 25% 50%,rgba(201,168,76,.09) 0%,transparent 60%);">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex items-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
+        <i class="fas fa-chevron-right text-xs" style="color:#9CA3AF"></i>
+        <span style="color:var(--gold)">Sobre o Clube</span>
+      </nav>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5 anim-fade" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);">
+            <i class="fas fa-calendar-alt text-xs" style="color:var(--gold)"></i>
+            <span class="text-xs font-semibold" style="color:var(--gold)">Fundado em 08/02/1998 · 28 anos</span>
+          </div>
+          <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-5 anim-fade ad1">
+            Clube de Desbravadores<br><span class="text-gold-gradient">Águia de Ouro</span>
+          </h1>
+          <p class="font-body text-xl leading-relaxed mb-6 anim-fade ad2" style="color:rgba(245,240,232,.75);">
+            Uma das organizações mais sólidas da Associação Central Paranaense, formando jovens com caráter, liderança e fé desde 1998 no coração do Tingui, Curitiba.
+          </p>
+          <blockquote class="p-4 rounded-2xl mb-6 anim-fade ad3" style="background:rgba(201,168,76,.07);border-left:4px solid var(--gold);">
+            <p class="font-display font-semibold text-lg" style="color:var(--gold-light);">"Visão, Orientação, Dedicação, Habilidade...<br>Águia de Ouro!"</p>
+            <cite class="text-xs mt-2 block" style="color:#9CA3AF">— Brado oficial do clube</cite>
+          </blockquote>
+          <div class="flex flex-wrap gap-2 anim-fade ad4">
+            <span class="badge" style="background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.35);color:var(--gold)"><i class="fas fa-map-marker-alt"></i>Tingui, Curitiba–PR</span>
+            <span class="badge" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:#60A5FA"><i class="fas fa-church"></i>Assoc. Central Paranaense</span>
+            <span class="badge" style="background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#34D399"><i class="fas fa-users"></i>45 membros</span>
+            <span class="badge" style="background:rgba(234,179,8,.1);border-color:rgba(234,179,8,.3);color:#EAB308"><i class="fas fa-palette"></i>Preto &amp; Amarelo Dourado</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 anim-fade ad2">
+          <div class="stat-card p-6"><div class="font-display text-4xl font-bold mb-1" style="color:var(--gold)">28</div><div class="text-sm" style="color:#9CA3AF">Anos de história</div></div>
+          <div class="stat-card p-6"><div class="font-display text-4xl font-bold mb-1" style="color:var(--gold)">45</div><div class="text-sm" style="color:#9CA3AF">Membros inscritos</div></div>
+          <div class="stat-card p-6"><div class="font-display text-3xl font-bold mb-1" style="color:var(--gold)">5★</div><div class="text-sm" style="color:#9CA3AF">5 classificações máximas</div></div>
+          <div class="stat-card p-6"><div class="font-display text-4xl font-bold mb-1" style="color:var(--gold)">8</div><div class="text-sm" style="color:#9CA3AF">Unidades (aves)</div></div>
+          <div class="stat-card p-6 col-span-2">
+            <div class="flex items-center justify-center gap-3">
+              <i class="fas fa-music text-2xl" style="color:var(--gold)"></i>
+              <div class="text-left"><div class="font-display font-bold" style="color:var(--gold)">Fanfarra Premiada</div><div class="text-xs" style="color:#9CA3AF">Vencedora de vários troféus regionais</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ IDENTIFICAÇÃO COMPLETA ═══ -->
+  <section class="py-14 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 reveal"><span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Identificação</span><h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Dados do Clube</h2></div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="card p-6 reveal rd1">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(201,168,76,.12);"><i class="fas fa-id-card" style="color:var(--gold)"></i></div>
+          <h3 class="font-display font-semibold mb-1">Nome Oficial</h3>
+          <p class="font-body text-base" style="color:rgba(245,240,232,.8);">Clube de Desbravadores Águia de Ouro</p>
+        </div>
+        <div class="card p-6 reveal rd2">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(201,168,76,.12);"><i class="fas fa-calendar-check" style="color:var(--gold)"></i></div>
+          <h3 class="font-display font-semibold mb-1">Fundação</h3>
+          <p class="font-body text-base" style="color:rgba(245,240,232,.8);">08 de fevereiro de 1998</p>
+        </div>
+        <div class="card p-6 reveal rd3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(201,168,76,.12);"><i class="fas fa-sitemap" style="color:var(--gold)"></i></div>
+          <h3 class="font-display font-semibold mb-1">Associação</h3>
+          <p class="font-body text-base" style="color:rgba(245,240,232,.8);">Associação Central Paranaense<br><span class="text-xs" style="color:#9CA3AF">DBV – ÁREA 01 – CAPITAL 08</span></p>
+        </div>
+        <div class="card p-6 reveal rd4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(201,168,76,.12);"><i class="fas fa-map-marker-alt" style="color:var(--gold)"></i></div>
+          <h3 class="font-display font-semibold mb-1">Endereço</h3>
+          <p class="font-body text-base" style="color:rgba(245,240,232,.8);">Rua Guilherme Ihlenfeldt, 778<br>Tingui, Curitiba – PR<br><span class="text-xs" style="color:#9CA3AF">CEP: 82620-035</span></p>
+        </div>
+        <div class="card p-6 reveal rd5">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(201,168,76,.12);"><i class="fas fa-palette" style="color:var(--gold)"></i></div>
+          <h3 class="font-display font-semibold mb-1">Cores Oficiais</h3>
+          <div class="flex items-center gap-3 mt-2">
+            <div class="w-8 h-8 rounded-lg border-2" style="background:#1a1a1a;border-color:rgba(255,255,255,.2);"></div>
+            <span class="text-sm" style="color:#9CA3AF">Preto</span>
+            <div class="w-8 h-8 rounded-lg" style="background:#C9A84C;"></div>
+            <span class="text-sm" style="color:#9CA3AF">Amarelo Dourado</span>
+          </div>
+        </div>
+        <div class="card p-6 reveal rd6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(201,168,76,.12);"><i class="fas fa-star" style="color:var(--gold)"></i></div>
+          <h3 class="font-display font-semibold mb-2">Classificação 5★</h3>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-xs px-2 py-1 rounded" style="background:rgba(201,168,76,.15);color:var(--gold)">2016</span>
+            <span class="text-xs px-2 py-1 rounded" style="background:rgba(201,168,76,.15);color:var(--gold)">2017</span>
+            <span class="text-xs px-2 py-1 rounded" style="background:rgba(201,168,76,.15);color:var(--gold)">2018</span>
+            <span class="text-xs px-2 py-1 rounded" style="background:rgba(201,168,76,.15);color:var(--gold)">2019</span>
+            <span class="text-xs px-2 py-1 rounded" style="background:rgba(201,168,76,.25);color:var(--gold);border:1px solid rgba(201,168,76,.4)">2022 ★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ HISTÓRIA ═══ -->
+  <section class="py-14 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal"><span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Trajetória</span><h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Nossa História</h2></div>
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div class="space-y-7 reveal">
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">Final de 1997</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Mobilização Inicial</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">Membros da Igreja Adventista do Tingui se mobilizaram, motivados pelo desejo de oferecer aos filhos a oportunidade de participar de um clube de desbravadores.</p>
+          </div>
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">11 de Janeiro de 1998</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Primeira Diretoria</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);"><strong style="color:var(--gold-light)">Mário Braguini</strong> (Diretor), <strong style="color:var(--gold-light)">Marli Codignoto dos Santos</strong> e <strong style="color:var(--gold-light)">Rony Ristow</strong> (Diretores Associados) foram eleitos. Primeira reunião com Margarete, Anderson, Cleverson e Cristiano.</p>
+          </div>
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">24 de Janeiro de 1998</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">O Nome "Águia de Ouro"</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">Em reunião oficial, o nome <strong style="color:var(--gold-light)">Águia de Ouro</strong> foi escolhido, assim como as cores <strong style="color:var(--gold-light)">preto e amarelo dourado</strong>, que se tornaram marca registrada do clube.</p>
+          </div>
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">08 de Fevereiro de 1998</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Fundação Oficial</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">Data oficial de fundação. A primeira reunião com todos os desbravadores aconteceu em <strong style="color:var(--gold-light)">1º de março de 1998</strong>.</p>
+          </div>
+        </div>
+        <div class="space-y-7 reveal rd2">
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">1998 – Primeiro Ano</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Início das Conquistas</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">Já no primeiro ano o clube participou do <strong style="color:var(--gold-light)">Campori da Região 56</strong> (Colombo–PR) e do <strong style="color:var(--gold-light)">Campori da USB</strong> (Esteio–RS), criou uma fanfarra de alta qualidade vencedora de vários troféus.</p>
+          </div>
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">2009</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Sede Própria</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">O clube ganhou uma sede nas dependências da Igreja, abrigando secretaria, intendência e sala de reuniões, permitindo a aquisição e preservação de equipamentos, instrumentos de fanfarra e barracas.</p>
+          </div>
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">2016 – 2019</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Era de Ouro</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">Quatro anos consecutivos de Classificação 5 Estrelas pela Associação Central Paranaense, consolidando o clube como referência regional.</p>
+          </div>
+          <div class="tl pb-4">
+            <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--gold)">2021</span>
+            <h3 class="font-display font-semibold mt-1 mb-2 text-lg">Expansão da Sede</h3>
+            <p class="font-body text-base leading-relaxed" style="color:rgba(245,240,232,.75);">Nova sala construída nos fundos da Igreja para armazenamento. O clube mantém <strong style="color:var(--gold-light)">45 membros inscritos</strong> e desde 2022 conquista prêmios em oratória e música a nível de associação.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ LÍDER DESTAQUE ═══ -->
+  <section class="py-14 px-4" style="background:rgba(201,168,76,.03);">
+    <div class="max-w-3xl mx-auto text-center reveal">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Destaque</span>
+      <h2 class="font-display text-3xl font-bold mt-2 mb-8">Líder de Destaque</h2>
+      <div class="card p-8 rounded-3xl">
+        <div class="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center anim-pulse" style="background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.08));border:2px solid rgba(201,168,76,.4);">
+          <i class="fas fa-user text-3xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display text-2xl font-bold mb-2" style="color:var(--gold)">Melquíades Valentim</h3>
+        <div class="flex flex-wrap justify-center gap-2 mb-4">
+          <span class="badge" style="background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--gold)"><i class="fas fa-crown mr-1"></i>Instrutor</span>
+          <span class="badge" style="background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--gold)"><i class="fas fa-star mr-1"></i>Diretor (2003)</span>
+        </div>
+        <p class="font-body text-lg leading-relaxed" style="color:rgba(245,240,232,.8);">Presente desde a fundação do clube, o Líder Melquíades atuou como instrutor, diretor e apoiou todas as diretorias ao longo dos anos, tornando-se uma das figuras mais inspiradoras para os Desbravadores do Águia de Ouro.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ DIRETORES ═══ -->
+  <section class="py-14 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 reveal"><span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Liderança</span><h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Diretores ao Longo da História</h2></div>
+      <div class="card rounded-2xl overflow-hidden reveal">
+        <div class="overflow-x-auto">
+          <table class="w-full dir-table text-sm">
+            <thead>
+              <tr style="background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.25);">
+                <th class="text-left px-5 py-3 font-semibold" style="color:var(--gold)">Período</th>
+                <th class="text-left px-5 py-3 font-semibold" style="color:var(--gold)">Diretor(a)</th>
+                <th class="text-left px-5 py-3 font-semibold" style="color:var(--gold)">Período</th>
+                <th class="text-left px-5 py-3 font-semibold" style="color:var(--gold)">Diretor(a)</th>
+              </tr>
+            </thead>
+            <tbody id="dirTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ ÁGUIA (AVE-SÍMBOLO) ═══ -->
+  <section class="py-10 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-6 reveal">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Ave-Símbolo do Clube</span>
+      </div>
+      <div class="bird-card reveal rd1">
+        <div class="p-5 md:p-6">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background:#C9A84C1a;border:1px solid #C9A84C44;">
+            <i class="fas fa-feather-alt text-2xl" style="color:var(--gold)"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Águia</h3>
+          <p class="text-xs mb-3 leading-relaxed" style="color:var(--gold);opacity:.9;">Visão Ampla · Liderança · Nobreza · Coragem · Perseverança · Discernimento</p>
+          <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(245,240,232,.78);">
+            A águia é uma ave de rapina de grande porte, conhecida por sua postura imponente, capacidade de planeio em altas altitudes e senso de direção preciso.
+            Na natureza, simboliza estratégia, vigilância e força. Para o clube, representa jovens que aprendem a observar antes de agir, liderar com responsabilidade e
+            manter constância mesmo em cenários desafiadores.
+          </p>
+          <div class="grid md:grid-cols-2 gap-4 pt-4" style="border-top:1px solid rgba(255,255,255,.06);">
+            <div>
+              <h4 class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--gold)">Caracteristicas</h4>
+              <ul class="space-y-2 text-xs" style="color:rgba(245,240,232,.62);">
+                <li><i class="fas fa-eye mr-2" style="color:var(--gold);"></i>Visão aguçada para localizar alvos a grandes distâncias.</li>
+                <li><i class="fas fa-feather mr-2" style="color:var(--gold);"></i>Asas amplas para planeio eficiente e economia de energia.</li>
+                <li><i class="fas fa-shield-alt mr-2" style="color:var(--gold);"></i>Garras fortes e bico curvo, adaptados para captura e proteção.</li>
+                <li><i class="fas fa-mountain mr-2" style="color:var(--gold);"></i>Comportamento territorial e preferência por pontos altos de observação.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--gold)">Curiosidades</h4>
+              <ul class="space-y-2 text-xs" style="color:rgba(245,240,232,.62);">
+                <li><i class="fas fa-lightbulb mr-2" style="color:var(--gold);"></i>Muitas espécies reaproveitam o mesmo ninho por anos, ampliando-o ciclo após ciclo.</li>
+                <li><i class="fas fa-wind mr-2" style="color:var(--gold);"></i>Usam correntes térmicas para subir com pouco esforço, quase sem bater as asas.</li>
+                <li><i class="fas fa-star mr-2" style="color:var(--gold);"></i>Filhotes passam por longo período de aprendizado até dominar voo e caça.</li>
+                <li><i class="fas fa-compass mr-2" style="color:var(--gold);"></i>Na simbologia, a águia é associada à visão de futuro, foco e renovação.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="height:4px;background:linear-gradient(90deg,#8B691444,#C9A84C);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ UNIDADES (AVES) ═══ -->
+  <section class="py-14 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Organização Interna</span>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">As 8 Unidades do Clube</h2>
+        <p class="mt-3 font-body text-lg max-w-2xl mx-auto" style="color:rgba(245,240,232,.65);">O nome "Águia de Ouro" inspirou a nomeação das unidades internas com base em aves, cada uma com representação simbólica única.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5" id="unitsGrid"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ CONQUISTAS ═══ -->
+  <section class="py-14 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 reveal"><span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Conquistas</span><h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Destaques e Prêmios</h2></div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="card p-6 reveal rd1">
+          <i class="fas fa-trophy text-2xl mb-4" style="color:#F59E0B"></i>
+          <h3 class="font-display font-bold mb-2">Classificação 5 Estrelas</h3>
+          <p class="text-sm" style="color:rgba(245,240,232,.7);">Reconhecimento máximo em 2016, 2017, 2018, 2019 e 2022 pela Associação Central Paranaense.</p>
+        </div>
+        <div class="card p-6 reveal rd2">
+          <i class="fas fa-music text-2xl mb-4" style="color:#8B5CF6"></i>
+          <h3 class="font-display font-bold mb-2">Fanfarra Premiada</h3>
+          <p class="text-sm" style="color:rgba(245,240,232,.7);">Fanfarra de alta qualidade vencedora de vários troféus regionais desde o primeiro ano de fundação.</p>
+        </div>
+        <div class="card p-6 reveal rd3">
+          <i class="fas fa-campground text-2xl mb-4" style="color:#10B981"></i>
+          <h3 class="font-display font-bold mb-2">Camporis Nacionais</h3>
+          <p class="text-sm" style="color:rgba(245,240,232,.7);">Participação em todos os camporis, incluindo Campori da Região 56 e Campori da USB já no primeiro ano.</p>
+        </div>
+        <div class="card p-6 reveal rd4">
+          <i class="fas fa-microphone text-2xl mb-4" style="color:#EF4444"></i>
+          <h3 class="font-display font-bold mb-2">Oratória</h3>
+          <p class="text-sm" style="color:rgba(245,240,232,.7);">Desde 2022, o clube conquista prêmios em concursos regionais e de associação na área de oratória.</p>
+        </div>
+        <div class="card p-6 reveal rd5">
+          <i class="fas fa-guitar text-2xl mb-4" style="color:#F59E0B"></i>
+          <h3 class="font-display font-bold mb-2">Música</h3>
+          <p class="text-sm" style="color:rgba(245,240,232,.7);">Premiações em concursos musicais a nível regional e de associação a partir de 2022.</p>
+        </div>
+        <div class="card p-6 reveal rd6">
+          <i class="fas fa-hands-helping text-2xl mb-4" style="color:#0EA5E9"></i>
+          <h3 class="font-display font-bold mb-2">Serviço Comunitário</h3>
+          <p class="text-sm" style="color:rgba(245,240,232,.7);">Visitas a necessitados, apoio em campanhas e evangelismos do Distrito do Tingui desde a fundação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="py-14 px-4 text-center reveal">
+    <div class="max-w-3xl mx-auto">
+      <i class="fas fa-feather-alt text-4xl mb-5 anim-float" style="color:var(--gold);display:inline-block;"></i>
+      <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Explore a plataforma</h2>
+      <p class="font-body text-xl mb-8" style="color:rgba(245,240,232,.7);">Acesse o Guia de Classes, descubra sua ave interior ou visualize o Planejamento completo.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/guia.html" class="btn-gold px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-book-open"></i>Guia de Classes</a>
+        <a href="/quiz.html" class="btn-outline-gold px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-dove"></i>Teste das Aves</a>
+        <a href="/planejamento.html" class="btn-outline-gold px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2"><i class="fas fa-file-pdf"></i>Planejamento PDF</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer-bg">
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <div class="grid md:grid-cols-4 gap-6 mb-6">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));"><i class="fas fa-feather-alt text-sm" style="color:var(--ink)"></i></div>
+          <div class="font-display font-bold text-gold-gradient">Águia de Ouro</div>
+        </div>
+        <p class="text-xs" style="color:#9CA3AF">Rua Guilherme Ihlenfeldt, 778<br>Tingui, Curitiba – PR · CEP: 82620-035</p>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Navegação</h4>
+        <ul class="space-y-1 text-xs">
+          <li><a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a></li>
+          <li><a href="/sobre.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a></li>
+          <li><a href="/guia.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a></li>
+          <li><a href="/quiz.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a></li>
+          <li><a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Legal</h4>
+        <ul class="space-y-1 text-xs">
+          <li><button onclick="showLGPD()" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-shield-alt mr-1"></i>LGPD</button></li>
+          <li><button onclick="showTerms()" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-file-contract mr-1"></i>Termos de Uso</button></li>
+          <li><button onclick="showPrivacy()" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-user-secret mr-1"></i>Privacidade</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-3 text-sm" style="color:var(--gold)">Clube</h4>
+        <ul class="space-y-1 text-xs" style="color:#9CA3AF">
+          <li><i class="fas fa-church mr-1" style="color:var(--gold)"></i>Igreja Adventista do Tingui</li>
+          <li><i class="fas fa-star mr-1" style="color:var(--gold)"></i>5★ – 2016·17·18·19·22</li>
+          <li><i class="fas fa-users mr-1" style="color:var(--gold)"></i>45 membros inscritos</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-5" style="border-top:1px solid rgba(201,168,76,.15)">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-2">
+        <p class="text-xs" style="color:#9CA3AF">© 2025 Águia de Ouro. Uso educacional e recreativo.</p>
+        <p class="text-xs" style="color:#9CA3AF">Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── DIRECTORS DATA ───────────────────────────────────────────────────────────
+const directors = [
+  ['1998 – 2000','Mario Braguini','2011 – 2018','Valdecir Padilha'],
+  ['2001','Anderson Slisinski','2019 – 2020','Ana Bárbara'],
+  ['2002','Paulo Cardozo','2021','Wladimir Daniel'],
+  ['2003','Melquíades Valentim','2022','Wladimir Daniel e Valdecir Padilha'],
+  ['2004 – 2005','Valter Wink','2023 – 2024','Valdecir Padilha'],
+  ['2006','Valdirene','2025','Edemar de Oliveira Sidré'],
+  ['2007','Mídia Carvalho','—','—'],
+  ['2008 – 2010','Valdecir Padilha','—','—'],
+];
+
+const tb = document.getElementById('dirTable');
+directors.forEach(r => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="px-5 py-3 text-xs font-mono" style="color:var(--gold)">${r[0]}</td><td class="px-5 py-3 font-medium">${r[1]}</td><td class="px-5 py-3 text-xs font-mono" style="color:var(--gold)">${r[2]}</td><td class="px-5 py-3 font-medium">${r[3]}</td>`;
+  tb.appendChild(tr);
+});
+
+// ─── UNITS (BIRDS) DATA ───────────────────────────────────────────────────────
+const units = [
+  {
+    name:'Falcão',
+    icon:'fa-wind',
+    color:'#F59E0B',
+    traits:'Determinação · Foco · Velocidade · Precisão · Liderança · Resiliência',
+    description:'Ave de rapina de corpo aerodinâmico, asas longas e voo extremamente preciso. Caça com mergulhos controlados e rápida tomada de decisão, sendo referência de foco e disciplina.',
+    curiosities:[
+      'O falcão-peregrino é considerado o animal mais veloz do mundo, superando 300 km/h em mergulho.',
+      'Possui visão de alta definição para detectar pequenos movimentos a longas distâncias.'
+    ]
+  },
+  {
+    name:'Grou',
+    icon:'fa-crown',
+    color:'#94A3B8',
+    traits:'Elegância · Senso Rítmico · Conexão · Paciência · Fidelidade',
+    description:'Ave de porte esguio e movimentos harmoniosos, reconhecida por sua postura nobre e comportamento social organizado. Representa equilíbrio emocional, cooperação e constância.',
+    curiosities:[
+      'Realiza danças sincronizadas em rituais de cortejo e comunicação social.',
+      'Em diversas culturas, o grou simboliza longevidade, fidelidade e harmonia.'
+    ]
+  },
+  {
+    name:'Gavião',
+    icon:'fa-eye',
+    color:'#EF4444',
+    traits:'Visão Estratégica · Planejamento · Paciência · Capacidade de Análise',
+    description:'Predador atento, com grande domínio do território e leitura precisa do ambiente. Antes de agir, observa, calcula e escolhe o momento certo, expressando estratégia e autocontrole.',
+    curiosities:[
+      'Aproveita correntes de ar para permanecer longos períodos planando com baixo gasto de energia.',
+      'Consegue monitorar áreas amplas do alto antes de definir o momento exato de agir.'
+    ]
+  },
+  {
+    name:'Bentivi',
+    icon:'fa-shield-alt',
+    color:'#EAB308',
+    traits:'Coragem · Espírito Protetor · Voz Ativa · Determinação',
+    description:'Ave pequena, mas extremamente valente e vigilante. Destaca-se por defender seu espaço com firmeza e por manter presença ativa no grupo, mesmo diante de ameaças maiores.',
+    curiosities:[
+      'Mesmo menor que muitos predadores, protege o território com coragem e vocalização marcante.',
+      'Seu nome popular vem do canto característico que soa como "bem-te-vi".'
+    ]
+  },
+  {
+    name:'Gralha Azul',
+    icon:'fa-gem',
+    color:'#3B82F6',
+    traits:'Inteligência · Memória Excepcional · Cooperação · Criatividade',
+    description:'Ave conhecida pela inteligência e excelente memória espacial. Planeja ações, interage em grupo e contribui para o equilíbrio ambiental com atitudes de longo prazo.',
+    curiosities:[
+      'É importante para a regeneração da mata de araucária ao esconder pinhões no solo.',
+      'Lembra locais de alimento e desenvolve estratégias coletivas de proteção.'
+    ]
+  },
+  {
+    name:'Andorinha',
+    icon:'fa-feather',
+    color:'#0EA5E9',
+    traits:'Liberdade · Adaptabilidade · Agilidade · Comunidade',
+    description:'Ave leve e ágil, especialista em voos dinâmicos e em adaptação a diferentes ambientes. Sua trajetória remete a mobilidade, trabalho em equipe e espírito comunitário.',
+    curiosities:[
+      'Algumas espécies percorrem milhares de quilômetros em rotas migratórias anuais.',
+      'É especialista em manobras aéreas rápidas para capturar insetos em pleno voo.'
+    ]
+  },
+  {
+    name:'Arara',
+    icon:'fa-palette',
+    color:'#F43F5E',
+    traits:'Expressão Autêntica · Vitalidade · Vínculos Duradouros · Lealdade',
+    description:'Ave de presença marcante, cores vibrantes e alta sociabilidade. Representa comunicação, alegria e vínculo duradouro, inspirando identidade e união no grupo.',
+    curiosities:[
+      'Pode viver muitas décadas e manter forte vínculo com o parceiro.',
+      'Utiliza vocalizações variadas e linguagem corporal para comunicação no bando.'
+    ]
+  },
+  {
+    name:'Beija-flor',
+    icon:'fa-heart',
+    color:'#10B981',
+    traits:'Energia Ilimitada · Resiliência · Agilidade · Beleza',
+    description:'Ave de pequeno porte e altíssima energia, com movimentos rápidos e grande precisão. Simboliza dedicação diária, leveza nas ações e constância em tarefas importantes.',
+    curiosities:[
+      'É uma das poucas aves capazes de pairar no ar e voar para trás.',
+      'Seu metabolismo acelerado exige alimentação frequente ao longo do dia.'
+    ]
+  },
+];
+
+const grid = document.getElementById('unitsGrid');
+units.forEach((u, i) => {
+  const delays = ['rd1','rd2','rd3','rd4','rd5','rd6','rd7','rd8'];
+  const div = document.createElement('div');
+  div.className = `bird-card reveal ${delays[i]}`;
+  div.style.cssText = `--unit-color:${u.color}33;`;
+  const curiosityItems = u.curiosities
+    .map(item => `<li class="leading-relaxed"><i class="fas fa-lightbulb mr-1" style="color:${u.color};opacity:.75;"></i>${item}</li>`)
+    .join('');
+  div.innerHTML = `
+    <div class="p-5">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background:${u.color}1a;border:1px solid ${u.color}44;">
+        <i class="fas ${u.icon} text-2xl" style="color:${u.color}"></i>
+      </div>
+      <h3 class="font-display font-bold text-lg mb-2">${u.name}</h3>
+      <p class="text-[11px] uppercase tracking-wider mb-1" style="color:${u.color};opacity:.9;">Características</p>
+      <p class="text-xs mb-3 leading-relaxed" style="color:${u.color};opacity:.88;">${u.traits}</p>
+      <p class="text-xs leading-relaxed mb-3" style="color:rgba(245,240,232,.72)">${u.description}</p>
+      <div class="pt-3" style="border-top:1px solid rgba(255,255,255,.06);">
+        <p class="text-[11px] uppercase tracking-wider mb-2" style="color:${u.color};opacity:.9;">Curiosidades</p>
+        <ul class="space-y-2 text-xs" style="color:rgba(245,240,232,.58)">${curiosityItems}</ul>
+      </div>
+    </div>
+    <div style="height:4px;background:linear-gradient(90deg,${u.color}44,${u.color});"></div>
+  `;
+  grid.appendChild(div);
+});
+
+// ─── THEME ────────────────────────────────────────────────────────────────────
+let isLight = localStorage.getItem('theme') === 'light';
+function applyTheme() { document.body.classList.toggle('light',isLight); document.getElementById('themeIcon').className = isLight?'fas fa-sun':'fas fa-moon'; }
+function toggleTheme() { isLight=!isLight; localStorage.setItem('theme',isLight?'light':'dark'); applyTheme(); }
+applyTheme();
+
+let menuOpen = false;
+function toggleMenu() { menuOpen=!menuOpen; document.getElementById('mobileMenu').classList.toggle('open',menuOpen); document.getElementById('menuIcon').className=menuOpen?'fas fa-times':'fas fa-bars'; }
+function closeMenu() { menuOpen=false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('menuIcon').className='fas fa-bars'; }
+
+// ─── LEGAL MODALS ─────────────────────────────────────────────────────────────
+function showLGPD(){Swal.fire({title:'Conformidade LGPD',text:'Este sistema não coleta dados pessoais identificáveis. Todas as informações são processadas localmente.',icon:'info',confirmButtonColor:'#C9A84C'});}
+function showTerms(){Swal.fire({title:'Termos de Uso',text:'Plataforma de caráter recreativo e educacional. Sem fins lucrativos.',icon:'info',confirmButtonColor:'#C9A84C'});}
+function showPrivacy(){Swal.fire({title:'Privacidade',text:'Nenhum dado pessoal é enviado a servidores. Apenas cookies essenciais de preferência de tema.',icon:'info',confirmButtonColor:'#C9A84C'});}
+
+// ─── SCROLL REVEAL ────────────────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }), {threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ─── GOLD GRADIENT ────────────────────────────────────────────────────────────
+document.querySelectorAll('.text-gold-gradient').forEach(el=>{el.style.background='linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';el.style.webkitBackgroundClip='text';el.style.webkitTextFillColor='transparent';el.style.backgroundClip='text';});
+</script>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(201,168,76,.18);background:rgba(13,17,23,.96);padding:24px 16px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#8B6914,#C9A84C);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-feather-alt" style="color:#0D1117;font-size:12px;"></i></div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#C9A84C;">Águia de Ouro</div><div style="font-size:11px;color:#9CA3AF;">Clube de Desbravadores · Curitiba</div></div>
+    </div>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
+      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-star"></i> Astronomia</a>
+      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-folder-open"></i> Materiais</a>
+      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-users"></i> Ordem Unida</a>
+      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-file-pdf"></i> Planejamento</a>
+    </nav>
+    <p style="font-size:11px;color:#9CA3AF;width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+  </div>
+</footer>
+</body>
+</html>

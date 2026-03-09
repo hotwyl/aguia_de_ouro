@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Visualizador protegido de videos e PDFs de Ordem Unida.">
+  <title>Ordem Unida | Visualizador Protegido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --iron: #151a21;
+      --slate: #1d2530;
+      --slate-soft: #263140;
+      --brass: #d4ab56;
+      --brass-soft: #f0ce8d;
+      --ink: #0a0d12;
+      --mist: #c8d2de;
+      --snow: #f6f7f8;
+      --danger: #f25f5c;
+      --ok: #4cc38a;
+      --ring: rgba(212, 171, 86, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--snow);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(212, 171, 86, 0.18) 0%, rgba(212, 171, 86, 0) 46%),
+        radial-gradient(circle at 88% 80%, rgba(76, 195, 138, 0.12) 0%, rgba(76, 195, 138, 0) 42%),
+        linear-gradient(160deg, #0b1119, #151d29 40%, #0f1622 100%);
+      user-select: none;
+      -webkit-user-select: none;
+      overflow-x: hidden;
+    }
+
+    .allow-select,
+    .allow-select * {
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .frame {
+      width: min(1220px, 100% - 2rem);
+      margin: 1.1rem auto 1.5rem;
+      border: 1px solid rgba(212, 171, 86, 0.3);
+      border-radius: 24px;
+      background: linear-gradient(165deg, rgba(15, 21, 31, 0.92), rgba(11, 16, 24, 0.92));
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid rgba(212, 171, 86, 0.24);
+      background: linear-gradient(180deg, rgba(23, 31, 44, 0.9), rgba(16, 22, 33, 0.9));
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .crest {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, #81642b, #d4ab56 56%, #f0ce8d);
+      display: grid;
+      place-items: center;
+      color: #0d131c;
+      font-weight: 800;
+      font-family: 'Cinzel', serif;
+      box-shadow: inset 0 0 0 1px rgba(18, 23, 33, 0.4);
+    }
+
+    .brand h1 {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.04em;
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      color: var(--brass-soft);
+      line-height: 1.1;
+    }
+
+    .brand p {
+      color: rgba(246, 247, 248, 0.75);
+      font-size: 0.82rem;
+      margin-top: 0.12rem;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .btn {
+      border: 1px solid rgba(212, 171, 86, 0.42);
+      background: rgba(212, 171, 86, 0.08);
+      color: var(--brass-soft);
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.86rem;
+      text-decoration: none;
+      padding: 0.55rem 0.8rem;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background: rgba(212, 171, 86, 0.16);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      outline: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: calc(100vh - 150px);
+    }
+
+    .sidebar {
+      border-right: 1px solid rgba(212, 171, 86, 0.2);
+      padding: 1rem;
+      background: linear-gradient(180deg, rgba(32, 42, 56, 0.72), rgba(22, 29, 40, 0.72));
+    }
+
+    .secure-note {
+      border: 1px solid rgba(76, 195, 138, 0.34);
+      background: rgba(76, 195, 138, 0.1);
+      color: #b8f5d9;
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      margin-bottom: 0.85rem;
+    }
+
+    .search {
+      width: 100%;
+      border: 1px solid rgba(212, 171, 86, 0.3);
+      background: rgba(8, 12, 19, 0.56);
+      color: var(--snow);
+      border-radius: 12px;
+      padding: 0.68rem 0.78rem;
+      font-size: 0.92rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .search:focus {
+      outline: 2px solid var(--ring);
+      border-color: rgba(212, 171, 86, 0.65);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 0.48rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .chip {
+      flex: 1;
+      border: 1px solid rgba(212, 171, 86, 0.3);
+      background: rgba(212, 171, 86, 0.06);
+      color: #e8d8b2;
+      font-weight: 600;
+      font-size: 0.82rem;
+      border-radius: 10px;
+      padding: 0.45rem 0.45rem;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      border-color: rgba(212, 171, 86, 0.85);
+      background: rgba(212, 171, 86, 0.21);
+      color: var(--snow);
+    }
+
+    .counter {
+      color: rgba(246, 247, 248, 0.78);
+      font-size: 0.81rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.43rem;
+      max-height: calc(100vh - 330px);
+      overflow: auto;
+      padding-right: 0.2rem;
+    }
+
+    .items::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .items::-webkit-scrollbar-thumb {
+      background: rgba(212, 171, 86, 0.44);
+      border-radius: 999px;
+    }
+
+    .item {
+      width: 100%;
+      border: 1px solid rgba(212, 171, 86, 0.2);
+      background: rgba(14, 21, 31, 0.76);
+      color: #f4f6f8;
+      border-radius: 12px;
+      text-align: left;
+      padding: 0.68rem 0.72rem;
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      align-items: start;
+      gap: 0.45rem;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .item:hover,
+    .item:focus-visible {
+      border-color: rgba(212, 171, 86, 0.5);
+      transform: translateX(2px);
+      outline: none;
+    }
+
+    .item.active {
+      border-color: rgba(212, 171, 86, 0.92);
+      background: linear-gradient(160deg, rgba(212, 171, 86, 0.16), rgba(212, 171, 86, 0.05));
+      box-shadow: inset 0 0 0 1px rgba(212, 171, 86, 0.5);
+    }
+
+    .item .icon {
+      font-size: 1rem;
+      line-height: 1.2;
+      margin-top: 1px;
+    }
+
+    .item .name {
+      font-size: 0.87rem;
+      line-height: 1.25;
+      font-weight: 600;
+      color: #f4f7fa;
+    }
+
+    .item .meta {
+      font-size: 0.74rem;
+      color: rgba(246, 247, 248, 0.7);
+      margin-top: 0.15rem;
+      display: inline-block;
+    }
+
+    .viewer {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+    }
+
+    .viewer-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(212, 171, 86, 0.24);
+      border-radius: 14px;
+      padding: 0.8rem 0.9rem;
+      background: rgba(18, 25, 35, 0.74);
+    }
+
+    .viewer-head h2 {
+      font-family: 'Cinzel', serif;
+      color: #f2ddb1;
+      font-size: clamp(1rem, 1.9vw, 1.35rem);
+      letter-spacing: 0.03em;
+    }
+
+    .viewer-head p {
+      color: rgba(246, 247, 248, 0.75);
+      font-size: 0.84rem;
+      margin-top: 0.15rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.28rem 0.58rem;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .tag.video {
+      color: #ffd8d7;
+      background: rgba(242, 95, 92, 0.16);
+      border-color: rgba(242, 95, 92, 0.45);
+    }
+
+    .tag.pdf {
+      color: #cde4ff;
+      background: rgba(78, 149, 255, 0.14);
+      border-color: rgba(78, 149, 255, 0.45);
+    }
+
+    .canvas {
+      position: relative;
+      border: 1px solid rgba(212, 171, 86, 0.28);
+      border-radius: 18px;
+      background: linear-gradient(160deg, rgba(11, 15, 22, 0.95), rgba(21, 27, 38, 0.95));
+      overflow: hidden;
+      min-height: clamp(300px, 66vh, 760px);
+    }
+
+    .watermark {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: rgba(10, 13, 18, 0.65);
+      color: rgba(246, 247, 248, 0.85);
+      border: 1px solid rgba(212, 171, 86, 0.28);
+      border-radius: 999px;
+      padding: 0.35rem 0.62rem;
+      font-size: 0.72rem;
+      z-index: 3;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      backdrop-filter: blur(2px);
+    }
+
+    .empty {
+      min-height: inherit;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    .empty .inner {
+      max-width: 540px;
+      border: 1px dashed rgba(212, 171, 86, 0.35);
+      border-radius: 14px;
+      padding: 1.2rem;
+      background: rgba(212, 171, 86, 0.05);
+    }
+
+    .empty h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--brass-soft);
+      margin-bottom: 0.34rem;
+    }
+
+    .empty p {
+      color: rgba(246, 247, 248, 0.76);
+      line-height: 1.45;
+      font-size: 0.93rem;
+    }
+
+    video,
+    iframe {
+      width: 100%;
+      height: clamp(300px, 66vh, 760px);
+      border: 0;
+      background: #07090d;
+      display: none;
+    }
+
+    .status {
+      position: fixed;
+      left: 50%;
+      bottom: 1rem;
+      transform: translateX(-50%) translateY(24px);
+      border: 1px solid rgba(212, 171, 86, 0.42);
+      background: rgba(9, 13, 19, 0.94);
+      color: #f3dfb4;
+      border-radius: 10px;
+      padding: 0.58rem 0.85rem;
+      font-size: 0.84rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+
+    .status.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .status.error {
+      border-color: rgba(242, 95, 92, 0.55);
+      color: #ffd8d7;
+    }
+
+    .devtools-lock {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      background: rgba(5, 8, 12, 0.9);
+      display: none;
+      place-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .devtools-lock .panel {
+      max-width: 460px;
+      border: 1px solid rgba(242, 95, 92, 0.45);
+      background: rgba(242, 95, 92, 0.12);
+      border-radius: 14px;
+      padding: 1rem;
+      color: #ffd8d7;
+      line-height: 1.45;
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: 0;
+        border-bottom: 1px solid rgba(212, 171, 86, 0.2);
+      }
+
+      .items {
+        max-height: 270px;
+      }
+
+      .frame {
+        width: min(1220px, 100% - 1rem);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .brand {
+        justify-content: center;
+      }
+
+      .top-actions {
+        justify-content: center;
+      }
+
+      .viewer {
+        padding: 0.76rem;
+      }
+
+      .viewer-head {
+        padding: 0.72rem;
+      }
+
+      video,
+      iframe,
+      .canvas {
+        min-height: 240px;
+        height: 58vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="frame">
+    <header class="topbar">
+      <div class="brand">
+        <div class="crest" aria-hidden="true">OU</div>
+        <div>
+          <h1>Visualizador Ordem Unida</h1>
+          <p>Videos e PDFs em modo de consulta protegida</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="btn" href="/">Voltar ao inicio</a>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="secure-note">
+          Protecao ativa: clique direito, atalhos comuns, copiar, imprimir e selecao foram bloqueados para dificultar download e acesso ao conteudo.
+        </div>
+
+        <input id="searchInput" class="search allow-select" type="text" placeholder="Filtrar material..." autocomplete="off" spellcheck="false">
+
+        <div class="filter-row">
+          <button class="chip active" data-filter="all" type="button">Todos</button>
+          <button class="chip" data-filter="video" type="button">Videos</button>
+          <button class="chip" data-filter="pdf" type="button">PDFs</button>
+        </div>
+
+        <p id="counter" class="counter">0 arquivos encontrados</p>
+
+        <div id="items" class="items" aria-label="Lista de materiais"></div>
+      </aside>
+
+      <section class="viewer">
+        <div class="viewer-head">
+          <div>
+            <h2 id="viewerTitle">Selecione um arquivo</h2>
+            <p id="viewerDesc">Escolha um item na lista para abrir no visualizador.</p>
+          </div>
+          <span id="typeTag" class="tag pdf" style="display:none;">PDF</span>
+        </div>
+
+        <div class="canvas" id="canvas">
+          <div class="watermark" id="wm">Sessao protegida</div>
+
+          <div class="empty" id="emptyState">
+            <div class="inner">
+              <h3>Consulta Restrita</h3>
+              <p>
+                Este visualizador foi configurado para consulta interna e dificultar extra\u00E7\u00E3o de conteudo.
+                Selecione um PDF ou video para iniciar.
+              </p>
+            </div>
+          </div>
+
+          <video
+            id="videoPlayer"
+            controls
+            controlsList="nodownload noplaybackrate nofullscreen"
+            disablePictureInPicture
+            preload="metadata"
+            playsinline
+            oncontextmenu="return false;"
+          ></video>
+
+          <iframe
+            id="pdfFrame"
+            title="Leitor PDF protegido"
+            referrerpolicy="no-referrer"
+          ></iframe>
+
+          <div class="devtools-lock" id="devtoolsLock" aria-hidden="true">
+            <div class="panel">
+              Ferramentas de desenvolvedor detectadas. O visualizador foi pausado para proteger o material.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <div id="statusToast" class="status" role="status" aria-live="polite"></div>
+
+  <script>
+    const mediaItems = [
+      {
+        type: 'video',
+        title: 'Civismo e Ordem Unida - Comandos por Corneta',
+        file: '39f72cff6d6738672cb092b0900c3bc1.mp4'
+      },
+      {
+        type: 'video',
+        title: 'Civismo e Ordem Unida - Comandos com Apito',
+        file: '67bcf45e175f332b1acd621d0cedb246.mp4'
+      },
+      {
+        type: 'pdf',
+        title: 'Especialidade Ordem Unida',
+        file: '546430e7cd7f609b3747695aa2f7e2df.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'Bandeiras e Bandeirins',
+        file: '55f19107f594d24ba3a2557fe8ae7458.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'Manual de Ordem Unida 2012 2a Edicao',
+        file: '9434f642cd6a999accdb7c85003e2e88.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'Novo Manual Administrativo de Desbravadores - DSA 2014',
+        file: 'c38889c5e88e69d878fc3e08f80aab91.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'C22-5',
+        file: '07c8dda0344d0b13e768fb2d740f8b77.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'C-20-5',
+        file: '0a8519578ebca1c8e8539f0d6c25b57f.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'C-21-18',
+        file: 'd97f7066270400a827bc95caccd7e6c9.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'CGCFN-1001',
+        file: 'a8c6ab9e4bb2df928ef3b9192c22d840.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'EB70-MC-10-304',
+        file: 'f13e014fdb639d3cc8d376f7abd612b2.pdf'
+      },
+      {
+        type: 'pdf',
+        title: 'EB70-MC-10-308',
+        file: '349736bd57626ae0da0d69f47cea7de7.pdf'
+      }
+    ];
+
+    const elements = {
+      items: document.getElementById('items'),
+      counter: document.getElementById('counter'),
+      searchInput: document.getElementById('searchInput'),
+      viewerTitle: document.getElementById('viewerTitle'),
+      viewerDesc: document.getElementById('viewerDesc'),
+      typeTag: document.getElementById('typeTag'),
+      videoPlayer: document.getElementById('videoPlayer'),
+      pdfFrame: document.getElementById('pdfFrame'),
+      emptyState: document.getElementById('emptyState'),
+      statusToast: document.getElementById('statusToast'),
+      wm: document.getElementById('wm'),
+      devtoolsLock: document.getElementById('devtoolsLock')
+    };
+
+    const state = {
+      filter: 'all',
+      query: '',
+      selectedFile: null,
+      selectedType: null,
+      devtoolsLocked: false
+    };
+
+    const blockedCtrl = new Set(['u', 's', 'p', 'c', 'a', 'x', 'j', 'i', 'k']);
+    const blockedCtrlShift = new Set(['i', 'j', 'c', 'k']);
+
+    function encodePath(fileName) {
+      return './' + fileName.split('/').map((part) => encodeURIComponent(part)).join('/');
+    }
+
+    function toast(message, isError = false) {
+      elements.statusToast.textContent = message;
+      elements.statusToast.classList.toggle('error', isError);
+      elements.statusToast.classList.add('show');
+      window.clearTimeout(toast.timer);
+      toast.timer = window.setTimeout(() => {
+        elements.statusToast.classList.remove('show');
+      }, 1800);
+    }
+
+    function matchesFilter(item) {
+      const inType = state.filter === 'all' || item.type === state.filter;
+      const inQuery = !state.query || (item.title + ' ' + item.file).toLowerCase().includes(state.query);
+      return inType && inQuery;
+    }
+
+    function getFilteredItems() {
+      return mediaItems.filter(matchesFilter);
+    }
+
+    function renderList() {
+      const filtered = getFilteredItems();
+      elements.counter.textContent = `${filtered.length} arquivo(s) encontrado(s)`;
+
+      if (!filtered.length) {
+        elements.items.innerHTML = '<div class="item"><span class="icon">!</span><div><span class="name">Nenhum resultado</span><span class="meta">Ajuste o filtro de busca.</span></div></div>';
+        return;
+      }
+
+      const html = filtered.map((item) => {
+        const activeClass = state.selectedFile === item.file ? 'active' : '';
+        const icon = item.type === 'video' ? 'VIDEO' : 'PDF';
+        const meta = item.type === 'video' ? 'Video MP4' : 'Documento PDF';
+        return `
+          <button type="button" class="item ${activeClass}" data-file="${item.file}" data-type="${item.type}">
+            <span class="icon">${icon}</span>
+            <span>
+              <span class="name">${item.title}</span>
+              <span class="meta">${meta}</span>
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      elements.items.innerHTML = html;
+    }
+
+    function clearViewer() {
+      elements.videoPlayer.pause();
+      elements.videoPlayer.removeAttribute('src');
+      elements.videoPlayer.load();
+      elements.pdfFrame.removeAttribute('src');
+
+      elements.videoPlayer.style.display = 'none';
+      elements.pdfFrame.style.display = 'none';
+      elements.emptyState.style.display = 'grid';
+      elements.typeTag.style.display = 'none';
+      elements.viewerTitle.textContent = 'Selecione um arquivo';
+      elements.viewerDesc.textContent = 'Escolha um item na lista para abrir no visualizador.';
+      elements.wm.textContent = 'Sessao protegida';
+    }
+
+    function showDevtoolsLock(lock) {
+      state.devtoolsLocked = lock;
+      elements.devtoolsLock.style.display = lock ? 'grid' : 'none';
+      if (lock) {
+        elements.videoPlayer.pause();
+      }
+    }
+
+    function selectItem(fileName) {
+      const item = mediaItems.find((entry) => entry.file === fileName);
+      if (!item) {
+        toast('Arquivo nao encontrado na lista.', true);
+        return;
+      }
+
+      state.selectedFile = item.file;
+      state.selectedType = item.type;
+      renderList();
+
+      if (state.devtoolsLocked) {
+        toast('Feche o DevTools para liberar o visualizador.', true);
+        return;
+      }
+
+      const src = encodePath(item.file);
+      elements.emptyState.style.display = 'none';
+      elements.wm.textContent = `Consulta interna: ${item.title}`;
+      elements.viewerTitle.textContent = item.title;
+      elements.viewerDesc.textContent = item.file;
+
+      if (item.type === 'video') {
+        elements.typeTag.textContent = 'VIDEO';
+        elements.typeTag.className = 'tag video';
+        elements.typeTag.style.display = 'inline-flex';
+
+        elements.pdfFrame.style.display = 'none';
+        elements.pdfFrame.removeAttribute('src');
+        elements.videoPlayer.style.display = 'block';
+        elements.videoPlayer.src = src;
+        elements.videoPlayer.load();
+      } else {
+        elements.typeTag.textContent = 'PDF';
+        elements.typeTag.className = 'tag pdf';
+        elements.typeTag.style.display = 'inline-flex';
+
+        elements.videoPlayer.pause();
+        elements.videoPlayer.style.display = 'none';
+        elements.videoPlayer.removeAttribute('src');
+        elements.videoPlayer.load();
+        elements.pdfFrame.style.display = 'block';
+
+        const params = '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+        elements.pdfFrame.src = src + params;
+      }
+    }
+
+    function handleListClick(event) {
+      const btn = event.target.closest('.item[data-file]');
+      if (!btn) {
+        return;
+      }
+      selectItem(btn.dataset.file);
+    }
+
+    function setFilter(nextFilter) {
+      state.filter = nextFilter;
+      document.querySelectorAll('.chip[data-filter]').forEach((chip) => {
+        chip.classList.toggle('active', chip.dataset.filter === nextFilter);
+      });
+
+      const filtered = getFilteredItems();
+      if (state.selectedFile && !filtered.some((item) => item.file === state.selectedFile)) {
+        state.selectedFile = null;
+        state.selectedType = null;
+        clearViewer();
+      }
+      renderList();
+    }
+
+    function attachSecurityBarriers() {
+      document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('dragstart', (event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('copy', (event) => {
+        event.preventDefault();
+        toast('Copia bloqueada nesta pagina.', true);
+      });
+
+      document.addEventListener('cut', (event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('paste', (event) => {
+        if (!event.target.classList || !event.target.classList.contains('allow-select')) {
+          event.preventDefault();
+        }
+      });
+
+      document.addEventListener('selectstart', (event) => {
+        if (!event.target.classList || !event.target.classList.contains('allow-select')) {
+          event.preventDefault();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        const key = event.key.toLowerCase();
+        const shouldBlock =
+          event.key === 'F12' ||
+          (event.ctrlKey && blockedCtrl.has(key)) ||
+          (event.ctrlKey && event.shiftKey && blockedCtrlShift.has(key));
+
+        if (shouldBlock) {
+          event.preventDefault();
+          event.stopPropagation();
+          toast('Atalho bloqueado para proteger o conteudo.', true);
+          return false;
+        }
+
+        return true;
+      }, true);
+
+      window.addEventListener('beforeprint', (event) => {
+        event.preventDefault();
+        toast('Impressao bloqueada.', true);
+      });
+
+      const lockScreen = () => {
+        toast('Captura de tela bloqueada.', true);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText('Acao bloqueada').catch(() => {});
+        }
+      };
+
+      document.addEventListener('keyup', (event) => {
+        if (event.key === 'PrintScreen') {
+          lockScreen();
+        }
+      });
+
+      elements.videoPlayer.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+      });
+
+      elements.videoPlayer.addEventListener('ratechange', () => {
+        if (elements.videoPlayer.playbackRate !== 1) {
+          elements.videoPlayer.playbackRate = 1;
+        }
+      });
+    }
+
+    function startDevtoolsGuard() {
+      window.setInterval(() => {
+        const widthGap = window.outerWidth - window.innerWidth;
+        const heightGap = window.outerHeight - window.innerHeight;
+        const opened = widthGap > 170 || heightGap > 170;
+
+        if (opened !== state.devtoolsLocked) {
+          showDevtoolsLock(opened);
+          if (opened) {
+            toast('DevTools detectado. Visualizacao pausada.', true);
+          } else {
+            toast('Visualizador liberado.');
+          }
+        }
+      }, 1200);
+    }
+
+    function initFilters() {
+      document.querySelectorAll('.chip[data-filter]').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          setFilter(chip.dataset.filter);
+        });
+      });
+
+      elements.searchInput.addEventListener('input', () => {
+        state.query = elements.searchInput.value.trim().toLowerCase();
+        const filtered = getFilteredItems();
+
+        if (state.selectedFile && !filtered.some((item) => item.file === state.selectedFile)) {
+          state.selectedFile = null;
+          clearViewer();
+        }
+
+        renderList();
+      });
+
+      elements.items.addEventListener('click', handleListClick);
+    }
+
+    function init() {
+      renderList();
+      clearViewer();
+      initFilters();
+      attachSecurityBarriers();
+      startDevtoolsGuard();
+    }
+
+    init();
+  </script>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(212,171,86,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
+  <div style="max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(140deg,#81642b,#d4ab56 56%,#f0ce8d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;color:#0d131c;font-weight:800;font-size:11px;">AO</div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#d4ab56;">Águia de Ouro</div><div style="font-size:11px;color:rgba(246,247,248,.6);">Clube de Desbravadores · Curitiba</div></div>
+    </div>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
+      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
+      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128193; Materiais</a>
+      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128101; Ordem Unida</a>
+      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
+      <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8962; Início</a>
+    </nav>
+    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(212,171,86,.1);">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+  </div>
+</footer>
+</body>
+</html>
