@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Desbrava Guines - O registro oficial de recordes e conquistas dos Clubes de Desbravadores. Marque o nome do seu clube na história.">
+    <meta name="keywords" content="Desbravadores, Recordes, Guines, Igreja Adventista, Clube, Acampamento, Conquistas">
+    <meta name="author" content="Arquiteto de Software Web">
+    <title>Desbrava Guines | O Topo da História dos Desbravadores</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#fde047', // Amarelo Desbravador
+                            DEFAULT: '#eab308',
+                            dark: '#a16207',
+                        },
+                        adventist: {
+                            blue: '#0369a1',
+                            green: '#15803d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        /* CSS Customizado para Tooltips e Ajustes Finos */
+        .tooltip-container { position: relative; display: inline-block; }
+        .tooltip-container .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #1f2937;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 50;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+        }
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+        .dark .tooltip-container .tooltip-text { background-color: #e5e7eb; color: #111827; }
+        
+        /* Ocultar barra de rolagem mas manter funcionalidade */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Blur background para modals */
+        .modal-bg { backdrop-filter: blur(5px); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans antialiased">
+
+    <!-- Navbar -->
+    <header class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md z-40 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='../index.html'">
+                    <i class="fa-solid fa-trophy text-brand text-3xl mr-2"></i>
+                    <span class="font-extrabold text-2xl tracking-tight text-gray-900 dark:text-white">Desbrava<span class="text-brand">Guines</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-6 items-center font-medium">
+                    <a href="../index.html" class="hover:text-brand transition-colors">Principal</a>
+                    <a href="#home" class="hover:text-brand transition-colors">Guines</a>
+                    <a href="#ferramentas" class="hover:text-brand transition-colors">Recordes</a>
+                    <a href="../guia.html" class="hover:text-brand transition-colors">Guia</a>
+                    <a href="../astronomia/index.html" class="hover:text-brand transition-colors">Astronomia</a>
+                    <a href="../ordem_unida/index.html" class="hover:text-brand transition-colors">Ordem Unida</a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" aria-label="Alternar Tema">
+                        <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    
+                    <a href="#ferramentas" class="px-5 py-2.5 bg-brand text-white font-bold rounded-lg hover:bg-brand-dark shadow-lg shadow-brand/30 transition transform hover:-translate-y-0.5">
+                        Ver Recordes
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="theme-toggle-mobile" class="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" aria-label="Alternar Tema">
+                        <i id="theme-icon-mobile" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-900 dark:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 shadow-lg absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="../index.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Principal</a>
+                <a href="#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Guines Home</a>
+                <a href="#ferramentas" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Recordes</a>
+                <a href="../guia.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Guia de Especialidades</a>
+                <a href="../astronomia/index.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Astronomia</a>
+                <a href="../ordem_unida/index.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Ordem Unida</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- HOME / HERO SECTION -->
+        <section id="home" class="pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
+            <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <!-- Gatilho de Autoridade e Exclusividade -->
+                <div class="inline-block px-4 py-1.5 rounded-full bg-yellow-100 text-brand-dark dark:bg-gray-800 dark:text-brand text-sm font-semibold mb-6 shadow-sm border border-yellow-200 dark:border-gray-700">
+                    <i class="fa-solid fa-star mr-1"></i> O Livro Oficial dos Desbravadores
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    A glória do seu Clube <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-yellow-600">Gravada na História.</span>
+                </h1>
+                <!-- Princípio de Pareto + Urgência -->
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
+                    Apenas 20% dos clubes detêm 80% dos recordes históricos. Junte-se à elite. Registre as habilidades, o tempo e a superação do seu Clube antes que outro grupo assuma o topo do pódio.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#ferramentas" class="px-8 py-4 text-lg bg-brand text-white font-bold rounded-xl hover:bg-brand-dark shadow-xl shadow-brand/40 transition-all transform hover:-translate-y-1 text-center">
+                        <i class="fa-solid fa-bolt mr-2"></i> Explorar Recordes
+                    </a>
+                    <a href="#contato" class="px-8 py-4 text-lg bg-white text-gray-900 border-2 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all text-center">
+                        Submeter um Recorde
+                    </a>
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 flex justify-center relative">
+                <!-- Mockup de Destaque usando CSS puro para evitar dependência de imagens externas -->
+                <div class="relative w-full max-w-md aspect-square rounded-full bg-gradient-to-tr from-brand to-yellow-200 dark:from-brand-dark dark:to-gray-800 flex items-center justify-center shadow-2xl overflow-hidden p-8 animate-pulse-slow">
+                    <div class="absolute inset-0 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full transform rotate-12 scale-110"></div>
+                    <i class="fa-solid fa-medal text-[12rem] text-white dark:text-brand shadow-black drop-shadow-2xl z-10"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE SECTION -->
+        <section id="sobre" class="py-20 bg-white dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">A Excelência em Cada Atividade</h2>
+                    <div class="w-20 h-1 bg-brand mx-auto rounded"></div>
+                    <!-- Rapport -->
+                    <p class="mt-6 text-gray-600 dark:text-gray-300 text-lg">
+                        Nós sabemos o quanto seu clube treina. Acampamentos debaixo de chuva, ralação nas pistas de obstáculos e a perfeição nos nós e amarras. O Águia Guines nasceu para honrar esse esforço.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="p-8 bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg transition">
+                        <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-adventist-blue rounded-xl flex items-center justify-center text-2xl mb-6">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 dark:text-white">Registro Seguro</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Todos os recordes são auditados e protegidos com tecnologia de ponta, garantindo a integridade da história do seu clube.</p>
+                    </div>
+                    <div class="p-8 bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg transition relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-brand text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Destaque</div>
+                        <div class="w-14 h-14 bg-yellow-100 dark:bg-yellow-900/30 text-brand-dark dark:text-brand rounded-xl flex items-center justify-center text-2xl mb-6">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 dark:text-white">Competição Saudável</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Incentive seus jovens a superarem limites físicos, mentais e espirituais, focando sempre na camaradagem.</p>
+                    </div>
+                    <div class="p-8 bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg transition">
+                        <div class="w-14 h-14 bg-green-100 dark:bg-green-900/30 text-adventist-green rounded-xl flex items-center justify-center text-2xl mb-6">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 dark:text-white">Legado Eterno</h3>
+                        <p class="text-gray-600 dark:text-gray-400">O que é feito na juventude ecoa pela eternidade. Crie um legado que as futuras gerações de Desbravadores irão admirar e tentar superar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVIÇOS SECTION -->
+        <section id="servicos" class="py-20 bg-gray-50 dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="w-full lg:w-1/2">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzYnJhdmFkb3Jlc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Desbravadores em Ação" class="rounded-2xl shadow-lg w-full object-cover">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 dark:text-white">O que a plataforma oferece?</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+                            Nossa ferramenta foi arquitetada para ser simples, performática e altamente segura. Com poucos cliques, você acessa um mundo de estatísticas.
+                        </p>
+                        <ul class="space-y-6">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-brand/20 flex items-center justify-center text-brand-dark dark:text-brand mt-1">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-xl font-bold dark:text-white">Certificados Digitais</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-1">Geração automática de certificados para os clubes detentores de recordes atuais.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-brand/20 flex items-center justify-center text-brand-dark dark:text-brand mt-1">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-xl font-bold dark:text-white">Auditoria Transparente</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-1">Sistema de aprovação com envio de evidências em vídeo (links) para validação justa.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-brand/20 flex items-center justify-center text-brand-dark dark:text-brand mt-1">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div class="ml-4 flex items-center">
+                                    <div>
+                                        <h4 class="text-xl font-bold dark:text-white">Estatísticas em Tempo Real</h4>
+                                        <p class="text-gray-600 dark:text-gray-400 mt-1">Acompanhe as categorias mais disputadas e os clubes mais premiados.</p>
+                                    </div>
+                                    <div class="tooltip-container ml-2">
+                                        <button class="text-gray-400 hover:text-brand transition"><i class="fa-solid fa-circle-info"></i></button>
+                                        <span class="tooltip-text">Dados atualizados via cache de alta performance.</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FERRAMENTAS / RECORDES SECTION (SPA Dinâmico) -->
+        <section id="ferramentas" class="py-20 bg-white dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Livro de Recordes <span class="text-brand">2025</span></h2>
+                        <p class="text-gray-600 dark:text-gray-400 mt-2">Os melhores tempos e marcas em diversas categorias.</p>
+                    </div>
+                    
+                    <!-- Busca -->
+                    <div class="relative w-full md:w-72">
+                        <input type="text" id="searchRecord" placeholder="Buscar categoria ou clube..." autocomplete="off" class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand focus:border-transparent transition shadow-sm">
+                        <i class="fa-solid fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Grid de Recordes (Populados via JS) -->
+                <div id="recordsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards serão injetados aqui -->
+                </div>
+                
+                <div id="noRecordsMessage" class="hidden text-center py-10 text-gray-500 dark:text-gray-400">
+                    <i class="fa-regular fa-face-frown text-4xl mb-3"></i>
+                    <p>Nenhum recorde encontrado para esta busca.</p>
+                </div>
+
+                <!-- Dica de uso -->
+                <div class="mt-12 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 flex items-start gap-4">
+                    <i class="fa-solid fa-lightbulb text-2xl text-blue-500 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-blue-900 dark:text-blue-300 mb-1">Dica de Utilização</h4>
+                        <p class="text-blue-800 dark:text-blue-400 text-sm">
+                            Use a barra de pesquisa acima para filtrar rapidamente. Você pode buscar pelo nome da atividade (ex: "Fogo") ou pelo nome do Clube. Para bater um recorde listado, clique no botão "Desafiar" no card correspondente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTATO / SUBMISSÃO SECTION -->
+        <section id="contato" class="py-20 bg-gray-50 dark:bg-gray-900">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                    <div class="p-8 md:p-12">
+                        <div class="text-center mb-10">
+                            <h2 class="text-3xl font-bold dark:text-white">Submeter Novo Recorde</h2>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">Preencha os dados do seu clube e anexe as evidências. Nossa comissão fará a auditoria.</p>
+                        </div>
+
+                        <form id="recordForm" autocomplete="off" class="space-y-6">
+                            <!-- Segurança: honeypot invisível para evitar bots -->
+                            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="clube" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nome do Clube *</label>
+                                    <input type="text" id="clube" name="clube" required autocomplete="off" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand focus:outline-none transition">
+                                </div>
+                                <div>
+                                    <label for="diretor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nome do Diretor *</label>
+                                    <input type="text" id="diretor" name="diretor" required autocomplete="off" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand focus:outline-none transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="categoria" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoria/Especialidade *</label>
+                                    <select id="categoria" name="categoria" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand focus:outline-none transition cursor-pointer">
+                                        <option value="">Selecione...</option>
+                                        <option value="Nós e Amarras">Nós e Amarras</option>
+                                        <option value="Fogo e Acampamento">Fogo e Acampamento</option>
+                                        <option value="Ordem Unida">Ordem Unida</option>
+                                        <option value="Primeiros Socorros">Primeiros Socorros</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="marca" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Marca Alcançada (Tempo/Quantidade) *</label>
+                                    <input type="text" id="marca" name="marca" placeholder="Ex: 1m 23s" required autocomplete="off" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand focus:outline-none transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="link_video" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Link do Vídeo (YouTube/Drive) *
+                                    <span class="tooltip-container ml-1">
+                                        <i class="fa-solid fa-circle-question text-gray-400"></i>
+                                        <span class="tooltip-text">O vídeo não pode ter cortes. Deve mostrar a atividade do início ao fim com cronômetro visível.</span>
+                                    </span>
+                                </label>
+                                <input type="url" id="link_video" name="link_video" placeholder="https://" required autocomplete="off" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand focus:outline-none transition">
+                            </div>
+
+                            <!-- Consentimento LGPD Checkbox -->
+                            <div class="flex items-start bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center h-5">
+                                    <input id="lgpd_consent" name="lgpd_consent" type="checkbox" required class="w-5 h-5 text-brand bg-white border-gray-300 rounded focus:ring-brand focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="lgpd_consent" class="font-medium text-gray-700 dark:text-gray-300 cursor-pointer">Consentimento de Dados (LGPD) *</label>
+                                    <p class="text-gray-500 dark:text-gray-400 mt-1">Declaro que li e concordo com a <button type="button" onclick="openModal('modalPrivacidade')" class="text-brand hover:underline">Política de Privacidade</button> e os <button type="button" onclick="openModal('modalTermos')" class="text-brand hover:underline">Termos de Uso</button>. Autorizo o uso dos dados informados para fins de auditoria e publicação no ranking.</p>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 px-6 border border-transparent rounded-xl shadow-sm text-lg font-bold text-white bg-brand hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand transition-all transform hover:-translate-y-0.5 mt-4">
+                                Enviar Evidências <i class="fa-solid fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fa-solid fa-trophy text-brand text-2xl mr-2"></i>
+                        <span class="font-extrabold text-2xl tracking-tight">Águia<span class="text-brand">Guines</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        Plataforma independente criada para incentivar o desenvolvimento técnico, físico e mental dos jovens pertencentes aos Clubes de Desbravadores através de uma competição sadia e fraterna.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-white">Links Rápidos</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-brand transition">Início</a></li>
+                        <li><a href="#sobre" class="hover:text-brand transition">Sobre Nós</a></li>
+                        <li><a href="#ferramentas" class="hover:text-brand transition">Ranking Oficial</a></li>
+                        <li><a href="#contato" class="hover:text-brand transition">Submeter Recorde</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-white">Legal (LGPD)</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><button onclick="openModal('modalTermos')" class="hover:text-brand transition">Termos de Uso</button></li>
+                        <li><button onclick="openModal('modalPrivacidade')" class="hover:text-brand transition">Política de Privacidade</button></li>
+                        <li><button onclick="resetCookies()" class="hover:text-brand transition text-sm"><i class="fa-solid fa-cookie-bite mr-1"></i> Preferências de Cookies</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+                <p>&copy; 2026 Águia Guines. Todos os direitos reservados.</p>
+                <p class="mt-2 md:mt-0">Desenvolvido com <i class="fa-solid fa-heart text-red-500 mx-1"></i> by <span class="font-bold">HOTWYL | WILLFROMBRASIL</span>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LGPD COOKIE BANNER -->
+    <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-50 transform translate-y-full transition-transform duration-500">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-gray-600 dark:text-gray-300 flex-1">
+                <p><strong>Privacidade e Cookies:</strong> Nós usamos cookies para otimizar a performance do site, analisar o tráfego e oferecer uma experiência personalizada. Ao continuar navegando, você concorda com a nossa <button onclick="openModal('modalPrivacidade')" class="text-brand font-bold hover:underline">Política de Privacidade</button>.</p>
+            </div>
+            <div class="flex gap-3 flex-shrink-0 w-full md:w-auto">
+                <button id="rejectCookies" class="flex-1 md:flex-none px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Recusar Não-Essenciais</button>
+                <button id="acceptCookies" class="flex-1 md:flex-none px-4 py-2 bg-brand text-white font-bold rounded-lg hover:bg-brand-dark shadow-md transition">Aceitar Todos</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TERMOS DE USO -->
+    <div id="modalTermos" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-black/60 modal-bg" onclick="closeModal('modalTermos')"></div>
+        <div class="relative bg-white dark:bg-gray-800 w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col mx-4 transform transition-all scale-95 opacity-0 duration-300" id="modalTermosContent">
+            <div class="flex justify-between items-center p-6 border-b dark:border-gray-700">
+                <h3 class="text-2xl font-bold dark:text-white">Termos de Uso</h3>
+                <button onclick="closeModal('modalTermos')" class="text-gray-400 hover:text-red-500 transition text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto no-scrollbar text-gray-600 dark:text-gray-300 space-y-4">
+                <p><strong>1. Aceitação:</strong> Ao utilizar o Águia Guines, o usuário concorda com estes termos. Este é um ambiente fraterno e as regras devem ser respeitadas.</p>
+                <p><strong>2. Cadastro de Recordes:</strong> Toda submissão deve conter um vídeo comprobatório sem cortes e audível. A comissão julgadora reserva-se o direito de recusar vídeos de baixa qualidade ou que sugiram adulteração.</p>
+                <p><strong>3. Responsabilidade:</strong> O Águia Guines não se responsabiliza por lesões ou acidentes ocorridos durante a tentativa de quebra de recordes. As atividades devem ser supervisionadas por instrutores ou diretores responsáveis do Clube.</p>
+                <p><strong>4. Direitos de Imagem:</strong> Ao submeter um link de vídeo, o clube concede o direito de exibição do mesmo na plataforma para fins de comprovação da marca.</p>
+            </div>
+            <div class="p-6 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 rounded-b-2xl flex justify-end">
+                <button onclick="closeModal('modalTermos')" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: POLÍTICA DE PRIVACIDADE -->
+    <div id="modalPrivacidade" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-black/60 modal-bg" onclick="closeModal('modalPrivacidade')"></div>
+        <div class="relative bg-white dark:bg-gray-800 w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col mx-4 transform transition-all scale-95 opacity-0 duration-300" id="modalPrivacidadeContent">
+            <div class="flex justify-between items-center p-6 border-b dark:border-gray-700">
+                <h3 class="text-2xl font-bold dark:text-white">Política de Privacidade (LGPD)</h3>
+                <button onclick="closeModal('modalPrivacidade')" class="text-gray-400 hover:text-red-500 transition text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto no-scrollbar text-gray-600 dark:text-gray-300 space-y-4">
+                <p>Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), esclarecemos:</p>
+                <p><strong>1. Coleta de Dados:</strong> Coletamos apenas os dados essenciais para o registro (Nome do Clube, Nome do Diretor, e-mail/contato na submissão, e IP para segurança contra fraudes em formulários).</p>
+                <p><strong>2. Uso dos Dados:</strong> Os dados são utilizados EXCLUSIVAMENTE para contato referente à aprovação de recordes e para a exibição pública do nome do Clube e Diretor no Ranking Oficial.</p>
+                <p><strong>3. Armazenamento e Segurança:</strong> Utilizamos criptografia e banco de dados seguros para armazenar suas informações. Não vendemos ou compartilhamos dados com terceiros não autorizados.</p>
+                <p><strong>4. Direitos do Titular:</strong> A qualquer momento, o Diretor do clube pode solicitar a retificação (correção) de dados, a exclusão do registro ou a revogação do consentimento, entrando em contato através de nossos canais oficiais.</p>
+            </div>
+            <div class="p-6 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 rounded-b-2xl flex justify-end">
+                <button onclick="closeModal('modalPrivacidade')" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">Entendi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT PRINCIPAL (SPA, UI, Clean Code) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. DARK MODE LOGIC ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+            
+            // Check LocalStorage or OS preference
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                setIcons('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                setIcons('light');
+            }
+
+            function setIcons(theme) {
+                const iconClass = theme === 'dark' ? 'fa-sun' : 'fa-moon';
+                const removeClass = theme === 'dark' ? 'fa-moon' : 'fa-sun';
+                
+                themeIcon.classList.add(iconClass);
+                themeIcon.classList.remove(removeClass);
+                themeIconMobile.classList.add(iconClass);
+                themeIconMobile.classList.remove(removeClass);
+            }
+
+            function toggleTheme() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    setIcons('light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    setIcons('dark');
+                }
+            }
+
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            themeToggleBtnMobile.addEventListener('click', toggleTheme);
+
+
+            // --- 2. MOBILE MENU LOGIC ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if(mobileMenu.classList.contains('hidden')){
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-xmark');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+
+            // --- 3. DADOS DE RECORDES (Mock API via Clean Architecture) ---
+            const dbRecordes = [
+                { id: 1, categoria: 'Fogo e Acampamento', titulo: 'Fogo em fio mais rápido', clube: 'Clube Órion', tempo: '1m 12s', ano: 2025, icone: 'fa-fire' },
+                { id: 2, categoria: 'Nós e Amarras', titulo: 'Montagem de Pioneiria (Pórtico)', clube: 'Clube Everest', tempo: '14m 30s', ano: 2024, icone: 'fa-cubes' },
+                { id: 3, categoria: 'Ordem Unida', titulo: 'Evolução mais complexa (Sem comando de voz)', clube: 'Clube Águia', tempo: '98 pontos', ano: 2025, icone: 'fa-shoe-prints' },
+                { id: 4, categoria: 'Nós e Amarras', titulo: 'Nó Lais de Guia com uma mão', clube: 'Clube Leão de Judá', tempo: '1.8 segundos', ano: 2025, icone: 'fa-blender' },
+                { id: 5, categoria: 'Primeiros Socorros', titulo: 'Imobilização de Fratura (Membro Superior)', clube: 'Clube Maranata', tempo: '2m 05s', ano: 2023, icone: 'fa-kit-medical' },
+                { id: 6, categoria: 'Outros', titulo: 'Maior número de especialidades', clube: 'Clube Pioneiros', tempo: '142 insígnias', ano: 2024, icone: 'fa-medal' },
+                { id: 7, categoria: 'Ordem Unida', titulo: 'Marcha acelerada (100m)', clube: 'Clube Águia de Ouro', tempo: '13.5s', ano: 2025, icone: 'fa-person-running' },
+                { id: 8, categoria: 'Fogo e Acampamento', titulo: 'Montagem de Barraca Vendaval', clube: 'Clube Antares', tempo: '45 segundos', ano: 2025, icone: 'fa-campground' },
+                { id: 9, categoria: 'Nós e Amarras', titulo: 'Ammara Quadrada mais firme', clube: 'Clube Constelação', tempo: '150kg suportados', ano: 2024, icone: 'fa-compress' },
+                { id: 10, categoria: 'Primeiros Socorros', titulo: 'RCP - Maior tempo de resistência (Manequim)', clube: 'Clube Estrela da Manhã', tempo: '15m 12s', ano: 2025, icone: 'fa-heart-pulse' },
+                { id: 11, categoria: 'Fogo e Acampamento', titulo: 'Fogo master (sem cerdas)', clube: 'Clube Valentes', tempo: '3m 22s', ano: 2024, icone: 'fa-fire-flame-curved' },
+                { id: 12, categoria: 'Outros', titulo: 'Desbravador mais condecorado', clube: 'Clube Águia de Ouro', tempo: '280 especialidades', ano: 2026, icone: 'fa-star' },
+                { id: 13, categoria: 'Nós e Amarras', titulo: 'Conjunto de 10 nós básicos', clube: 'Clube Atalaias', tempo: '32s', ano: 2023, icone: 'fa-ribbon' },
+                { id: 14, categoria: 'Ordem Unida', titulo: 'Ordem unida em silêncio absoluto (15min)', clube: 'Clube Cruzeiro do Sul', tempo: 'Zero falhas', ano: 2024, icone: 'fa-users' },
+                { id: 15, categoria: 'Primeiros Socorros', titulo: 'Transporte de Acidentado (50m)', clube: 'Clube Gideões', tempo: '22s', ano: 2025, icone: 'fa-truck-medical' }
+            ];
+
+            const recordsGrid = document.getElementById('recordsGrid');
+            const searchInput = document.getElementById('searchRecord');
+            const noRecordsMessage = document.getElementById('noRecordsMessage');
+
+            function renderRecords(records) {
+                recordsGrid.innerHTML = '';
+                if(records.length === 0) {
+                    noRecordsMessage.classList.remove('hidden');
+                } else {
+                    noRecordsMessage.classList.add('hidden');
+                    records.forEach(rec => {
+                        const card = document.createElement('div');
+                        card.className = 'bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all transform hover:-translate-y-1 relative group';
+                        card.innerHTML = `
+                            <div class="absolute -top-3 -right-3 w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg group-hover:scale-110 transition-transform">
+                                ${rec.ano}
+                            </div>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center text-brand text-xl shadow-inner border border-gray-100 dark:border-gray-700">
+                                    <i class="fa-solid ${rec.icone}"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-brand uppercase tracking-wider">${rec.categoria}</p>
+                                    <h3 class="font-bold text-lg dark:text-white leading-tight mt-1">${rec.titulo}</h3>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-4 flex justify-between items-center border border-gray-100 dark:border-gray-700">
+                                <div>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Detentor Atual</p>
+                                    <p class="font-bold text-gray-900 dark:text-gray-100"><i class="fa-solid fa-shield-halved text-gray-400 mr-1 text-xs"></i> ${rec.clube}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Marca</p>
+                                    <p class="font-extrabold text-brand-dark dark:text-brand">${rec.tempo}</p>
+                                </div>
+                            </div>
+                            <button onclick="desafiarRecorde('${rec.titulo}')" class="w-full mt-4 py-2 border-2 border-brand text-brand hover:bg-brand hover:text-white font-bold rounded-lg transition-colors">
+                                Desafiar Marca
+                            </button>
+                        `;
+                        recordsGrid.appendChild(card);
+                    });
+                }
+            }
+
+            // Init load
+            renderRecords(dbRecordes);
+
+            // Search logic (Reatividade)
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = dbRecordes.filter(rec => 
+                    rec.titulo.toLowerCase().includes(term) || 
+                    rec.clube.toLowerCase().includes(term) ||
+                    rec.categoria.toLowerCase().includes(term)
+                );
+                renderRecords(filtered);
+            });
+
+
+            // --- 4. FORMULÁRIO E SWEETALERT2 ---
+            const recordForm = document.getElementById('recordForm');
+            recordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Anti-spam check (honeypot)
+                if(document.getElementsByName('website')[0].value !== '') {
+                    return false; // Silent fail for bots
+                }
+
+                const btn = recordForm.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processando...';
+                btn.disabled = true;
+
+                // Simulando requisição ao servidor
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    recordForm.reset();
+
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text: 'Sua solicitação de recorde foi enviada com sucesso. Nossa comissão fará a auditoria do vídeo e entraremos em contato com o diretor.',
+                        icon: 'success',
+                        confirmButtonColor: '#eab308', // color brand
+                        background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151',
+                    });
+                }, 1500);
+            });
+
+
+            // --- 5. LGPD COOKIE BANNER LOGIC ---
+            const cookieBanner = document.getElementById('cookieBanner');
+            const acceptCookiesBtn = document.getElementById('acceptCookies');
+            const rejectCookiesBtn = document.getElementById('rejectCookies');
+
+            if(!localStorage.getItem('lgpd_cookies_accepted')) {
+                // Delay banner show for UX
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptCookiesBtn.addEventListener('click', () => {
+                localStorage.setItem('lgpd_cookies_accepted', 'all');
+                hideBanner();
+            });
+
+            rejectCookiesBtn.addEventListener('click', () => {
+                localStorage.setItem('lgpd_cookies_accepted', 'essential');
+                hideBanner();
+            });
+
+            function hideBanner() {
+                cookieBanner.classList.add('translate-y-full');
+            }
+        });
+
+        // Global functions for Modals and Actions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + 'Content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Trigger animation
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            // Prevenir scroll do body
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + 'Content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 300); // match transition duration
+        }
+
+        function resetCookies() {
+            localStorage.removeItem('lgpd_cookies_accepted');
+            Swal.fire({
+                title: 'Preferências Resetadas',
+                text: 'Suas preferências de cookies foram apagadas. A página será recarregada.',
+                icon: 'info',
+                confirmButtonColor: '#eab308',
+                background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+                color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151',
+            }).then(() => {
+                window.location.reload();
+            });
+        }
+
+        function desafiarRecorde(titulo) {
+            // Scroll para o form e preenche a categoria/dica
+            const contatoSection = document.getElementById('contato');
+            contatoSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight opcional no form (UX)
+            setTimeout(() => {
+                const marcaInput = document.getElementById('marca');
+                marcaInput.focus();
+                
+                Swal.fire({
+                    title: 'Desafio Iniciado!',
+                    text: `Você está prestes a submeter uma marca para superar: "${titulo}". Preencha os dados e anexe o vídeo com o tempo/quantidade melhor que o atual.`,
+                    icon: 'info',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+                    color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151',
+                });
+            }, 800);
+        }
+    </script>
+</body>
+</html>

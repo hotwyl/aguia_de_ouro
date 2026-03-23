@@ -16,9 +16,16 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#F0C96B;--gold-dark:#8B6914;--ink:#0D1117;--ink-2:#161B22;--ink-3:#21262D;--parchment:#F5F0E8;--parchment-2:#EDE6D6;}
-    body{font-family:'DM Sans',sans-serif;background:var(--ink);color:#F5F0E8;}
-    body.light{background:var(--parchment);color:#1C1917;}
+    :root{--gold:#C9A84C;--gold-light:#F0C96B;--gold-dark:#8B6914;--ink:#0D1117;--ink-2:#161B22;--ink-3:#21262D;--parchment:#F5F0E8;--parchment-2:#EDE6D6;--text-dark:#1C1917;--text-light:#F5F0E8;--text-muted-dark:#9CA3AF;--text-muted-light:#6B5E45;}
+    body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--text-light);}
+    body.light{background:var(--parchment);color:var(--text-dark);}
+    body.light [style*="color:rgba(245,240,232"], 
+    body.light [style*="color: rgba(245,240,232"], 
+    body.light [style*="color:#9CA3AF"], 
+    body.light [style*="color: #9CA3AF"] { color: var(--text-muted-light) !important; }
+    body.light [style*="var(--text-muted-dark)"] { color: var(--text-muted-light) !important; }
+    body.light [style*="var(--text-light)"] { color: var(--text-dark) !important; }
+    body.light .text-gold-gradient { background:linear-gradient(135deg,#B48B25,#8B6914,#6A4C0A); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     .font-display{font-family:'Cinzel',serif;}
     .font-body{font-family:'Crimson Pro',serif;}
     .text-gold{color:var(--gold);}
@@ -93,45 +100,63 @@
 </head>
 <body>
 
-<!-- Header -->
+!-- Header / Nav -->
 <header class="nav-glass fixed top-0 left-0 right-0 z-40">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold-dark),var(--gold));">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--gold-dark), var(--gold));">
         <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
       </div>
       <div>
-        <div class="font-display font-bold text-base text-gold-gradient leading-tight">Águia de Ouro</div>
-        <div class="text-xs" style="color:#9CA3AF">Desbravadores · Curitiba</div>
+        <div class="font-display font-bold text-base leading-tight text-gold-gradient">Águia de Ouro</div>
+        <div class="text-xs" style="color: var(--text-muted-dark)">Desbravadores · Curitiba</div>
       </div>
     </a>
-    <nav class="hidden md:flex items-center gap-1" aria-label="Navegação principal">
-      <a href="/" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF">Início</a>
-      <a href="/sobre.html" class="px-3 py-2 rounded-lg text-sm" style="color:var(--gold);background:rgba(201,168,76,.08);"><i class="fas fa-info-circle mr-1"></i>Sobre o Clube</a>
-      <a href="/guia.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia de Classes</a>
-      <a href="/quiz.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Teste das Aves</a>
-      <a href="/planejamento.html" class="px-3 py-2 rounded-lg text-sm transition-colors hover:text-gold" style="color:#9CA3AF"><i class="fas fa-file-pdf mr-1"></i>Planejamento PDF</a>
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Navegação principal">
+      <a href="/" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-home mr-1"></i>Início</a>
+      <a href="/sobre.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
+      <a href="/guia.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-book-open mr-1"></i>Guia</a>
+      <a href="/quiz.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-dove mr-1"></i>Aves</a>
+      <a href="/desbrava_guines/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-trophy mr-1"></i>Guines</a>
+      <a href="/astronomia/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-star mr-1"></i>Astronomia</a>
+      <a href="/ordem_unida/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-users mr-1"></i>O. Unida</a>
+      <a href="/materiais/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-folder-open mr-1"></i>Materiais</a>
     </nav>
+    <!-- Actions -->
     <div class="flex items-center gap-2">
-      <button onclick="toggleTheme()" class="has-tip w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gold/10" aria-label="Alternar tema">
-        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
-        <span class="tip-text">Alternar tema</span>
+        <button onclick="toggleTheme()" id="themeBtn" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-gold/10" aria-label="Alternar tema">
+          <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
       </button>
-      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg" style="color:var(--gold)" aria-label="Menu">
+      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
         <i id="menuIcon" class="fas fa-bars"></i>
       </button>
+      <a href="/quiz.html" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
+        <i class="fas fa-feather"></i> Fazer o Teste
+      </a>
     </div>
   </div>
 </header>
 
 <!-- Mobile Menu -->
-<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass">
-  <nav class="flex flex-col p-6 gap-2 text-sm">
-    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
-    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,.1);color:var(--gold)"><i class="fas fa-info-circle w-5"></i>Sobre o Clube</a>
-    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i>Guia de Classes</a>
-    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-dove w-5" style="color:var(--gold)"></i>Teste das Aves</a>
-    <a href="/planejamento.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-file-pdf w-5" style="color:var(--gold)"></i>Planejamento PDF</a>
+<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass" aria-hidden="true">
+  <nav class="flex flex-col p-6 gap-2">
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);">
+      <i class="fas fa-home w-5"></i><span class="font-medium">Início</span>
+    </a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i><span>Sobre o Clube</span></a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i><span>Guia de Classes</span></a>
+    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-dove w-5" style="color:var(--gold)"></i><span>Teste das Aves</span></a>
+    <a href="/desbrava_guines/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-trophy w-5" style="color:var(--gold)"></i><span>Águia Guines</span></a>
+    <a href="/astronomia/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-star w-5" style="color:var(--gold)"></i><span>Astronomia</span></a>
+    <a href="/ordem_unida/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-users w-5" style="color:var(--gold)"></i><span>Ordem Unida</span></a>
+    <a href="/materiais/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-folder-open w-5" style="color:var(--gold)"></i><span>Materiais</span></a>
+    <div class="mt-4 pt-4" style="border-top:1px solid rgba(201,168,76,0.2)">
+      <a href="/quiz.html" class="btn-gold w-full py-3 rounded-xl text-center font-semibold block">
+        <i class="fas fa-feather mr-2"></i>Iniciar Teste Agora
+      </a>
+    </div>
   </nav>
 </div>
 
@@ -660,27 +685,7 @@ const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIn
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // ─── GOLD GRADIENT ────────────────────────────────────────────────────────────
-document.querySelectorAll('.text-gold-gradient').forEach(el=>{el.style.background='linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';el.style.webkitBackgroundClip='text';el.style.webkitTextFillColor='transparent';el.style.backgroundClip='text';});
+// Gradient via CSS
 </script>
-<<<<<<< HEAD
-=======
 
-<!-- FOOTER -->
-<footer style="border-top:1px solid rgba(201,168,76,.18);background:rgba(13,17,23,.96);padding:24px 16px;">
-  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#8B6914,#C9A84C);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-feather-alt" style="color:#0D1117;font-size:12px;"></i></div>
-      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#C9A84C;">Águia de Ouro</div><div style="font-size:11px;color:#9CA3AF;">Clube de Desbravadores · Curitiba</div></div>
-    </div>
-    <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
-      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-star"></i> Astronomia</a>
-      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-folder-open"></i> Materiais</a>
-      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-users"></i> Ordem Unida</a>
-      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#D1B96A;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.16)'" onmouseout="this.style.background='rgba(201,168,76,.06)'"><i class="fas fa-file-pdf"></i> Planejamento</a>
-    </nav>
-    <p style="font-size:11px;color:#9CA3AF;width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
-  </div>
-</footer>
->>>>>>> master
-</body>
 </html>

@@ -79,6 +79,8 @@
         "/^\\$f=\"d:\\\\laragon\\\\www\\\\freela\\\\aguia_de_ouro\\\\planejamento\\.html\"; \\$l=Get-Content \\$f; \\$bodyIdx=\\(\\$l \\| Select-String \"</footer>\" \\| Select-Object -Last 1\\)\\.LineNumber; \\$l\\[\\(\\$bodyIdx-3\\)\\.\\.\\(\\$bodyIdx\\+2\\)\\] \\| %\\{\"  \\|\\$_\"\\}$/": {
             "approve": true,
             "matchCommandLine": true
-        }
+        },
+        "Select": true,
+        "Set-Content": true
     }
 }

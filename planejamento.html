@@ -150,12 +150,15 @@
         <div style="font-size:11px;color:#9CA3AF;">Desbravadores · Curitiba</div>
       </div>
     </a>
-    <nav style="display:none;" id="desktopNav">
-      <a href="/" class="nav-link">Início</a>
-      <a href="/sobre.html" class="nav-link">Sobre o Clube</a>
-      <a href="/guia.html" class="nav-link">Guia de Classes</a>
-      <a href="/quiz.html" class="nav-link">Teste das Aves</a>
-      <a href="/planejamento.html" class="nav-link active"><i class="fas fa-file-pdf" style="margin-right:4px;"></i>Planejamento PDF</a>
+    <nav style="display:none;" id="desktopNav" aria-label="Navegação principal">
+      <a href="/" class="nav-link"><i class="fas fa-home mr-1"></i>Início</a>
+      <a href="/sobre.html" class="nav-link"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
+      <a href="/guia.html" class="nav-link"><i class="fas fa-book-open mr-1"></i>Guia</a>
+      <a href="/quiz.html" class="nav-link"><i class="fas fa-dove mr-1"></i>Aves</a>
+      <a href="/desbrava_guines/index.html" class="nav-link"><i class="fas fa-trophy mr-1"></i>Guines</a>
+      <a href="/astronomia/index.html" class="nav-link"><i class="fas fa-star mr-1"></i>Astronomia</a>
+      <a href="/ordem_unida/index.html" class="nav-link"><i class="fas fa-users mr-1"></i>O. Unida</a>
+      <a href="/materiais/index.html" class="nav-link"><i class="fas fa-folder-open mr-1"></i>Materiais</a>
     </nav>
     <div style="display:flex;align-items:center;gap:8px;">
       <button onclick="toggleTheme()" class="tip" data-tip="Alternar tema" style="width:36px;height:36px;border-radius:8px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" aria-label="Tema">
@@ -172,10 +175,13 @@
 <div id="mobileMenu" class="nav-glass">
   <nav style="display:flex;flex-direction:column;padding:20px 16px;gap:4px;">
     <a href="/" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-home" style="color:var(--gold);width:18px;"></i>Início</a>
-    <a href="/sobre.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-info-circle" style="color:var(--gold);width:18px;"></i>Sobre o Clube</a>
     <a href="/guia.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-book-open" style="color:var(--gold);width:18px;"></i>Guia de Classes</a>
     <a href="/quiz.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-dove" style="color:var(--gold);width:18px;"></i>Teste das Aves</a>
-    <a href="/planejamento.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(201,168,76,.1);color:var(--gold);text-decoration:none;font-size:14px;font-weight:600;"><i class="fas fa-file-pdf" style="width:18px;"></i>Planejamento PDF</a>
+    <a href="/astronomia/index.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-star" style="color:var(--gold);width:18px;"></i>Astronomia</a>
+    <a href="/desbrava_guines/index.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-trophy" style="color:var(--gold);width:18px;"></i>Águia Guines</a>
+    <a href="/ordem_unida/index.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-users" style="color:var(--gold);width:18px;"></i>Ordem Unida</a>
+    <a href="/materiais/index.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-folder-open" style="color:var(--gold);width:18px;"></i>Materiais</a>
+    <a href="/sobre.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;color:#F5F0E8;text-decoration:none;font-size:14px;transition:background .2s;" onmouseover="this.style.background='rgba(201,168,76,.08)'" onmouseout="this.style.background='transparent'"><i class="fas fa-info-circle" style="color:var(--gold);width:18px;"></i>Sobre o Clube</a>
   </nav>
 </div>
 
