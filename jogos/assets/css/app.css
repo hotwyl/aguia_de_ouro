@@ -1,0 +1,30 @@
+/* 
+    assets/css/app.css 
+    Add custom CSS that tailwind CDN can't handle natively without plugins if needed.
+*/
+
+/* SweetAlert2 Overrides for matching Tailwind */
+.swal2-container {
+    font-family: 'Inter', sans-serif !important;
+}
+
+.swal2-popup {
+    border-radius: 0.75rem !important; /* xl */
+}
+
+.swal2-confirm {
+    border-radius: 0.375rem !important; /* md */
+    font-weight: 600 !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important; /* sm */
+}
+
+/* Prevent scrollbar shift on dialog open */
+body.swal2-shown {
+    padding-right: 0 !important;
+}
+
+/* Additional Custom Utilities */
+html {
+    scroll-behavior: smooth;
+}
