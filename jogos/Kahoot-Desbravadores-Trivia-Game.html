@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Desbrava Plus – Trivia Game interativo do Clube de Desbravadores Águia de Ouro. Teste seus conhecimentos sobre história, ideais, símbolos e classes.">
+  <meta name="keywords" content="desbrava plus, trivia, quiz desbravadores, águia de ouro, jogos educativos, curitiba">
+  <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Desbrava Plus | Águia de Ouro – Desbravadores">
+  <meta property="og:description" content="Jogo de trivia multiplayer para desbravadores. Projete na TV e desafie seus amigos!">
+  <meta property="og:type" content="website">
+  <meta name="geo.region" content="BR-PR">
+  <meta name="geo.placename" content="Curitiba">
+  <meta name="geo.position" content="-25.4284;-49.2733">
+  <meta name="ICBM" content="-25.4284, -49.2733">
+  <title>Desbrava Plus | Águia de Ouro – Desbravadores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+  ;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WVMJV7G6');
+  </script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J06THXX0MW"></script>
+  <script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J06THXX0MW');
+  </script>
+
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0C96B;
+      --gold-dark: #8B6914;
+      --ink: #0D1117;
+      --ink-2: #161B22;
+      --ink-3: #21262D;
+      --parchment: #F5F0E8;
+      --parchment-2: #EDE6D6;
+      --text-dark: #1C1917;
+      --text-light: #F5F0E8;
+      --text-muted-dark: #9CA3AF;
+      --text-muted-light: #6B5E45;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--text-light); }
+    body.light { background: var(--parchment); color: var(--text-dark); }
+    .font-display { font-family: 'Cinzel', serif; }
+    .font-body { font-family: 'Crimson Pro', serif; }
+
+    .text-gold { color: var(--gold); }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); border: 1px solid rgba(201,168,76,0.15); }
+    body.light .glass { background: rgba(255,255,255,0.7); border: 1px solid rgba(201,168,76,0.3); }
+
+    .card-lift { transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(201,168,76,0.25); border-color: rgba(201,168,76,0.5) !important; }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #C9A84C, #F0C96B, #C9A84C);
+      background-size: 200% auto; color: #0D1117; font-weight: 700;
+      transition: all 0.4s ease; position: relative; overflow: hidden;
+    }
+    .btn-gold:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(201,168,76,0.5); }
+
+    .btn-outline-gold { border: 2px solid var(--gold); color: var(--gold); transition: all 0.3s ease; }
+    .btn-outline-gold:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+
+    .nav-glass { background: rgba(13,17,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+    body.light .nav-glass { background: rgba(245,240,232,0.85); border-bottom: 1px solid rgba(201,168,76,0.3); }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.4; }
+
+    #mobileMenu { transform: translateX(-100%); transition: transform 0.35s ease; }
+    #mobileMenu.open { transform: translateX(0); }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .has-tooltip { position: relative; }
+    .tooltip-text {
+      visibility: hidden; opacity: 0; position: absolute;
+      bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      background: var(--ink-3); color: var(--text-light); padding: 6px 12px;
+      border-radius: 6px; font-size: 12px; white-space: nowrap;
+      border: 1px solid rgba(201,168,76,0.3);
+      transition: all 0.2s ease; z-index: 100; pointer-events: none;
+    }
+    body.light .tooltip-text { background: #21262D; }
+    .has-tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+    #cookieBanner { transition: transform 0.5s ease; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse-gold { 0%,100% { box-shadow: 0 0 20px rgba(201,168,76,0.3); } 50% { box-shadow: 0 0 40px rgba(201,168,76,0.6); } }
+    @keyframes timerPulse { 0%{ transform:scale(1); } 50%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+    @keyframes confettiFall { 0%{ transform:translateY(-10vh) rotate(0deg); opacity:1; } 100%{ transform:translateY(100vh) rotate(720deg); opacity:0; } }
+    @keyframes slideUp { from{ transform:translateY(40px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
+    @keyframes popIn { from{ transform:scale(0.8); opacity:0; } to{ transform:scale(1); opacity:1; } }
+    .anim-fade-up { animation: fadeUp 0.7s ease forwards; }
+    .anim-slide-up { animation: slideUp 0.4s ease forwards; }
+    .anim-pop { animation: popIn 0.45s cubic-bezier(.34,1.56,.64,1) forwards; }
+    .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+
+    /* Game specific styles */
+    .game-card {
+      background: rgba(255,255,255,0.04); backdrop-filter: blur(20px);
+      border: 1px solid rgba(201,168,76,0.2); border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    body.light .game-card { background: rgba(255,255,255,0.85); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
+    .answer-btn {
+      border: 2px solid rgba(201,168,76,0.2); border-radius: 16px;
+      padding: 16px 20px; font-weight: 700; transition: all 0.25s ease;
+      cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px;
+      min-height: 56px;
+    }
+    .answer-btn:hover:not(:disabled) { border-color: var(--gold); transform: scale(1.02); box-shadow: 0 4px 16px rgba(201,168,76,0.2); }
+    .answer-btn:active:not(:disabled) { transform: scale(0.98); }
+    .answer-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+    .answer-btn.correct { background: rgba(16,185,129,0.2); border-color: #10B981; }
+    .answer-btn.wrong { background: rgba(239,68,68,0.2); border-color: #EF4444; }
+
+    .timer-bar { height: 6px; border-radius: 3px; transition: width 0.1s linear; }
+
+    .player-avatar {
+      width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; border: 2px solid rgba(201,168,76,0.3);
+    }
+
+    .streak-badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--ink); font-weight: 700; font-size: 11px;
+      padding: 2px 8px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--ink-2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+    body.light ::-webkit-scrollbar-track { background: var(--parchment-2); }
+    *:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+  </style>
+</head>
+<body>
+
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) || (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))) { e.preventDefault(); return false; }
+});
+document.addEventListener('selectstart', e => e.preventDefault());
+</script>
+
+<!-- Cookie / LGPD Banner -->
+<div id="cookieBanner" class="fixed bottom-0 left-0 right-0 z-50 p-4" style="background: rgba(13,17,23,0.97); border-top: 1px solid rgba(201,168,76,0.3);">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+    <div class="flex-1 text-sm" style="color: #9CA3AF;">
+      <i class="fas fa-shield-alt mr-2" style="color:var(--gold)"></i>
+      <strong style="color:var(--text-light)">Privacidade (LGPD):</strong> Utilizamos apenas dados essenciais. Nenhum dado pessoal é coletado ou armazenado.
+    </div>
+    <button onclick="acceptCookies()" class="btn-gold px-5 py-2 rounded-lg text-sm font-semibold flex-shrink-0">
+      <i class="fas fa-check mr-1"></i> Entendi
+    </button>
+  </div>
+</div>
+
+<!-- Header / Nav -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--gold-dark), var(--gold));">
+        <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+      </div>
+      <div>
+        <div class="font-display font-bold text-base leading-tight text-gold-gradient">Águia de Ouro</div>
+        <div class="text-xs" style="color: var(--text-muted-dark)">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Navegação principal">
+      <a href="/" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-home mr-1"></i>Início</a>
+      <a href="/sobre.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
+      <a href="/guia.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-book-open mr-1"></i>Guia</a>
+      <a href="/quiz.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-dove mr-1"></i>Aves</a>
+      <a href="/jogos/index.html" class="px-2 py-2 rounded-lg text-sm font-medium" style="color:var(--gold);"><i class="fas fa-gamepad mr-1"></i>Jogos</a>
+      <a href="/desbrava_guines/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-trophy mr-1"></i>Guines</a>
+      <a href="/astronomia/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-star mr-1"></i>Astronomia</a>
+      <a href="/ordem_unida/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-users mr-1"></i>O. Unida</a>
+      <a href="/materiais/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-folder-open mr-1"></i>Materiais</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" class="has-tooltip w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-gold/10" aria-label="Alternar tema">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
+        <span class="tooltip-text">Alternar tema</span>
+      </button>
+      <button onclick="toggleMenu()" class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
+        <i id="menuIcon" class="fas fa-bars"></i>
+      </button>
+      <a href="/quiz.html" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
+        <i class="fas fa-feather"></i> Fazer o Teste
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass" aria-hidden="true">
+  <nav class="flex flex-col p-6 gap-2">
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-home w-5" style="color:var(--gold)"></i><span>Início</span></a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i><span>Sobre o Clube</span></a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i><span>Guia de Classes</span></a>
+    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-dove w-5" style="color:var(--gold)"></i><span>Teste das Aves</span></a>
+    <a href="/jogos/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);"><i class="fas fa-gamepad w-5"></i><span class="font-medium">Jogos Educativos</span></a>
+    <a href="/desbrava_guines/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-trophy w-5" style="color:var(--gold)"></i><span>Águia Guines</span></a>
+    <a href="/astronomia/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-star w-5" style="color:var(--gold)"></i><span>Astronomia</span></a>
+    <a href="/ordem_unida/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-users w-5" style="color:var(--gold)"></i><span>Ordem Unida</span></a>
+    <a href="/materiais/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-folder-open w-5" style="color:var(--gold)"></i><span>Materiais</span></a>
+    <div class="mt-4 pt-4" style="border-top:1px solid rgba(201,168,76,0.2)">
+      <a href="/quiz.html" class="btn-gold w-full py-3 rounded-xl text-center font-semibold block">
+        <i class="fas fa-feather mr-2"></i>Iniciar Teste Agora
+      </a>
+    </div>
+  </nav>
+</div>
+
+<!-- Breadcrumb -->
+<div class="pt-20 pb-2 px-4">
+  <div class="max-w-6xl mx-auto">
+    <nav class="text-xs" style="color:var(--text-muted-dark)">
+      <a href="/" class="hover:text-gold transition-colors">Início</a>
+      <i class="fas fa-chevron-right mx-2 text-xs" style="opacity:0.5"></i>
+      <a href="/jogos/index.html" class="hover:text-gold transition-colors">Jogos</a>
+      <i class="fas fa-chevron-right mx-2 text-xs" style="opacity:0.5"></i>
+      <span style="color:var(--gold)">Desbrava Plus</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Game Container -->
+<main class="px-4 pb-20 pt-4">
+  <div class="max-w-5xl mx-auto" id="gameRoot">
+    <!-- Game content rendered by JS -->
+  </div>
+</main>
+
+<div class="divider"></div>
+
+<!-- Footer -->
+<footer class="py-12 px-4" style="background: rgba(13,17,23,0.98); border-top: 1px solid rgba(201,168,76,0.2);">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--gold-dark), var(--gold));">
+            <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+          </div>
+          <div>
+            <div class="font-display font-bold text-gold-gradient">Águia de Ouro</div>
+            <div class="text-xs" style="color:var(--text-muted-dark)">Desbravadores · Curitiba</div>
+          </div>
+        </div>
+        <p class="text-sm" style="color:var(--text-muted-dark);">
+          Rua Guilherme Ihlenfeldt, 778<br>Tingui, Curitiba – PR<br>CEP: 82620-035
+        </p>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-4" style="color:var(--gold)">Navegação</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-home mr-2"></i>Início</a></li>
+          <li><a href="/sobre.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-info-circle mr-2"></i>Sobre o Clube</a></li>
+          <li><a href="/guia.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-book-open mr-2"></i>Guia de Classes</a></li>
+          <li><a href="/quiz.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-dove mr-2"></i>Teste das Aves</a></li>
+          <li><a href="/jogos/index.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-gamepad mr-2"></i>Jogos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-4" style="color:var(--gold)">Legal & Privacidade</h4>
+        <ul class="space-y-2 text-sm">
+          <li><button onclick="showLGPD()" class="hover:text-gold transition-colors text-left" style="color:var(--text-muted-dark)"><i class="fas fa-shield-alt mr-2"></i>Conformidade LGPD</button></li>
+          <li><button onclick="showTerms()" class="hover:text-gold transition-colors text-left" style="color:var(--text-muted-dark)"><i class="fas fa-file-contract mr-2"></i>Termos de Uso</button></li>
+          <li><button onclick="showPrivacy()" class="hover:text-gold transition-colors text-left" style="color:var(--text-muted-dark)"><i class="fas fa-user-secret mr-2"></i>Política de Privacidade</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="divider mb-6"></div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style="color:var(--text-muted-dark)">
+      <p>© 2024 Clube de Desbravadores Águia de Ouro. Todos os direitos reservados.</p>
+      <p>Desenvolvido por <span style="color:var(--gold)">HOTWYL</span> | <span style="color:var(--gold)">WILLFROMBRASIL</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== THEME =====
+let isLight = localStorage.getItem('theme') === 'light';
+function applyTheme() {
+  document.body.classList.toggle('light', isLight);
+  document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+}
+function toggleTheme() {
+  isLight = !isLight;
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  applyTheme();
+}
+applyTheme();
+
+// ===== MENU =====
+let menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
+  document.getElementById('mobileMenu').setAttribute('aria-hidden', !menuOpen);
+  document.getElementById('menuIcon').className = menuOpen ? 'fas fa-times' : 'fas fa-bars';
+}
+function closeMenu() { menuOpen = false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('mobileMenu').setAttribute('aria-hidden','true'); document.getElementById('menuIcon').className='fas fa-bars'; }
+
+// ===== COOKIES =====
+function acceptCookies() {
+  localStorage.setItem('lgpd_accepted','true');
+  const b = document.getElementById('cookieBanner');
+  b.style.transform = 'translateY(100%)';
+  setTimeout(() => b.style.display = 'none', 500);
+}
+if (localStorage.getItem('lgpd_accepted') === 'true') { document.getElementById('cookieBanner').style.display = 'none'; }
+
+// ===== LGPD / TERMS / PRIVACY =====
+function showLGPD() { Swal.fire({ title:'Conformidade LGPD', icon:'info', confirmButtonColor:'#C9A84C', html:'<div class="text-left text-sm space-y-3"><p>Este site não coleta dados pessoais sem consentimento.</p><p>Utilizamos apenas localStorage para preferências (tema).</p><p>Nenhum dado é enviado a terceiros.</p></div>' }); }
+function showTerms() { Swal.fire({ title:'Termos de Uso', icon:'info', confirmButtonColor:'#C9A84C', html:'<div class="text-left text-sm space-y-3"><p>O conteúdo é educacional e destinado a membros e interessados no Clube.</p><p>Proibida reprodução sem autorização.</p></div>' }); }
+function showPrivacy() { Swal.fire({ title:'Política de Privacidade', icon:'info', confirmButtonColor:'#C9A84C', html:'<div class="text-left text-sm space-y-3"><p>Respeitamos sua privacidade.</p><p>Nenhum cookie de rastreamento é utilizado além do Google Analytics para estatísticas.</p></div>' }); }
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<script>
+// ===== DESBRAVA PLUS – TRIVIA GAME =====
+(function() {
+  'use strict';
+
+  // ===== QUESTIONS DATABASE =====
+  const allQuestions = [
+    {id:1,tema:"História",pergunta:"Quando foi fundado o 1º Clube de Desbravadores?",opcoes:["1946","1950","1930","1920"],correta:1,tempo:20,emoji:"🏕️",curiosidade:"Foi em Glendale, Califórnia, com Henry Bergh."},
+    {id:2,tema:"História",pergunta:"Quem é considerado o fundador dos Desbravadores?",opcoes:["Henry Bergh","Arthur Spalding","Baden-Powell","Lester Bond"],correta:0,tempo:20,emoji:"👨‍🏫",curiosidade:"Henry Bergh organizou o clube modelo que virou padrão mundial."},
+    {id:3,tema:"História",pergunta:"Qual movimento deu origem aos Desbravadores?",opcoes:["JMV","Escoteiros","RA","Aventureiros"],correta:0,tempo:15,emoji:"📜",curiosidade:"JMV = Jovens Missionários Voluntários, 1907."},
+    {id:4,tema:"História",pergunta:"Onde surgiu o primeiro clube oficial?",opcoes:["Califórnia","Texas","Flórida","Nova York"],correta:0,tempo:15,emoji:"🌎",curiosidade:"Glendale, na Califórnia, EUA."},
+    {id:5,tema:"História",pergunta:"Em que ano os Desbravadores chegaram ao Brasil?",opcoes:["1959","1965","1950","1972"],correta:0,tempo:20,emoji:"🇧🇷",curiosidade:"Primeiro clube em Campinas, SP, em 1959."},
+    {id:6,tema:"História",pergunta:"O que significa JMV?",opcoes:["Jovens Missionários Voluntários","Jesus Meu Verdadeiro","Jovens Movidos à Vitória","Juntos Missão Valente"],correta:0,tempo:15,emoji:"✝",curiosidade:"Foi o departamento juvenil que originou tudo."},
+    {id:7,tema:"História",pergunta:"Quem criou o nome Pathfinder em inglês?",opcoes:["Arthur Spalding","John Hancock","Henry Bergh","Theodore Ferris"],correta:1,tempo:20,emoji:"🧭",curiosidade:"John Hancock criou classes e o nome Pathfinder."},
+    {id:8,tema:"História",pergunta:"Qual foi o primeiro Camporee internacional?",opcoes:["1954","1949","1960","1950"],correta:0,tempo:20,emoji:"⛺",curiosidade:"1954 em Ashburnham, Massachusetts."},
+    {id:9,tema:"História",pergunta:"Qual igreja mantém os Desbravadores?",opcoes:["Adventista","Batista","Metodista","Presbiteriana"],correta:0,tempo:10,emoji:"⛪",curiosidade:"Ministério da Igreja Adventista do Sétimo Dia."},
+    {id:10,tema:"História",pergunta:"Quem desenhou o emblema triangular?",opcoes:["John Hancock","Henry Bergh","Lester Bond","Arthur Spalding"],correta:0,tempo:20,emoji:"🔺",curiosidade:"Triângulo simboliza desenvolvimento completo."},
+    {id:11,tema:"História",pergunta:"Quando surgiram os Escoteiros Missionários?",opcoes:["1919","1907","1925","1930"],correta:0,tempo:20,emoji:"⚜️",curiosidade:"Foram o embrião dos clubes modernos."},
+    {id:12,tema:"História",pergunta:"Qual manual foi base para as classes?",opcoes:["Manual JMV","Manual Escoteiro","Manual RA","Manual da Bíblia"],correta:0,tempo:15,emoji:"📘",curiosidade:"Arthur Spalding adaptou o modelo."},
+    {id:13,tema:"História",pergunta:"O que motivou a criação dos clubes?",opcoes:["Salvar jovens das ruas","Competição","Turismo","Escola militar"],correta:0,tempo:15,emoji:"💡",curiosidade:"Oferecer atividade saudável e espiritual."},
+    {id:14,tema:"História",pergunta:"Quantas classes existiam no início?",opcoes:["3","6","4","2"],correta:0,tempo:20,emoji:"🎖️",curiosidade:"Amigo, Companheiro e Camarada no início."},
+    {id:15,tema:"História",pergunta:"Qual país foi pioneiro fora dos EUA?",opcoes:["Austrália","Brasil","México","Filipinas"],correta:0,tempo:20,emoji:"🌏",curiosidade:"Austrália começou cedo nos anos 50."},
+    {id:16,tema:"História",pergunta:"Quem foi Lester Bond?",opcoes:["Tesoureiro que apoiou","Fundador do lenço","Criador da lei","Pastor no Brasil"],correta:0,tempo:20,emoji:"💰",curiosidade:"Financiou materiais dos primeiros clubes."},
+    {id:17,tema:"História",pergunta:"O que eram os TAK?",opcoes:["Clubes de elite","Times de resgate","Classes avançadas","Uniformes"],correta:0,tempo:20,emoji:"🏅",curiosidade:"Teen Age Klub, grupos de liderança."},
+    {id:18,tema:"História",pergunta:"Quando o nome Desbravador virou oficial?",opcoes:["1950","1946","1955","1960"],correta:0,tempo:20,emoji:"📛",curiosidade:"General Conference adotou Pathfinder em 1950."},
+    {id:19,tema:"História",pergunta:"Qual evento reúne milhares a cada 5 anos?",opcoes:["Camporee Internacional","Olimpíada","Concílio","Acampamento local"],correta:0,tempo:15,emoji:"🎪",curiosidade:"Em Oshkosh, EUA, reúne 50 mil."},
+    {id:20,tema:"História",pergunta:"Qual livro inspirou a filosofia?",opcoes:["Mensagens aos Jovens","Grande Conflito","Desejado","Caminho a Cristo"],correta:0,tempo:20,emoji:"📖",curiosidade:"Ellen White enfatiza desenvolvimento juvenil."},
+    {id:21,tema:"História",pergunta:"O que significa Desbravar?",opcoes:["Abrir caminho novo","Escalar montanhas","Vencer medo","Explorar cavernas"],correta:0,tempo:15,emoji:"🪓",curiosidade:"Desbravador abre trilhas onde não há."},
+    {id:22,tema:"História",pergunta:"Quem trouxe os Desbravadores ao Brasil?",opcoes:["Pastor Wilson Sarli","Pastor João Wolf","Pastor Nevil Gorski","Pastor Roberto Wolf"],correta:2,tempo:20,emoji:"✈️",curiosidade:"Nevil Gorski trouxe após estágio nos EUA."},
+    {id:23,tema:"História",pergunta:"Quando foi o 1º Camporee Sul-Americano?",opcoes:["1965","1970","1959","1980"],correta:0,tempo:25,emoji:"🌎",curiosidade:"Em 1965 no Uruguai, marco continental."},
+    {id:24,tema:"História",pergunta:"Qual cidade teve o 1º clube brasileiro?",opcoes:["Campinas","São Paulo","Rio","Curitiba"],correta:0,tempo:15,emoji:"🏙️",curiosidade:"Igreja Central de Campinas, 1959."},
+    {id:25,tema:"História",pergunta:"O que era o Clube de Amigos?",opcoes:["Pré-desbravador","Clube de música","Grupo de estudo","Time esportivo"],correta:0,tempo:20,emoji:"🤝",curiosidade:"Para crianças menores que 10 anos."},
+    {id:26,tema:"História",pergunta:"Quando surgiu o uniforme oficial?",opcoes:["1947","1950","1955","1962"],correta:0,tempo:20,emoji:"👕",curiosidade:"Inspirado nos escoteiros mas com identidade própria."},
+    {id:27,tema:"História",pergunta:"Qual década consolidou os Desbravadores no Brasil?",opcoes:["1970","1960","1980","1990"],correta:0,tempo:15,emoji:"📈",curiosidade:"Explosão de clubes nos anos 70."},
+    {id:28,tema:"História",pergunta:"O que Henry Bergh era?",opcoes:["Diretor de jovens","Professor","Médico","Pastor"],correta:0,tempo:15,emoji:"🧑‍🏫",curiosidade:"Diretor de Jovens da Associação."},
+    {id:29,tema:"História",pergunta:"Qual foi o lema inicial dos JMV?",opcoes:["A mensagem a todo mundo","Servir e salvar","Amar e obedecer","Firme e fiel"],correta:0,tempo:20,emoji:"📣",curiosidade:"Depois virou o Alvo dos Desbravadores."},
+    {id:30,tema:"História",pergunta:"Quantos continentes têm Desbravadores hoje?",opcoes:["6","5","7","4"],correta:0,tempo:15,emoji:"🌍",curiosidade:"Presente em todos exceto Antártica."},
+    {id:31,tema:"Ideais",pergunta:"Como começa o Voto do Desbravador?",opcoes:["Pela graça de Deus","Prometo ser fiel","Com ajuda de Cristo","Juro por Deus"],correta:0,tempo:15,emoji:"🤚",curiosidade:"Voto: Pela graça de Deus serei puro, bondoso e leal."},
+    {id:32,tema:"Ideais",pergunta:"Quantas partes tem a Lei do Desbravador?",opcoes:["8","10","7","6"],correta:0,tempo:15,emoji:"📜",curiosidade:"São 8 mandamentos práticos do dia a dia."},
+    {id:33,tema:"Ideais",pergunta:"Qual é o Lema dos Desbravadores?",opcoes:["O amor de Cristo me motiva","Servir e salvar","Sempre alerta","Fiel até o fim"],correta:0,tempo:15,emoji:"❤",curiosidade:"2 Coríntios 5:14 é a base."},
+    {id:34,tema:"Ideais",pergunta:"Qual é o Alvo dos Desbravadores?",opcoes:["A mensagem a todo mundo","Salvar do pecado","Crescer em Cristo","Servir a comunidade"],correta:0,tempo:15,emoji:"🎯",curiosidade:"A mensagem do advento em minha geração."},
+    {id:35,tema:"Ideais",pergunta:"Qual é o Objetivo dos Desbravadores?",opcoes:["Salvar do pecado e guiar no serviço","Formar líderes","Ensinar acampamento","Criar amigos"],correta:0,tempo:15,emoji:"✨",curiosidade:"Salvar do pecado e guiar no serviço é central."},
+    {id:36,tema:"Ideais",pergunta:"O que diz o Voto de Fidelidade à Bíblia?",opcoes:["Prometo fidelidade à Bíblia","Juro amar a Bíblia","Creio na Bíblia","Sigo a Bíblia sempre"],correta:0,tempo:15,emoji:"📖",curiosidade:"Prometo fidelidade à Bíblia, sua mensagem..."},
+    {id:37,tema:"Ideais",pergunta:"Qual é a 1ª Lei do Desbravador?",opcoes:["Observar a devoção matinal","Ser obediente","Ser reverente","Guardar a lei"],correta:0,tempo:20,emoji:"🌅",curiosidade:"Devoção matinal é prioridade número 1."},
+    {id:38,tema:"Ideais",pergunta:"O que é o Hino dos Desbravadores?",opcoes:["Somos os Desbravadores","Avante Juvenil","Firme e Fiel","Marcha Soldado"],correta:0,tempo:15,emoji:"🎵",curiosidade:"Somos os Desbravadores, os servos de Deus."},
+    {id:39,tema:"Ideais",pergunta:"Qual cor representa pureza no Voto?",opcoes:["Branco","Azul","Vermelho","Amarelo"],correta:0,tempo:15,emoji:"🤍",curiosidade:"Puro como lírio branco."},
+    {id:40,tema:"Ideais",pergunta:"A Lei manda cuidar de quê?",opcoes:["Do corpo","Do dinheiro","Do clube","Da igreja"],correta:0,tempo:15,emoji:"💪",curiosidade:"Cuidar do corpo como templo do Espírito."},
+    {id:41,tema:"Ideais",pergunta:"O que o Lema nos motiva a fazer?",opcoes:["Amar como Cristo","Trabalhar duro","Estudar mais","Viajar"],correta:0,tempo:15,emoji:"❤‍🔥",curiosidade:"Amor de Cristo é motor do serviço."},
+    {id:42,tema:"Ideais",pergunta:"Quantas vezes o Voto cita Deus?",opcoes:["1","2","3","Nenhuma"],correta:0,tempo:20,emoji:"🙏",curiosidade:"Pela graça de Deus — dependência total."},
+    {id:43,tema:"Ideais",pergunta:"Qual ideal fala de pregar o evangelho?",opcoes:["Alvo","Lema","Objetivo","Voto"],correta:0,tempo:15,emoji:"📢",curiosidade:"Alvo é missionário por natureza."},
+    {id:44,tema:"Ideais",pergunta:"O que a Lei diz sobre natureza?",opcoes:["Ser cortês e preservar","Dominar a natureza","Usar livremente","Evitar"],correta:0,tempo:15,emoji:"🌲",curiosidade:"Conservar a natureza é parte da lei."},
+    {id:45,tema:"Ideais",pergunta:"Qual ideal fala de servir ao próximo?",opcoes:["Objetivo","Alvo","Lema","Lei"],correta:0,tempo:15,emoji:"🤲",curiosidade:"Salvar do pecado e guiar no serviço."},
+    {id:46,tema:"Ideais",pergunta:"O que a Lei manda sobre trabalho?",opcoes:["Ser trabalhador","Ser preguiçoso","Trabalhar pouco","Só estudar"],correta:0,tempo:15,emoji:"🔨",curiosidade:"Ser trabalhador, útil e esforçado."},
+    {id:47,tema:"Ideais",pergunta:"Qual é o cumprimento da Lei?",opcoes:["Cumprir a parte que me toca","Cumprir tudo","Cumprir quando der","Cumprir do líder"],correta:0,tempo:15,emoji:"✅",curiosidade:"Cada um faz sua parte fielmente."},
+    {id:48,tema:"Ideais",pergunta:"O Voto termina com quais virtudes?",opcoes:["Puro, bondoso e leal","Forte, corajoso, fiel","Amor, fé, esperança","Humilde, manso, bom"],correta:0,tempo:20,emoji:"🌟",curiosidade:"Três marcas do caráter cristão."},
+    {id:49,tema:"Ideais",pergunta:"Qual ideal cita 'minha geração'?",opcoes:["Alvo","Lema","Objetivo","Voto"],correta:0,tempo:15,emoji:"⏳",curiosidade:"Responsabilidade geracional de pregar."},
+    {id:50,tema:"Ideais",pergunta:"A Lei diz para ser o quê na conversação?",opcoes:["Cortês e obediente","Falante e alegre","Sério e calado","Bravo e forte"],correta:0,tempo:20,emoji:"🗣️",curiosidade:"Cortês, obediente e reverente no santuário."},
+    {id:51,tema:"Ideais",pergunta:"O que é Fidelidade à Bíblia?",opcoes:["Amar, estudar e seguir","Só ler","Só decorar","Só levar na igreja"],correta:0,tempo:15,emoji:"📚",curiosidade:"Estudo diário e prática."},
+    {id:52,tema:"Ideais",pergunta:"Qual ideal é cantado em formatura?",opcoes:["Todos","Só Voto","Só Hino","Nenhum"],correta:0,tempo:20,emoji:"🎓",curiosidade:"Voto, Lei, Alvo, Lema e Hino são recitados."},
+    {id:53,tema:"Ideais",pergunta:"A Lei fala em andar com quem?",opcoes:["Com Deus","Sozinho","Com amigos","Com líderes"],correta:0,tempo:15,emoji:"👣",curiosidade:"Andar com Deus, olhar com Cristo."},
+    {id:54,tema:"Ideais",pergunta:"O que significa leal no Voto?",opcoes:["Fiel a Deus e à pátria","Fiel ao clube","Fiel aos pais","Fiel ao uniforme"],correta:0,tempo:15,emoji:"🤝",curiosidade:"Lealdade a Deus, família e país."},
+    {id:55,tema:"Ideais",pergunta:"Qual ideal resume a missão?",opcoes:["Objetivo","Lema","Lei","Voto"],correta:0,tempo:15,emoji:"🚀",curiosidade:"Salvar do pecado resume tudo."},
+    {id:56,tema:"Ideais",pergunta:"Quantas palavras tem o Lema?",opcoes:["6","5","4","7"],correta:0,tempo:20,emoji:"💬",curiosidade:"O amor de Cristo me motiva - 6."},
+    {id:57,tema:"Ideais",pergunta:"O que a Lei diz sobre olhar?",opcoes:["Olhar com os olhos de Deus","Olhar firme","Olhar longe","Olhar rápido"],correta:0,tempo:20,emoji:"👀",curiosidade:"Pureza no olhar e mente."},
+    {id:58,tema:"Ideais",pergunta:"Qual ideal fala em reverência?",opcoes:["Lei","Voto","Alvo","Lema"],correta:0,tempo:15,emoji:"🙇",curiosidade:"Ser reverente no santuário."},
+    {id:59,tema:"Ideais",pergunta:"O Voto é feito com qual mão?",opcoes:["Direita levantada","Esquerda","Duas mãos","Mão no coração"],correta:0,tempo:15,emoji:"✋",curiosidade:"Mão direita estendida como juramento."},
+    {id:60,tema:"Ideais",pergunta:"O que significa 'bondoso' no Voto?",opcoes:["Ser útil e amável","Ser forte","Ser rico","Ser inteligente"],correta:0,tempo:15,emoji:"💝",curiosidade:"Bondade em ação prática."},
+    {id:61,tema:"Símbolos",pergunta:"O que o triângulo representa?",opcoes:["Desenvolvimento completo","Santíssima Trindade","Três classes","Três ideais"],correta:0,tempo:20,emoji:"🔺",curiosidade:"Físico, mental e espiritual; equilátero = equilíbrio."},
+    {id:62,tema:"Símbolos",pergunta:"O escudo no emblema significa?",opcoes:["Proteção e fé","Guerra","Força","Defesa pessoal"],correta:0,tempo:15,emoji:"🛡️",curiosidade:"Escudo da fé, Efésios 6."},
+    {id:63,tema:"Símbolos",pergunta:"O que a cor azul simboliza no triângulo?",opcoes:["Lealdade e céu","Mar","Tristeza","Frio"],correta:0,tempo:15,emoji:"💙",curiosidade:"Azul = lealdade, verdade e céu."},
+    {id:64,tema:"Símbolos",pergunta:"O que o vermelho simboliza?",opcoes:["Sangue de Cristo","Fogo","Amor humano","Guerra"],correta:0,tempo:15,emoji:"❤",curiosidade:"Sacrifício de Jesus por nós."},
+    {id:65,tema:"Símbolos",pergunta:"O branco no emblema representa?",opcoes:["Pureza","Paz","Neve","Luz"],correta:0,tempo:15,emoji:"🤍",curiosidade:"Pureza de caráter cristão."},
+    {id:66,tema:"Símbolos",pergunta:"O dourado no emblema é?",opcoes:["Excelência","Riqueza","Sol","Ouro literal"],correta:0,tempo:15,emoji:"🌟",curiosidade:"Padrão elevado, excelência."},
+    {id:67,tema:"Símbolos",pergunta:"Quantas cores tem o triângulo oficial?",opcoes:["4","3","5","2"],correta:0,tempo:15,emoji:"🎨",curiosidade:"Azul, vermelho, branco e dourado."},
+    {id:68,tema:"Símbolos",pergunta:"O que significa o lenço amarelo?",opcoes:["Classe Amigo","Classe Guia","Diretoria","Capelania"],correta:0,tempo:20,emoji:"🟨",curiosidade:"Amigo = amarelo, iniciante cheio de luz."},
+    {id:69,tema:"Símbolos",pergunta:"Lenço azul é de qual classe agrupada?",opcoes:["Pesquisador e Pioneiro","Amigo","Guia","Companheiro"],correta:0,tempo:20,emoji:"🟦",curiosidade:"Azul médio = classes intermediárias."},
+    {id:70,tema:"Símbolos",pergunta:"Lenço verde é de quem?",opcoes:["Excursionista","Guia","Amigo","Companheiro"],correta:0,tempo:15,emoji:"🟩",curiosidade:"Excursionista = verde natureza."},
+    {id:71,tema:"Símbolos",pergunta:"Lenço vermelho bordô é?",opcoes:["Guia e Agrupadas Sup.","Amigo","Companheiro","Pesquisador"],correta:0,tempo:20,emoji:"🟥",curiosidade:"Guia = liderança, vermelho liderança."},
+    {id:72,tema:"Símbolos",pergunta:"O que tem no centro do lenço?",opcoes:["Triângulo","Estrela","Cruz","Bandeira"],correta:0,tempo:10,emoji:"🔶",curiosidade:"Triângulo bordado com cores oficiais."},
+    {id:73,tema:"Símbolos",pergunta:"Por que o lenço é triangular?",opcoes:["Lembra o emblema","Moda","Facilidade","Tradição escoteira"],correta:0,tempo:15,emoji:"📐",curiosidade:"Mesma forma do emblema principal."},
+    {id:74,tema:"Símbolos",pergunta:"O que as 3 pontas do lenço lembram?",opcoes:["Trindade e desenvolvimento","3 classes","3 ideais","3 diretores"],correta:0,tempo:20,emoji:"🔺",curiosidade:"Pai, Filho, Espírito e corpo, mente, espírito."},
+    {id:75,tema:"Símbolos",pergunta:"Qual símbolo representa a Bíblia no emblema?",opcoes:["Escudo aberto","Espada","Livro","Não tem"],correta:0,tempo:20,emoji:"📖",curiosidade:"O escudo contém a forma de Bíblia aberta."},
+    {id:76,tema:"Símbolos",pergunta:"A faixa no emblema diz?",opcoes:["Desbravadores","Pathfinder","Adventista","JMV"],correta:0,tempo:10,emoji:"🏷️",curiosidade:"Em português Desbravadores, inglês Pathfinder."},
+    {id:77,tema:"Símbolos",pergunta:"O que o nó do lenço simboliza?",opcoes:["União e amizade","Moda","Força","Laço escoteiro"],correta:0,tempo:15,emoji:"🪢",curiosidade:"Nó quadrado = amizade e serviço."},
+    {id:78,tema:"Símbolos",pergunta:"Qual cor NÃO está no emblema oficial?",opcoes:["Roxo","Azul","Vermelho","Dourado"],correta:0,tempo:15,emoji:"💜",curiosidade:"Roxo não faz parte do emblema oficial!"},
+    {id:79,tema:"Símbolos",pergunta:"O emblema é usado onde?",opcoes:["Bolso esquerdo","Bolso direito","Manga","Chapéu"],correta:0,tempo:15,emoji:"👕",curiosidade:"Lado esquerdo, sobre o coração."},
+    {id:80,tema:"Símbolos",pergunta:"O que significa a borda dourada?",opcoes:["Padrão elevado","Riqueza","Decoração","Sol"],correta:0,tempo:15,emoji:"✨",curiosidade:"Excelência e alto padrão cristão."},
+    {id:81,tema:"Classes",pergunta:"Qual a primeira classe dos Desbravadores?",opcoes:["Amigo","Companheiro","Pesquisador","Guia"],correta:0,tempo:10,emoji:"👶",curiosidade:"Amigo para 10 anos, porta de entrada."},
+    {id:82,tema:"Classes",pergunta:"Qual classe vem após Amigo?",opcoes:["Companheiro","Pesquisador","Pioneiro","Excursionista"],correta:0,tempo:15,emoji:"🧒",curiosidade:"Sequência: Amigo, Companheiro, Pesquisador..."},
+    {id:83,tema:"Classes",pergunta:"Qual a idade do Companheiro?",opcoes:["11 anos","10 anos","12 anos","13 anos"],correta:0,tempo:15,emoji:"📚",curiosidade:"11 anos, aprofundando conhecimento."},
+    {id:84,tema:"Classes",pergunta:"Pesquisador é para qual idade?",opcoes:["12 anos","10 anos","14 anos","16 anos"],correta:0,tempo:15,emoji:"🔍",curiosidade:"12 anos, espírito investigativo."},
+    {id:85,tema:"Classes",pergunta:"Qual classe é 13 anos?",opcoes:["Pioneiro","Excursionista","Guia","Amigo"],correta:0,tempo:15,emoji:"🗺️",curiosidade:"Pioneiro abre caminhos, 13 anos."},
+    {id:86,tema:"Classes",pergunta:"Excursionista corresponde a?",opcoes:["14 anos","15 anos","13 anos","10 anos"],correta:0,tempo:15,emoji:"⛰️",curiosidade:"14 anos, trilhas e aventura."},
+    {id:87,tema:"Classes",pergunta:"Guia é a última classe regular de?",opcoes:["15 anos","16 anos","14 anos","18 anos"],correta:0,tempo:15,emoji:"🧭",curiosidade:"Guia, 15 anos, pronto para liderar."},
+    {id:88,tema:"Classes",pergunta:"Qual classe vem após Guia?",opcoes:["Guia Máster","Líder","Mestre","Diretor"],correta:0,tempo:20,emoji:"👑",curiosidade:"Guia Máster ou Agrupadas para 16+."},
+    {id:89,tema:"Classes",pergunta:"O que são Classes Agrupadas?",opcoes:["Para 16+","Para líderes","Para diretores","Para pastores"],correta:0,tempo:20,emoji:"🎓",curiosidade:"Viajante, Navegante, etc, após 16 anos."},
+    {id:90,tema:"Classes",pergunta:"Qual é a filosofia dos Desbravadores?",opcoes:["Desenvolvimento harmônico","Só acampar","Só estudar Bíblia","Só esportes"],correta:0,tempo:15,emoji:"⚖️",curiosidade:"Físico, mental, espiritual e social equilibrados."},
+    {id:91,tema:"Classes",pergunta:"O que Lucas 2:52 ensina?",opcoes:["Crescia em sabedoria","Orai sem cessar","Amai-vos","Ide e pregai"],correta:0,tempo:20,emoji:"📖",curiosidade:"Jesus crescia em estatura, sabedoria e graça."},
+    {id:92,tema:"Classes",pergunta:"Quantas áreas tem a filosofia?",opcoes:["4","3","5","6"],correta:0,tempo:15,emoji:"🔷",curiosidade:"Físico, mental, espiritual, social."},
+    {id:93,tema:"Classes",pergunta:"O que é especialidade?",opcoes:["Habilidade extra","Classe obrigatória","Uniforme","Medalha"],correta:0,tempo:15,emoji:"🏅",curiosidade:"Mais de 300 especialidades diferentes!"},
+    {id:94,tema:"Classes",pergunta:"Quantas especialidades precisa para Amigo?",opcoes:["2","5","3","1"],correta:0,tempo:20,emoji:"🎖️",curiosidade:"Amigo exige 2 especialidades básicas."},
+    {id:95,tema:"Classes",pergunta:"O que é investidura?",opcoes:["Formatura das classes","Reunião","Acampamento","Votação"],correta:0,tempo:15,emoji:"🎓",curiosidade:"Cerimônia de entrega de lenço e distintivo."},
+    {id:96,tema:"Classes",pergunta:"Qual classe usa lenço vermelho?",opcoes:["Guia","Amigo","Companheiro","Pesquisador"],correta:0,tempo:15,emoji:"🔴",curiosidade:"Guia e líderes usam bordô."},
+    {id:97,tema:"Classes",pergunta:"O que é cartão de classe?",opcoes:["Caderno de requisitos","Cartão bancário","Identidade","Carteira"],correta:0,tempo:15,emoji:"📇",curiosidade:"Onde registra progresso da classe."},
+    {id:98,tema:"Classes",pergunta:"Qual a classe mais avançada regular?",opcoes:["Guia","Excursionista","Pioneiro","Pesquisador"],correta:0,tempo:15,emoji:"🏔️",curiosidade:"Guia é ápice antes das agrupadas."},
+    {id:99,tema:"Classes",pergunta:"O que significa ser desbravador 24h?",opcoes:["Viver os ideais sempre","Usar uniforme sempre","Acampar sempre","Estudar sempre"],correta:0,tempo:20,emoji:"⏰",curiosidade:"Ideais não só no clube, mas na vida."},
+    {id:100,tema:"Classes",pergunta:"Qual é o chamado do Lenço?",opcoes:["Salvar do pecado","Ser forte","Ser fiel","Ser amigo"],correta:0,tempo:15,emoji:"🧣",curiosidade:"Lenço lembra missão de salvar!"}
+  ];
+
+  const AVATARS = ['🦅','🦊','🐺','🦁','🐻','🦉','🐸','🦋','🌟','⚡','🔥','🌊','🍃','🎯','💎','🏆'];
+  const COLORS = ['#C9A84C','#10B981','#3B82F6','#F59E0B','#EF4444','#8B5CF6','#EC4899','#06B6D4','#F97316','#84CC16'];
+
+  let state = {
+    screen: 'lobby', // lobby, playing, result, leaderboard, podium
+    players: [],
+    currentQuestion: 0,
+    questions: [],
+    numQuestions: 15,
+    timeLeft: 0,
+    timerInterval: null,
+    answered: [], // track which players answered current question
+    showingResult: false
+  };
+
+  function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function getRandomQuestions(n) {
+    return shuffleArray(allQuestions).slice(0, n);
+  }
+
+  function render() {
+    const root = document.getElementById('gameRoot');
+    switch(state.screen) {
+      case 'lobby': root.innerHTML = renderLobby(); break;
+      case 'playing': root.innerHTML = renderPlaying(); break;
+      case 'result': root.innerHTML = renderResult(); break;
+      case 'leaderboard': root.innerHTML = renderLeaderboard(); break;
+      case 'podium': root.innerHTML = renderPodium(); break;
+    }
+    bindEvents();
+  }
+
+  function renderLobby() {
+    return `
+      <div class="game-card p-6 md:p-8 anim-pop">
+        <!-- Title -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25);">
+            <i class="fas fa-bolt text-xs" style="color:var(--gold)"></i>
+            <span class="text-xs font-medium" style="color:var(--gold)">Multiplayer · Mesmo Dispositivo</span>
+          </div>
+          <h1 class="font-display text-3xl md:text-4xl font-bold mb-2">
+            <span class="text-gold-gradient">Desbrava Plus</span>
+          </h1>
+          <p class="font-body text-base" style="color:var(--text-muted-dark)">Trivia Game dos Desbravadores — Projete na TV e desafie seus amigos!</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Players -->
+          <div>
+            <h3 class="font-display font-bold text-lg mb-4"><i class="fas fa-users mr-2" style="color:var(--gold)"></i>Jogadores</h3>
+            <div class="flex items-center gap-2 mb-4">
+              <input type="text" id="playerNameInput" placeholder="Nome do jogador..." maxlength="12" autocomplete="off"
+                class="flex-1 px-4 py-3 rounded-xl text-sm font-medium"
+                style="background:rgba(255,255,255,0.06); border:1px solid rgba(201,168,76,0.2); color:var(--text-light);"
+                onkeydown="if(event.key==='Enter')document.getElementById('addPlayerBtn').click()">
+              <button id="addPlayerBtn" class="btn-gold px-4 py-3 rounded-xl text-sm font-bold">+ ADD</button>
+            </div>
+            <div id="playersList" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+              ${state.players.length === 0 ? `<p class="text-sm text-center py-4" style="color:var(--text-muted-dark)">Adicione jogadores para começar</p>` : 
+                state.players.map((p, i) => `
+                  <div class="flex items-center gap-3 p-3 rounded-xl anim-slide-up" style="background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.1);">
+                    <div class="player-avatar" style="background:${p.color}20; color:${p.color}">${p.avatar}</div>
+                    <span class="font-bold text-sm flex-1">${p.name}</span>
+                    <button onclick="removePlayer(${i})" class="w-7 h-7 rounded-full flex items-center justify-center hover:bg-red-500/20 transition" style="color:#EF4444"><i class="fas fa-times text-xs"></i></button>
+                  </div>
+                `).join('')}
+            </div>
+          </div>
+
+          <!-- Settings & How to Play -->
+          <div>
+            <div class="glass rounded-2xl p-5 mb-4">
+              <h3 class="font-display font-bold text-lg mb-4"><i class="fas fa-cog mr-2" style="color:var(--gold)"></i>Configurações</h3>
+              <label class="text-sm font-medium block mb-2" style="color:var(--text-muted-dark)">Nº de Perguntas</label>
+              <div class="flex gap-2 flex-wrap">
+                ${[10,15,20,30,50].map(n => `
+                  <button onclick="setNumQuestions(${n})" class="px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.numQuestions === n ? 'btn-gold' : 'btn-outline-gold'}">${n}</button>
+                `).join('')}
+              </div>
+            </div>
+            <div class="glass rounded-2xl p-5">
+              <h3 class="font-display font-bold mb-3"><i class="fas fa-question-circle mr-2" style="color:var(--gold)"></i>Como Jogar</h3>
+              <ol class="space-y-2 text-sm font-medium" style="color:var(--text-muted-dark)">
+                <li><i class="fas fa-check-circle mr-2" style="color:var(--gold)"></i>Projete na TV, todos veem a pergunta</li>
+                <li><i class="fas fa-check-circle mr-2" style="color:var(--gold)"></i>Cada jogador toca sua cor para responder</li>
+                <li><i class="fas fa-check-circle mr-2" style="color:var(--gold)"></i>Acerto rápido = 1000 pts + streak +100</li>
+                <li><i class="fas fa-check-circle mr-2" style="color:var(--gold)"></i>Pódio final com os melhores!</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Start Button -->
+        <div class="text-center mt-8">
+          <button id="startGameBtn" ${state.players.length < 2 ? 'disabled' : ''} 
+            class="btn-gold px-8 py-4 rounded-xl text-lg font-bold inline-flex items-center gap-3 ${state.players.length >= 2 ? 'pulse-gold' : 'opacity-50 cursor-not-allowed'}"
+            ${state.players.length < 2 ? 'style="pointer-events:none;opacity:0.4;"' : ''}>
+            <i class="fas fa-play"></i> INICIAR JOGO
+          </button>
+          ${state.players.length < 2 ? `<p class="text-xs mt-3" style="color:var(--text-muted-dark)">Mínimo 2 jogadores para começar</p>` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPlaying() {
+    const q = state.questions[state.currentQuestion];
+    const progress = ((state.currentQuestion) / state.questions.length) * 100;
+    const timePercent = (state.timeLeft / q.tempo) * 100;
+    const timerColor = state.timeLeft <= 5 ? '#EF4444' : state.timeLeft <= 10 ? '#F59E0B' : 'var(--gold)';
+
+    return `
+      <div class="game-card p-5 md:p-8 anim-slide-up">
+        <!-- Top Bar -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-bold px-3 py-1 rounded-full" style="background:rgba(201,168,76,0.15); color:var(--gold)">${q.tema}</span>
+            <span class="text-xs font-medium" style="color:var(--text-muted-dark)">${state.currentQuestion + 1}/${state.questions.length}</span>
+          </div>
+          <div class="flex items-center gap-2 ${state.timeLeft <= 5 ? 'animate-pulse' : ''}">
+            <i class="fas fa-clock" style="color:${timerColor}"></i>
+            <span class="font-bold text-lg" style="color:${timerColor}">${state.timeLeft}s</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full h-1 rounded-full mb-6" style="background:rgba(201,168,76,0.15);">
+          <div class="h-full rounded-full transition-all" style="width:${progress}%; background:var(--gold);"></div>
+        </div>
+
+        <!-- Timer Bar -->
+        <div class="w-full rounded-full mb-6" style="background:rgba(201,168,76,0.1); height:6px;">
+          <div class="timer-bar" style="width:${timePercent}%; background:${timerColor};"></div>
+        </div>
+
+        <!-- Question -->
+        <div class="text-center mb-8">
+          <div class="text-4xl mb-4">${q.emoji}</div>
+          <h2 class="font-display text-xl md:text-2xl font-bold leading-tight">${q.pergunta}</h2>
+        </div>
+
+        <!-- Answers Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6" id="answersGrid">
+          ${q.opcoes.map((opt, i) => {
+            const shapes = ['▲','●','◆','★'];
+            const colors = ['#EF4444','#3B82F6','#F59E0B','#10B981'];
+            let extraClass = '';
+            if (state.showingResult) {
+              if (i === q.correta) extraClass = 'correct';
+              else extraClass = 'wrong';
+            }
+            return `
+              <button class="answer-btn ${extraClass}" data-answer="${i}" ${state.showingResult ? 'disabled' : ''} 
+                style="background:${state.showingResult && i === q.correta ? 'rgba(16,185,129,0.15)' : state.showingResult ? 'rgba(239,68,68,0.05)' : 'rgba(255,255,255,0.03)'};">
+                <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-sm" style="background:${colors[i]}">${shapes[i]}</span>
+                <span class="font-semibold text-sm">${opt}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Players who answered -->
+        ${state.showingResult ? `
+          <div class="glass rounded-xl p-4 mt-4">
+            <p class="text-xs font-bold mb-2" style="color:var(--gold)"><i class="fas fa-info-circle mr-1"></i> ${q.curiosidade}</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              ${state.players.map(p => {
+                const ans = state.answered.find(a => a.playerId === p.id);
+                const isCorrect = ans && ans.answer === q.correta;
+                return `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold" style="background:${isCorrect ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.2)'}; color:${isCorrect ? '#10B981' : '#EF4444'}">
+                  ${p.avatar} ${p.name} ${isCorrect ? '+' + (ans.points || 0) : '✗'}
+                </span>`;
+              }).join('')}
+            </div>
+          </div>
+        ` : `
+          <div class="flex items-center justify-center gap-2 mt-4">
+            <span class="text-xs font-medium" style="color:var(--text-muted-dark)">Respostas: ${state.answered.length}/${state.players.length}</span>
+          </div>
+        `}
+
+        ${state.showingResult ? `
+          <div class="text-center mt-6">
+            <button id="nextQuestionBtn" class="btn-gold px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2">
+              ${state.currentQuestion + 1 >= state.questions.length ? '🏆 VER PÓDIO FINAL' : 'Próxima Pergunta <i class="fas fa-arrow-right"></i>'}
+            </button>
+          </div>
+        ` : ''}
+      </div>
+
+      <!-- Player Answer Buttons (for multiplayer on same device) -->
+      ${!state.showingResult ? `
+        <div class="mt-6 game-card p-4">
+          <p class="text-xs font-bold text-center mb-3" style="color:var(--gold)"><i class="fas fa-hand-pointer mr-1"></i> Toque para responder:</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            ${state.players.map(p => {
+              const hasAnswered = state.answered.find(a => a.playerId === p.id);
+              return `
+                <button onclick="selectPlayerToAnswer('${p.id}')" ${hasAnswered ? 'disabled' : ''}
+                  class="p-3 rounded-xl text-center transition-all ${hasAnswered ? 'opacity-40' : 'hover:scale-105'}"
+                  style="background:${p.color}15; border:2px solid ${hasAnswered ? 'transparent' : p.color}40;">
+                  <div class="text-2xl mb-1">${p.avatar}</div>
+                  <div class="text-xs font-bold truncate">${p.name}</div>
+                  ${hasAnswered ? '<div class="text-xs" style="color:var(--text-muted-dark)">✓</div>' : ''}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      ` : ''}
+    `;
+  }
+
+  function renderLeaderboard() {
+    const sorted = [...state.players].sort((a, b) => b.score - a.score);
+    return `
+      <div class="game-card p-6 md:p-8 anim-pop text-center">
+        <h2 class="font-display text-2xl font-bold mb-6"><i class="fas fa-chart-bar mr-2" style="color:var(--gold)"></i>Placar Parcial</h2>
+        <div class="space-y-3 max-w-md mx-auto">
+          ${sorted.map((p, i) => `
+            <div class="flex items-center gap-3 p-3 rounded-xl anim-slide-up" style="background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,${i === 0 ? '0.4' : '0.1'}); animation-delay:${i*0.1}s">
+              <span class="font-bold text-lg w-8" style="color:${i === 0 ? 'var(--gold)' : 'var(--text-muted-dark)'}">#${i+1}</span>
+              <div class="player-avatar" style="background:${p.color}20; color:${p.color}">${p.avatar}</div>
+              <span class="font-bold flex-1 text-left">${p.name}</span>
+              <div class="text-right">
+                <div class="font-bold" style="color:var(--gold)">${p.score} pts</div>
+                ${p.streak > 1 ? `<span class="streak-badge"><i class="fas fa-fire"></i>${p.streak}x</span>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <button id="continueFromLeaderboard" class="btn-gold px-6 py-3 rounded-xl font-bold mt-8 inline-flex items-center gap-2">
+          Continuar <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    `;
+  }
+
+  function renderPodium() {
+    const sorted = [...state.players].sort((a, b) => b.score - a.score);
+    const top3 = sorted.slice(0, 3);
+    const podiumOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] : top3;
+    const heights = ['120px', '160px', '100px'];
+    const medals = ['🥈','🥇','🥉'];
+
+    return `
+      <div class="game-card p-6 md:p-10 anim-pop text-center">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-2 text-gold-gradient">Pódio Final 🏆</h2>
+        <p class="text-sm mb-8" style="color:var(--text-muted-dark)">Desbrava Plus · ${state.questions.length} perguntas</p>
+
+        <!-- Confetti -->
+        <div class="relative" id="confettiContainer"></div>
+
+        <!-- Podium -->
+        <div class="flex items-end justify-center gap-4 mb-8">
+          ${podiumOrder.map((p, i) => {
+            const actualIndex = i === 0 ? 1 : i === 1 ? 0 : 2;
+            return `
+              <div class="flex flex-col items-center anim-slide-up" style="animation-delay:${i * 0.2}s">
+                <div class="text-3xl mb-2">${medals[actualIndex]}</div>
+                <div class="text-3xl mb-2">${p.avatar}</div>
+                <div class="font-bold text-sm mb-1">${p.name}</div>
+                <div class="text-xs font-bold mb-2" style="color:var(--gold)">${p.score} pts</div>
+                <div class="w-20 md:w-24 rounded-t-xl flex items-end justify-center" 
+                  style="height:${heights[actualIndex]}; background:linear-gradient(to top, rgba(201,168,76,0.3), rgba(201,168,76,0.1)); border:1px solid rgba(201,168,76,0.3);">
+                  <span class="font-display font-black text-2xl mb-4" style="color:var(--gold)">${actualIndex + 1}º</span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Full Ranking -->
+        ${sorted.length > 3 ? `
+          <div class="glass rounded-xl p-4 mb-6 max-w-md mx-auto">
+            <h4 class="font-bold text-sm mb-3" style="color:var(--text-muted-dark)">Classificação completa</h4>
+            ${sorted.slice(3).map((p, i) => `
+              <div class="flex items-center gap-2 py-2" style="border-top:1px solid rgba(201,168,76,0.1);">
+                <span class="text-xs font-bold w-6" style="color:var(--text-muted-dark)">#${i+4}</span>
+                <span class="text-lg">${p.avatar}</span>
+                <span class="text-sm font-medium flex-1 text-left">${p.name}</span>
+                <span class="text-sm font-bold" style="color:var(--gold)">${p.score}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button onclick="playAgain()" class="btn-gold px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 justify-center">
+            <i class="fas fa-redo"></i> Jogar Novamente
+          </button>
+          <button onclick="newLobby()" class="btn-outline-gold px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 justify-center">
+            <i class="fas fa-users"></i> Novo Lobby
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  // ===== EVENT BINDING =====
+  function bindEvents() {
+    const addBtn = document.getElementById('addPlayerBtn');
+    if (addBtn) addBtn.onclick = addPlayer;
+
+    const startBtn = document.getElementById('startGameBtn');
+    if (startBtn) startBtn.onclick = startGame;
+
+    const nextBtn = document.getElementById('nextQuestionBtn');
+    if (nextBtn) nextBtn.onclick = nextQuestion;
+
+    const contBtn = document.getElementById('continueFromLeaderboard');
+    if (contBtn) contBtn.onclick = () => { state.screen = 'playing'; state.showingResult = false; state.answered = []; startTimer(); render(); };
+
+    // Answer buttons
+    document.querySelectorAll('.answer-btn[data-answer]').forEach(btn => {
+      btn.onclick = () => {
+        if (state.showingResult) return;
+        if (state.currentAnsweringPlayer) {
+          submitAnswer(state.currentAnsweringPlayer, parseInt(btn.dataset.answer));
+        }
+      };
+    });
+  }
+
+  // ===== GAME LOGIC =====
+  let currentAnsweringPlayer = null;
+
+  window.selectPlayerToAnswer = function(playerId) {
+    state.currentAnsweringPlayer = playerId;
+    // Highlight which player is selecting
+    document.querySelectorAll('.answer-btn').forEach(btn => {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    });
+    // Show which player is answering
+    Swal.fire({
+      title: `${state.players.find(p=>p.id===playerId).avatar} ${state.players.find(p=>p.id===playerId).name}`,
+      text: 'Escolha sua resposta!',
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      backdrop: false,
+      position: 'top',
+      customClass: { popup: 'swal2-popup-mini' }
+    });
+  };
+
+  function submitAnswer(playerId, answerIndex) {
+    if (state.answered.find(a => a.playerId === playerId)) return;
+    const q = state.questions[state.currentQuestion];
+    const isCorrect = answerIndex === q.correta;
+    const player = state.players.find(p => p.id === playerId);
+
+    let points = 0;
+    if (isCorrect) {
+      // Points based on time left
+      points = Math.round(500 + (state.timeLeft / q.tempo) * 500);
+      player.streak = (player.streak || 0) + 1;
+      if (player.streak > 1) points += 100 * Math.min(player.streak, 5);
+      player.score += points;
+      player.correct = (player.correct || 0) + 1;
+    } else {
+      player.streak = 0;
+    }
+
+    state.answered.push({ playerId, answer: answerIndex, points, correct: isCorrect });
+    state.currentAnsweringPlayer = null;
+
+    // If all players answered, reveal
+    if (state.answered.length >= state.players.length) {
+      revealAnswer();
+    }
+
+    render();
+  }
+
+  function revealAnswer() {
+    clearInterval(state.timerInterval);
+    state.showingResult = true;
+    render();
+  }
+
+  function addPlayer() {
+    const input = document.getElementById('playerNameInput');
+    const name = input.value.trim();
+    if (!name || state.players.length >= 10) return;
+    if (state.players.find(p => p.name.toLowerCase() === name.toLowerCase())) {
+      Swal.fire({ title:'Nome já existe!', icon:'warning', confirmButtonColor:'#C9A84C', timer:1500, showConfirmButton:false });
+      return;
+    }
+    const avatar = AVATARS[state.players.length % AVATARS.length];
+    const color = COLORS[state.players.length % COLORS.length];
+    state.players.push({ id: Date.now().toString(), name, avatar, color, score: 0, streak: 0, correct: 0 });
+    input.value = '';
+    render();
+    input.focus();
+  }
+
+  window.removePlayer = function(index) {
+    state.players.splice(index, 1);
+    render();
+  };
+
+  window.setNumQuestions = function(n) {
+    state.numQuestions = n;
+    render();
+  };
+
+  function startGame() {
+    if (state.players.length < 2) return;
+    state.questions = getRandomQuestions(state.numQuestions);
+    state.currentQuestion = 0;
+    state.screen = 'playing';
+    state.showingResult = false;
+    state.answered = [];
+    state.players.forEach(p => { p.score = 0; p.streak = 0; p.correct = 0; });
+    startTimer();
+    render();
+  }
+
+  function startTimer() {
+    clearInterval(state.timerInterval);
+    const q = state.questions[state.currentQuestion];
+    state.timeLeft = q.tempo;
+    state.timerInterval = setInterval(() => {
+      state.timeLeft--;
+      if (state.timeLeft <= 0) {
+        // Time's up — reveal answer
+        state.players.forEach(p => {
+          if (!state.answered.find(a => a.playerId === p.id)) {
+            state.answered.push({ playerId: p.id, answer: -1, points: 0, correct: false });
+            p.streak = 0;
+          }
+        });
+        revealAnswer();
+      } else {
+        // Update timer display without full re-render
+        const timerEl = document.querySelector('.timer-bar');
+        const timerText = document.querySelector('[data-timer-text]') || document.querySelector('.font-bold.text-lg');
+        if (timerEl) {
+          const pct = (state.timeLeft / q.tempo) * 100;
+          timerEl.style.width = pct + '%';
+          const col = state.timeLeft <= 5 ? '#EF4444' : state.timeLeft <= 10 ? '#F59E0B' : 'var(--gold)';
+          timerEl.style.background = col;
+        }
+        // Update time text
+        const timeDisplay = document.querySelectorAll('.font-bold.text-lg');
+        timeDisplay.forEach(el => {
+          if (el.textContent.includes('s')) el.textContent = state.timeLeft + 's';
+        });
+      }
+    }, 1000);
+  }
+
+  function nextQuestion() {
+    if (state.currentQuestion + 1 >= state.questions.length) {
+      // Game Over
+      state.screen = 'podium';
+      clearInterval(state.timerInterval);
+      render();
+      launchConfetti();
+      return;
+    }
+    // Show leaderboard every 5 questions
+    if ((state.currentQuestion + 1) % 5 === 0) {
+      state.screen = 'leaderboard';
+      state.currentQuestion++;
+      render();
+      return;
+    }
+    state.currentQuestion++;
+    state.showingResult = false;
+    state.answered = [];
+    state.currentAnsweringPlayer = null;
+    state.screen = 'playing';
+    startTimer();
+    render();
+  }
+
+  window.playAgain = function() {
+    state.questions = getRandomQuestions(state.numQuestions);
+    state.currentQuestion = 0;
+    state.screen = 'playing';
+    state.showingResult = false;
+    state.answered = [];
+    state.players.forEach(p => { p.score = 0; p.streak = 0; p.correct = 0; });
+    startTimer();
+    render();
+  };
+
+  window.newLobby = function() {
+    clearInterval(state.timerInterval);
+    state.players = [];
+    state.screen = 'lobby';
+    render();
+  };
+
+  function launchConfetti() {
+    const container = document.getElementById('confettiContainer');
+    if (!container) return;
+    const colors = ['#C9A84C','#F0C96B','#10B981','#3B82F6','#EF4444','#F59E0B','#8B5CF6'];
+    for (let i = 0; i < 50; i++) {
+      const conf = document.createElement('div');
+      conf.style.cssText = `
+        position:fixed; top:-10px; left:${Math.random()*100}vw; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]}; border-radius:${Math.random()>0.5?'50%':'2px'};
+        animation: confettiFall ${2+Math.random()*3}s ease-out forwards; animation-delay:${Math.random()*1}s;
+        z-index:9999; pointer-events:none;
+      `;
+      document.body.appendChild(conf);
+      setTimeout(() => conf.remove(), 5000);
+    }
+  }
+
+  // Initial render
+  render();
+})();
+</script>
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Desbrava Plus – Trivia Game",
+  "description": "Jogo de trivia multiplayer sobre Desbravadores do Clube Águia de Ouro",
+  "url": "https://aguiadeouro.com/jogos/Kahoot-Desbravadores-Trivia-Game.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Águia de Ouro – Clube de Desbravadores",
+    "url": "https://aguiadeouro.com"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://aguiadeouro.com/"},
+      {"@type":"ListItem","position":2,"name":"Jogos","item":"https://aguiadeouro.com/jogos/"},
+      {"@type":"ListItem","position":3,"name":"Desbrava Plus"}
+    ]
+  }
+}
+</script>
+
+</body>
+</html>

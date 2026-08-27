@@ -1,36 +1,11 @@
-
-<script>
-// Bloqueios de segurança e proteção de conteúdo
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', function(e) {
-    // Bloqueia F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+C, Ctrl+P, Ctrl+Shift+C
-    if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) ||
-        (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))
-    ) {
-        e.preventDefault();
-        return false;
-    }
-});
-// Bloqueia seleção de texto
-document.addEventListener('selectstart', e => e.preventDefault());
-// Bloqueia PrintScreen
-document.addEventListener('keyup', function(e) {
-    if (e.key === 'PrintScreen') {
-        navigator.clipboard.writeText('Ação bloqueada');
-        alert('Captura de tela bloqueada!');
-    }
-});
-// Bloqueia impressão
-window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
-</script>
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Aeroespacial Interativo | Dev Cria</title>
+    <title>Simulador Astronômico | Águia de Ouro – Desbravadores</title>
+    <meta name="description" content="Simulador interativo de astronomia para desbravadores. Explore o sistema solar em 3D.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -113,6 +88,27 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
     </style>
 </head>
 <body class="text-white dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Security -->
+    <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) || (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))) { e.preventDefault(); return false; }
+    });
+    document.addEventListener('selectstart', e => e.preventDefault());
+    </script>
+
+    <!-- Navigation Bar -->
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:9999;height:48px;background:rgba(5,5,5,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.15);display:flex;align-items:center;padding:0 16px;font-family:'DM Sans',system-ui,sans-serif;">
+      <a href="/astronomia/index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:auto;">
+        <div style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8B6914,#C9A84C);"><i class="fas fa-feather-alt" style="color:#0D1117;font-size:11px;"></i></div>
+        <span style="font-size:12px;font-weight:700;color:#C9A84C;">Águia de Ouro</span>
+      </a>
+      <a href="/" style="padding:4px 10px;font-size:11px;font-weight:500;color:#9CA3AF;text-decoration:none;border-radius:6px;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-home" style="margin-right:3px"></i>Início</a>
+      <a href="/astronomia/index.html" style="padding:4px 10px;font-size:11px;font-weight:500;color:#9CA3AF;text-decoration:none;border-radius:6px;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-star" style="margin-right:3px"></i>Astronomia</a>
+      <a href="/astronomia/simulador.html" style="padding:4px 10px;font-size:11px;font-weight:500;color:#C9A84C;text-decoration:none;border-radius:6px;"><i class="fas fa-satellite" style="margin-right:3px"></i>Simulador</a>
+      <a href="/jogos/index.html" style="padding:4px 10px;font-size:11px;font-weight:500;color:#9CA3AF;text-decoration:none;border-radius:6px;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-gamepad" style="margin-right:3px"></i>Jogos</a>
+    </nav>
 
     <!-- Loading Screen -->
     <div id="loader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white">

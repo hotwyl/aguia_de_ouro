@@ -1,192 +1,462 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="antialiased">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jogos Bíblicos - Plataforma interativa de jogos educativos e cristãos.">
-    <title>Jogos Bíblicos | Início</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS (CDN for development/pure structure) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
-                            500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jogos educativos e bíblicos do Clube de Desbravadores Águia de Ouro. Caça-palavras, forca, quiz e mais.">
+  <meta name="keywords" content="jogos bíblicos, desbravadores, caça-palavras, forca, quiz, águia de ouro, curitiba">
+  <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Jogos Educativos | Águia de Ouro">
+  <meta property="og:description" content="Jogos interativos e educativos para desbravadores. Aprenda brincando!">
+  <meta property="og:type" content="website">
+  <meta name="geo.region" content="BR-PR">
+  <meta name="geo.placename" content="Curitiba">
+  <meta name="geo.position" content="-25.4284;-49.2733">
+  <meta name="ICBM" content="-25.4284, -49.2733">
+  <title>Jogos Educativos | Águia de Ouro – Desbravadores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/app.css">
+  <!-- Google Tag Manager -->
+  <script>
+  ;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WVMJV7G6');
+  </script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J06THXX0MW"></script>
+  <script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J06THXX0MW');
+  </script>
+
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0C96B;
+      --gold-dark: #8B6914;
+      --ink: #0D1117;
+      --ink-2: #161B22;
+      --ink-3: #21262D;
+      --parchment: #F5F0E8;
+      --parchment-2: #EDE6D6;
+      --text-dark: #1C1917;
+      --text-light: #F5F0E8;
+      --text-muted-dark: #9CA3AF;
+      --text-muted-light: #6B5E45;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--text-light); }
+    body.light { background: var(--parchment); color: var(--text-dark); }
+    .font-display { font-family: 'Cinzel', serif; }
+    .font-body { font-family: 'Crimson Pro', serif; }
+
+    .text-gold { color: var(--gold); }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); border: 1px solid rgba(201,168,76,0.15); }
+    body.light .glass { background: rgba(255,255,255,0.7); border: 1px solid rgba(201,168,76,0.3); }
+
+    .card-lift { transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(201,168,76,0.25); border-color: rgba(201,168,76,0.5) !important; }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #C9A84C, #F0C96B, #C9A84C);
+      background-size: 200% auto; color: #0D1117; font-weight: 700;
+      transition: all 0.4s ease; position: relative; overflow: hidden;
+    }
+    .btn-gold:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(201,168,76,0.5); }
+
+    .nav-glass { background: rgba(13,17,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+    body.light .nav-glass { background: rgba(245,240,232,0.85); border-bottom: 1px solid rgba(201,168,76,0.3); }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.4; }
+
+    #mobileMenu { transform: translateX(-100%); transition: transform 0.35s ease; }
+    #mobileMenu.open { transform: translateX(0); }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .has-tooltip { position: relative; }
+    .tooltip-text {
+      visibility: hidden; opacity: 0; position: absolute;
+      bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      background: var(--ink-3); color: var(--text-light); padding: 6px 12px;
+      border-radius: 6px; font-size: 12px; white-space: nowrap;
+      border: 1px solid rgba(201,168,76,0.3);
+      transition: all 0.2s ease; z-index: 100; pointer-events: none;
+    }
+    body.light .tooltip-text { background: #21262D; }
+    .has-tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+    #cookieBanner { transition: transform 0.5s ease; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--ink-2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+    body.light ::-webkit-scrollbar-track { background: var(--parchment-2); }
+    *:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; } }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
-    
-    <!-- Header -->
-    <header class="bg-white shadow sticky top-0 z-50">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 justify-between items-center">
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="flex flex-shrink-0 items-center">
-                        <i class="fa-solid fa-book-bible text-primary-600 text-3xl"></i>
-                        <span class="ml-2 text-xl font-bold tracking-tight text-gray-900">Jogos Bíblicos</span>
-                    </a>
-                </div>
-                <!-- Desktop Nav -->
-                <nav class="hidden md:ml-6 md:flex md:space-x-8">
-                    <a href="index.html" class="inline-flex items-center border-b-2 border-primary-500 px-1 pt-1 text-sm font-medium text-gray-900">
-                        Início
-                    </a>
-                    <a href="index.html#games" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                        Jogos
-                    </a>
-                    
-                </nav>
-                <div class="flex items-center">
-                    <!-- Mobile menu button -->
-                    <div class="flex items-center md:hidden">
-                        <button type="button" id="mobile-menu-btn" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-controls="mobile-menu" aria-expanded="false">
-                            <span class="absolute -inset-0.5"></span>
-                            <span class="sr-only">Abrir menu principal</span>
-                            <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="hidden md:hidden" id="mobile-menu">
-            <div class="space-y-1 pb-3 pt-2">
-                <a href="index.html" class="block border-l-4 border-primary-500 bg-primary-50 py-2 pl-3 pr-4 text-base font-medium text-primary-700">Início</a>
-                <a href="index.html#games" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">Jogos</a>
-                
-            </div>
-        </div>
-    </header>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) || (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))) { e.preventDefault(); return false; }
+});
+document.addEventListener('selectstart', e => e.preventDefault());
+</script>
 
-    <!-- Main Content -->
-    <main class="flex-grow">
-        <!-- Hero Section -->
-        <div class="bg-white px-6 py-24 sm:py-32 lg:px-8">
-            <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Aprenda a Palavra brincando</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-600">Explore nossa coleção de jogos interativos, educativos e desafiadores baseados na Bíblia. Teste seus conhecimentos e edifique sua fé de maneira divertida.</p>
-                <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <a href="#games" class="rounded-md bg-primary-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-transform hover:scale-105">
-                        Começar a Jogar
-                    </a>
-                    <button onclick="app.showHelp('Bem-vindo aos Jogos Bíblicos! Aqui você encontra testes divertidos sobre a Palavra de Deus. Explore os cards abaixo para jogar.')" class="text-sm font-semibold leading-6 text-gray-900 group">
-                        Como funciona? <i class="fa-solid fa-circle-question text-primary-600 group-hover:text-primary-500 ml-1 transition-colors"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+<!-- Cookie / LGPD Banner -->
+<div id="cookieBanner" class="fixed bottom-0 left-0 right-0 z-50 p-4" style="background: rgba(13,17,23,0.97); border-top: 1px solid rgba(201,168,76,0.3);">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+    <div class="flex-1 text-sm" style="color: #9CA3AF;">
+      <i class="fas fa-shield-alt mr-2" style="color:var(--gold)"></i>
+      <strong style="color:var(--text-light)">Privacidade (LGPD):</strong> Utilizamos apenas dados essenciais para funcionamento. Nenhum dado pessoal é coletado ou armazenado em servidores.
+      <button onclick="showLGPD()" class="underline ml-1" style="color:var(--gold)">Saiba mais</button>
+    </div>
+    <button onclick="acceptCookies()" class="btn-gold px-5 py-2 rounded-lg text-sm font-semibold flex-shrink-0">
+      <i class="fas fa-check mr-1"></i> Entendi
+    </button>
+  </div>
+</div>
 
-        <!-- Games Grid -->
-        <div id="games" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-            <h3 class="text-2xl font-bold text-gray-900 mb-8 border-b pb-2">Jogos Disponíveis</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Game Card 1 -->
-                <div class="group bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 overflow-hidden transition-all duration-300 hover:-translate-y-1">
-                    <div class="p-6">
-                        <div class="w-12 h-12 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4 text-2xl">
-                            <i class="fa-solid fa-puzzle-piece"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Adivinhe a Palavra</h4>
-                        <p class="text-gray-600 text-sm mb-4">Descubra qual é a palavra oculta baseada na dica bíblica. Teste seu vocabulário cristão!</p>
-                        <a href="adivinhe-a-palavra.html" class="w-full inline-flex justify-center items-center rounded-md bg-indigo-50 px-3 py-2 text-sm font-semibold text-indigo-700 shadow-sm hover:bg-indigo-100 transition-colors">
-                            Jogar Agora <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+<!-- Header / Nav -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--gold-dark), var(--gold));">
+        <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+      </div>
+      <div>
+        <div class="font-display font-bold text-base leading-tight text-gold-gradient">Águia de Ouro</div>
+        <div class="text-xs" style="color: var(--text-muted-dark)">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Navegação principal">
+      <a href="/" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-home mr-1"></i>Início</a>
+      <a href="/sobre.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
+      <a href="/guia.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-book-open mr-1"></i>Guia</a>
+      <a href="/quiz.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-dove mr-1"></i>Aves</a>
+      <a href="/jogos/index.html" class="px-2 py-2 rounded-lg text-sm font-medium" style="color:var(--gold);"><i class="fas fa-gamepad mr-1"></i>Jogos</a>
+      <a href="/desbrava_guines/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-trophy mr-1"></i>Guines</a>
+      <a href="/astronomia/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-star mr-1"></i>Astronomia</a>
+      <a href="/ordem_unida/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-users mr-1"></i>O. Unida</a>
+      <a href="/materiais/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-folder-open mr-1"></i>Materiais</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" class="has-tooltip w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-gold/10" aria-label="Alternar tema">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
+        <span class="tooltip-text">Alternar tema</span>
+      </button>
+      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
+        <i id="menuIcon" class="fas fa-bars"></i>
+      </button>
+      <a href="/quiz.html" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
+        <i class="fas fa-feather"></i> Fazer o Teste
+      </a>
+    </div>
+  </div>
+</header>
 
-                <!-- Game Card 2 -->
-                <div class="group bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 overflow-hidden transition-all duration-300 hover:-translate-y-1">
-                    <div class="p-6">
-                        <div class="w-12 h-12 rounded-lg bg-green-100 text-green-600 flex items-center justify-center mb-4 text-2xl">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Caça Palavras</h4>
-                        <p class="text-gray-600 text-sm mb-4">Encontre os nomes de personagens, lugares e livros da Bíblia escondidos no quadro.</p>
-                        <a href="caca-palavras.html" class="w-full inline-flex justify-center items-center rounded-md bg-green-50 px-3 py-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100 transition-colors">
-                            Jogar Agora <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass" aria-hidden="true">
+  <nav class="flex flex-col p-6 gap-2 text-sm">
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+    <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i>Sobre o Clube</a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i>Guia de Classes</a>
+    <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-dove w-5" style="color:var(--gold)"></i>Teste das Aves</a>
+    <a href="/jogos/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);"><i class="fas fa-gamepad w-5"></i>Jogos Educativos</a>
+    <a href="/desbrava_guines/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-trophy w-5" style="color:var(--gold)"></i>Águia Guines</a>
+    <a href="/astronomia/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-star w-5" style="color:var(--gold)"></i>Astronomia</a>
+    <a href="/ordem_unida/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-users w-5" style="color:var(--gold)"></i>Ordem Unida</a>
+    <a href="/materiais/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-gold/10" style="color:#F5F0E8"><i class="fas fa-folder-open w-5" style="color:var(--gold)"></i>Materiais</a>
+    <div class="mt-4 pt-4" style="border-top:1px solid rgba(201,168,76,0.2)">
+      <a href="/quiz.html" class="btn-gold w-full py-3 rounded-xl text-center font-semibold block">
+        <i class="fas fa-feather mr-2"></i>Iniciar Teste Agora
+      </a>
+    </div>
+  </nav>
+</div>
 
-                <!-- Game Card 3 -->
-                <div class="group bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 overflow-hidden transition-all duration-300 hover:-translate-y-1">
-                    <div class="p-6">
-                        <div class="w-12 h-12 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center mb-4 text-2xl">
-                            <i class="fa-solid fa-user-xmark"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Jogo da Forca</h4>
-                        <p class="text-gray-600 text-sm mb-4">Acerte as letras para descobrir a palavra secreta antes que seja tarde demais. Desafio clássico!</p>
-                        <a href="forca.html" class="w-full inline-flex justify-center items-center rounded-md bg-orange-50 px-3 py-2 text-sm font-semibold text-orange-700 shadow-sm hover:bg-orange-100 transition-colors">
-                            Jogar Agora <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+<!-- Breadcrumb -->
+<div class="pt-20 pb-2 px-4">
+  <div class="max-w-6xl mx-auto">
+    <nav class="text-xs" style="color:var(--text-muted-dark)">
+      <a href="/" class="hover:text-gold transition-colors">Início</a>
+      <i class="fas fa-chevron-right mx-2 text-xs" style="opacity:0.5"></i>
+      <span style="color:var(--gold)">Jogos Educativos</span>
+    </nav>
+  </div>
+</div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-auto">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-            <div class="md:flex md:items-center md:justify-between">
-                <div class="flex justify-center space-x-6 md:order-2">
-                    <button onclick="app.showNotice('Funcionalidade em desenvolvimento.')" class="text-gray-400 hover:text-gray-300" title="Informações">
-                        <span class="sr-only">Informações</span>
-                        <i class="fa-solid fa-circle-info text-xl"></i>
-                    </button>
-                    <a href="termos-de-uso.html" class="text-gray-400 hover:text-gray-300 text-sm">Termos</a>
-                    <a href="politica-de-privacidade.html" class="text-gray-400 hover:text-gray-300 text-sm">Privacidade</a>
-                </div>
-                <div class="mt-8 md:order-1 md:mt-0">
-                    <p class="text-center text-xs leading-5 text-gray-400">
-                        &copy; <span id="current-year"></span> Jogos Bíblicos. Todos os direitos reservados.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- Hero -->
+<section class="py-16 px-4">
+  <div class="max-w-6xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25);">
+      <i class="fas fa-gamepad text-xs" style="color:var(--gold)"></i>
+      <span class="text-xs font-medium" style="color:var(--gold)">Aprendizado interativo e divertido</span>
+    </div>
+    <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-6">
+      Jogos <span class="text-gold-gradient">Educativos</span>
+    </h1>
+    <p class="font-body text-lg leading-relaxed max-w-2xl mx-auto mb-8" style="color: rgba(245,240,232,0.75);">
+      Explore nossa coleção de jogos interativos baseados na Bíblia e no universo dos desbravadores. Teste seus conhecimentos e aprenda de maneira divertida.
+    </p>
+  </div>
+</section>
 
-    <!-- Cookie Banner (Hidden by default) -->
-    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-xl p-4 transform translate-y-full transition-transform duration-500 ease-in-out z-50">
-        <div class="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-sm text-gray-600 text-center sm:text-left">
-                Utilizamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="politica-de-privacidade.html" class="text-primary-600 hover:underline">Política de Privacidade</a>.
-            </p>
-            <button id="accept-cookies" class="whitespace-nowrap rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800">
-                Entendi e aceito
-            </button>
-        </div>
+<div class="divider"></div>
+
+<!-- Games Grid -->
+<section class="py-16 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Jogos Disponíveis</span>
+      <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Escolha seu Desafio</h2>
     </div>
 
-    <!-- Application Script -->
-    <script src="assets/js/app.js"></script>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Adivinhe a Palavra -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-puzzle-piece text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Adivinhe a Palavra</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Descubra a palavra oculta baseada na dica bíblica. Teste seu vocabulário cristão!</p>
+        <a href="adivinhe-a-palavra.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Caça-Palavras Bíblico -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-magnifying-glass text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Caça-Palavras Bíblico</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Encontre personagens, lugares e livros da Bíblia escondidos no quadro.</p>
+        <a href="caca-palavras-biblica.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Forca Bíblica -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-user-xmark text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Forca Bíblica</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Acerte as letras antes que seja tarde. Palavras do universo bíblico!</p>
+        <a href="forca-biblica.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Caça-Palavras Ideais -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-search text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Caça-Palavras dos Ideais</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Encontre palavras relacionadas aos ideais dos desbravadores.</p>
+        <a href="Caca-Palavras-Ideais-Dos.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Desbravador Sabe -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-brain text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Desbravador Sabe</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Show do milhão adaptado para desbravadores. Quanto você sabe?</p>
+        <a href="Desbravador-Sabe-Show-Do.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Passa ou Repassa -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-arrows-rotate text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Passa ou Repassa</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Responda ou passe para o adversário. Desafio em dupla!</p>
+        <a href="Passa-Ou-Repassa-Desbravadores.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Kahoot Trivia -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-bolt text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Trivia Desbravadores</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Quiz rápido estilo Kahoot com perguntas sobre desbravadores.</p>
+        <a href="Kahoot-Desbravadores-Trivia-Game.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+      <!-- Cruzada Interativa -->
+      <div class="glass rounded-2xl p-6 card-lift reveal">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border:1px solid rgba(201,168,76,0.3);">
+          <i class="fas fa-th text-xl" style="color:var(--gold)"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-2">Cruzada dos Ideais</h3>
+        <p class="font-body text-sm mb-5" style="color:rgba(245,240,232,0.7);">Palavras cruzadas interativas com os ideais dos desbravadores.</p>
+        <a href="Cruzada-Dificil-Interativa-Ideais.html" class="btn-gold px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 text-sm w-full justify-center">
+          <i class="fas fa-play"></i> Jogar Agora
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Footer -->
+<footer class="py-12 px-4" style="background: rgba(13,17,23,0.98); border-top: 1px solid rgba(201,168,76,0.2);">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--gold-dark), var(--gold));">
+            <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
+          </div>
+          <div>
+            <div class="font-display font-bold text-gold-gradient">Águia de Ouro</div>
+            <div class="text-xs" style="color:var(--text-muted-dark)">Desbravadores · Curitiba</div>
+          </div>
+        </div>
+        <p class="text-sm" style="color:var(--text-muted-dark);">
+          Rua Guilherme Ihlenfeldt, 778<br>Tingui, Curitiba – PR<br>CEP: 82620-035
+        </p>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-4" style="color:var(--gold)">Navegação</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-home mr-2"></i>Início</a></li>
+          <li><a href="/sobre.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-info-circle mr-2"></i>Sobre o Clube</a></li>
+          <li><a href="/guia.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-book-open mr-2"></i>Guia de Classes</a></li>
+          <li><a href="/quiz.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-dove mr-2"></i>Teste das Aves</a></li>
+          <li><a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-file-pdf mr-2"></i>Planejamento PDF</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold mb-4" style="color:var(--gold)">Legal & Privacidade</h4>
+        <ul class="space-y-2 text-sm">
+          <li><button onclick="showLGPD()" class="hover:text-gold transition-colors text-left" style="color:var(--text-muted-dark)"><i class="fas fa-shield-alt mr-2"></i>Conformidade LGPD</button></li>
+          <li><button onclick="showTerms()" class="hover:text-gold transition-colors text-left" style="color:var(--text-muted-dark)"><i class="fas fa-file-contract mr-2"></i>Termos de Uso</button></li>
+          <li><button onclick="showPrivacy()" class="hover:text-gold transition-colors text-left" style="color:var(--text-muted-dark)"><i class="fas fa-user-secret mr-2"></i>Política de Privacidade</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+      <div></div>
+      <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
+        <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8962; Início</a>
+        <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8505; Sobre</a>
+        <a href="/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128214; Guia</a>
+        <a href="/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128038; Aves</a>
+        <a href="/jogos/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.2);color:#e8d8b2;text-decoration:none;">&#127918; Jogos</a>
+        <a href="/desbrava_guines/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127942; Guines</a>
+        <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
+        <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128101; Ordem Unida</a>
+        <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128193; Materiais</a>
+        <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
+      </nav>
+    </div>
+
+    <div class="pt-6" style="border-top:1px solid rgba(201,168,76,0.15)">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs" style="color:var(--text-muted-dark)">
+          © 2025 Clube de Desbravadores Águia de Ouro. Todos os direitos reservados. Uso recreativo e educacional.
+        </p>
+        <p class="text-xs" style="color:var(--text-muted-dark)">
+          Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── THEME ─────────────────────────────────────────────
+let isLight = localStorage.getItem('theme') === 'light';
+function applyTheme() {
+  document.body.classList.toggle('light', isLight);
+  document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+}
+function toggleTheme() { isLight = !isLight; localStorage.setItem('theme', isLight ? 'light' : 'dark'); applyTheme(); }
+applyTheme();
+
+// ─── MOBILE MENU ────────────────────────────────────────
+let menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
+  document.getElementById('menuIcon').className = menuOpen ? 'fas fa-times' : 'fas fa-bars';
+}
+function closeMenu() { menuOpen = false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('menuIcon').className = 'fas fa-bars'; }
+
+// ─── COOKIE BANNER ──────────────────────────────────────
+function acceptCookies() {
+  localStorage.setItem('lgpd_accepted', '1');
+  const b = document.getElementById('cookieBanner');
+  b.style.transform = 'translateY(100%)';
+  setTimeout(() => b.style.display = 'none', 400);
+}
+if (localStorage.getItem('lgpd_accepted')) acceptCookies();
+
+// ─── SCROLL REVEAL ──────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── MODALS ─────────────────────────────────────────────
+function showLGPD() {
+  Swal.fire({ icon:'info', title:'Conformidade LGPD', confirmButtonColor:'#C9A84C',
+    html:'<div class="text-left text-sm space-y-3"><p>Este site não coleta dados pessoais sensíveis. Utilizamos apenas localStorage para preferências de tema e consentimento LGPD.</p><p>Nenhum dado é transmitido para servidores externos além do Google Analytics (anonimizado).</p></div>' });
+}
+function showTerms() {
+  Swal.fire({ icon:'info', title:'Termos de Uso', confirmButtonColor:'#C9A84C',
+    html:'<div class="text-left text-sm space-y-3"><p>O conteúdo é de uso exclusivo educacional para membros e interessados no Clube de Desbravadores Águia de Ouro.</p><p>Reprodução não autorizada é proibida.</p></div>' });
+}
+function showPrivacy() {
+  Swal.fire({ icon:'info', title:'Política de Privacidade', confirmButtonColor:'#C9A84C',
+    html:'<div class="text-left text-sm space-y-3"><p>Não coletamos informações pessoais identificáveis. O site funciona sem login ou cadastro.</p><p>Dados de navegação são coletados anonimamente via Google Analytics para melhorias.</p></div>' });
+}
+</script>
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Jogos Educativos - Águia de Ouro",
+  "description": "Jogos educativos e bíblicos do Clube de Desbravadores Águia de Ouro",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "/" },
+      { "@type": "ListItem", "position": 2, "name": "Jogos Educativos", "item": "/jogos/" }
+    ]
+  }
+}
+</script>
 </body>
 </html>

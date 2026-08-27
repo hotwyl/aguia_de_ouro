@@ -4,118 +4,177 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Guia Completo de Classes Agrupadas – Clube Águia de Ouro. Planejamento de 15 encontros e 1 acampamento para Aspirantes a Líder (16+ anos).">
-  <meta name="keywords" content="classes agrupadas, desbravadores, guia, planejamento, líder master, aspirante">
+  <meta name="keywords" content="classes agrupadas, desbravadores, guia, planejamento, líder master, aspirante, aulas, encontros">
   <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Guia de Classes Agrupadas | Águia de Ouro">
+  <meta property="og:description" content="Planejamento completo para cumprimento dos requisitos em 15 encontros + 1 acampamento. Duração: 18 a 24 meses.">
+  <meta property="og:type" content="article">
+  <meta name="geo.region" content="BR-PR">
+  <meta name="geo.placename" content="Curitiba">
+  <meta name="geo.position" content="-25.4284;-49.2733">
+  <meta name="ICBM" content="-25.4284, -49.2733">
   <title>Guia de Classes Agrupadas | Águia de Ouro</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+  ;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WVMJV7G6');
+  </script>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J06THXX0MW"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J06THXX0MW');
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    :root { --gold:#C9A84C; --gold-light:#F0C96B; --gold-dark:#8B6914; --ink:#0D1117; --ink-2:#161B22; --ink-3:#21262D; --parchment:#F5F0E8; --parchment-2:#EDE6D6; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: #F5F0E8; }
-    body.light { background: var(--parchment); color: #1C1917; }
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0C96B;
+      --gold-dark: #8B6914;
+      --ink: #0D1117;
+      --ink-2: #161B22;
+      --ink-3: #21262D;
+      --parchment: #F5F0E8;
+      --parchment-2: #EDE6D6;
+      --text-dark: #1C1917;
+      --text-light: #F5F0E8;
+      --text-muted-dark: #9CA3AF;
+      --text-muted-light: #6B5E45;
+    }
+
+    body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--text-light); }
+    body.light { background: var(--parchment); color: var(--text-dark); }
     .font-display { font-family: 'Cinzel', serif; }
     .font-body { font-family: 'Crimson Pro', serif; }
     .text-gold { color: var(--gold); }
-    .text-gold-gradient { background: linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .nav-glass { background:rgba(13,17,23,0.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(201,168,76,0.15); }
-    body.light .nav-glass { background:rgba(245,240,232,0.92); border-bottom:1px solid rgba(201,168,76,0.3); }
-    .glass { background:rgba(255,255,255,0.04); backdrop-filter:blur(20px); border:1px solid rgba(201,168,76,0.15); }
-    body.light .glass { background:rgba(255,255,255,0.75); border:1px solid rgba(201,168,76,0.3); }
-    .divider { height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.35; }
-    .btn-gold { background:linear-gradient(135deg,#C9A84C,#F0C96B,#C9A84C); background-size:200% auto; color:#0D1117; font-weight:700; transition:all .4s ease; }
-    .btn-gold:hover { background-position:right center; transform:translateY(-2px); box-shadow:0 8px 25px -5px rgba(201,168,76,.5); }
-    .btn-outline-gold { border:2px solid var(--gold); color:var(--gold); transition:all .3s ease; }
-    .btn-outline-gold:hover { background:rgba(201,168,76,.1); transform:translateY(-2px); }
-    .nav-glass-footer { background:rgba(13,17,23,.98); border-top:1px solid rgba(201,168,76,.2); }
-    body.light .nav-glass-footer { background:rgba(237,230,214,.98); border-top:1px solid rgba(201,168,76,.35); }
+    .text-gold-gradient { background: linear-gradient(135deg, #F0C96B, #C9A84C, #8B6914); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-    /* Sidebar tabs */
-    .tab-btn { transition:all .3s ease; cursor:pointer; border-left:3px solid transparent; }
-    .tab-btn.active { border-left-color:var(--gold); background:rgba(201,168,76,.08); color:var(--gold); }
-    .tab-btn:hover:not(.active) { background:rgba(201,168,76,.04); border-left-color:rgba(201,168,76,.3); }
-    .tab-panel { display:none; }
-    .tab-panel.active { display:block; }
+    /* Nav */
+    .nav-glass { background: rgba(13,17,23,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+    body.light .nav-glass { background: rgba(245,240,232,0.92); border-bottom: 1px solid rgba(201,168,76,0.3); }
 
-    /* Encontro cards */
-    .enc-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,168,76,.12); border-radius:16px; transition:all .3s ease; }
-    body.light .enc-card { background:rgba(255,255,255,.65); border:1px solid rgba(201,168,76,.25); }
-    .enc-card:hover { border-color:rgba(201,168,76,.4); box-shadow:0 8px 30px -10px rgba(201,168,76,.2); }
-    .enc-num { font-family:'Cinzel',serif; font-size:1.5rem; font-weight:700; color:var(--gold); }
+    /* Glass */
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); border: 1px solid rgba(201,168,76,0.15); }
+    body.light .glass { background: rgba(255,255,255,0.75); border: 1px solid rgba(201,168,76,0.3); }
+
+    /* Divider */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.35; }
+
+    /* Buttons */
+    .btn-gold { background: linear-gradient(135deg, #C9A84C, #F0C96B, #C9A84C); background-size: 200% auto; color: #0D1117; font-weight: 700; transition: all .4s ease; }
+    .btn-gold:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(201,168,76,.5); }
+    .btn-outline-gold { border: 2px solid var(--gold); color: var(--gold); transition: all .3s ease; }
+    .btn-outline-gold:hover { background: rgba(201,168,76,.1); transform: translateY(-2px); }
+
+    /* Cards */
+    .card-lift { transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(201,168,76,0.25); border-color: rgba(201,168,76,0.5) !important; }
+
+    /* Tab system */
+    .tab-nav-btn { transition: all .3s ease; cursor: pointer; }
+    .tab-nav-btn.active-tab { background: linear-gradient(135deg, #C9A84C, #F0C96B); color: #0D1117; }
+    .tab-nav-btn:not(.active-tab) { color: #9CA3AF; }
+    .tab-nav-btn:not(.active-tab):hover { background: rgba(201,168,76,0.08); color: var(--gold); }
+
+    /* Encounter cards */
+    .enc-card { background: rgba(255,255,255,.03); border: 1px solid rgba(201,168,76,.12); border-radius: 16px; transition: all .3s ease; }
+    body.light .enc-card { background: rgba(255,255,255,.65); border: 1px solid rgba(201,168,76,.25); }
+    .enc-card:hover { border-color: rgba(201,168,76,.4); box-shadow: 0 8px 30px -10px rgba(201,168,76,.2); }
+    .enc-num { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+
+    /* Aula card special */
+    .aula-card { background: rgba(255,255,255,.03); border: 1px solid rgba(201,168,76,.12); border-radius: 20px; transition: all .4s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
+    body.light .aula-card { background: rgba(255,255,255,.7); border: 1px solid rgba(201,168,76,.25); }
+    .aula-card:hover { border-color: rgba(201,168,76,.5); transform: translateY(-4px); box-shadow: 0 16px 40px -12px rgba(201,168,76,.25); }
+    .aula-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light)); opacity: 0; transition: opacity .3s ease; }
+    .aula-card:hover::before { opacity: 1; }
+    .aula-number { font-family: 'Cinzel', serif; font-size: 3rem; font-weight: 900; line-height: 1; color: rgba(201,168,76,0.12); position: absolute; top: 12px; right: 16px; }
+    body.light .aula-number { color: rgba(201,168,76,0.15); }
 
     /* Accordion */
-    .acc-header { cursor:pointer; transition:background .2s; user-select:none; }
-    .acc-header:hover { background:rgba(201,168,76,.06); }
-    .acc-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
-    .acc-body.open { max-height:2000px; }
+    .acc-header { cursor: pointer; transition: background .2s; user-select: none; }
+    .acc-header:hover { background: rgba(201,168,76,.06); }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .5s ease; }
+    .acc-body.open { max-height: 8000px; }
 
-    /* Badge */
-    .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; }
-    .badge-gold { background:rgba(201,168,76,.12); color:var(--gold); border:1px solid rgba(201,168,76,.3); }
-    .badge-blue { background:rgba(59,130,246,.12); color:#60A5FA; border:1px solid rgba(59,130,246,.25); }
-    .badge-green { background:rgba(16,185,129,.12); color:#34D399; border:1px solid rgba(16,185,129,.25); }
-    .badge-red { background:rgba(239,68,68,.12); color:#F87171; border:1px solid rgba(239,68,68,.25); }
-    .badge-purple { background:rgba(139,92,246,.12); color:#A78BFA; border:1px solid rgba(139,92,246,.25); }
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+    .badge-gold { background: rgba(201,168,76,.12); color: var(--gold); border: 1px solid rgba(201,168,76,.3); }
+    .badge-blue { background: rgba(59,130,246,.12); color: #60A5FA; border: 1px solid rgba(59,130,246,.25); }
+    .badge-green { background: rgba(16,185,129,.12); color: #34D399; border: 1px solid rgba(16,185,129,.25); }
+    .badge-red { background: rgba(239,68,68,.12); color: #F87171; border: 1px solid rgba(239,68,68,.25); }
+    .badge-purple { background: rgba(139,92,246,.12); color: #A78BFA; border: 1px solid rgba(139,92,246,.25); }
 
     /* Tooltip */
-    .has-tooltip { position:relative; }
-    .tooltip-text { visibility:hidden; opacity:0; position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:#21262D; color:#F5F0E8; padding:6px 12px; border-radius:6px; font-size:12px; white-space:nowrap; border:1px solid rgba(201,168,76,.3); transition:all .2s ease; z-index:100; pointer-events:none; max-width:200px; white-space:normal; text-align:center; }
-    .has-tooltip:hover .tooltip-text { visibility:visible; opacity:1; }
+    .has-tooltip { position: relative; }
+    .tooltip-text { visibility: hidden; opacity: 0; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--ink-3); color: var(--text-light); padding: 6px 12px; border-radius: 6px; font-size: 12px; white-space: nowrap; border: 1px solid rgba(201,168,76,.3); transition: all .2s ease; z-index: 100; pointer-events: none; max-width: 200px; white-space: normal; text-align: center; }
+    body.light .tooltip-text { background: #21262D; }
+    .has-tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
 
     /* Mobile menu */
-    #mobileMenu { transform:translateX(-100%); transition:transform .35s ease; }
-    #mobileMenu.open { transform:translateX(0); }
+    #mobileMenu { transform: translateX(-100%); transition: transform .35s ease; }
+    #mobileMenu.open { transform: translateX(0); }
 
     /* Reveal */
-    .reveal { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* Sidebar layout */
-    .sidebar-layout { display:grid; grid-template-columns:240px 1fr; gap:0; }
-    @media(max-width:768px) { .sidebar-layout { grid-template-columns:1fr; } .sidebar-nav { display:none; } .sidebar-nav.mobile-open { display:block; } }
+    /* Progress */
+    .prog-bar { height: 6px; background: rgba(201,168,76,.12); border-radius: 999px; overflow: hidden; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); border-radius: 999px; transition: width .5s ease; }
 
-    /* Progress tracker */
-    .prog-bar { height:6px; background:rgba(201,168,76,.12); border-radius:999px; overflow:hidden; }
-    .prog-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold)); border-radius:999px; transition:width .5s ease; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--ink-2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+    body.light ::-webkit-scrollbar-track { background: var(--parchment-2); }
 
-    /* Print / no-scroll */
-    body.no-scroll { overflow:hidden; }
+    /* Focus */
+    *:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--ink-2); } ::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:3px; }
-    *:focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
+    /* No scroll */
+    body.no-scroll { overflow: hidden; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Reunião requisito item hover */
+    .aula-card .p-4:hover { border-color: rgba(201,168,76,.2) !important; background: rgba(201,168,76,.03) !important; }
+
+    /* Stats counter */
+    .stat-counter { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 12px; background: rgba(201,168,76,.06); border: 1px solid rgba(201,168,76,.15); }
+    .stat-counter .num { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.25rem; color: var(--gold); }
+    .stat-counter .label { font-size: 12px; color: #9CA3AF; }
   </style>
 </head>
 <body>
 
+<!-- Segurança -->
 <script>
-// Bloqueios de segurança e proteção de conteúdo
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', function(e) {
-  // Bloqueia F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+C, Ctrl+P, Ctrl+Shift+C
-  if (
-    e.key === 'F12' ||
-    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) ||
-    (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))
-  ) {
-    e.preventDefault();
-    return false;
-  }
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) || (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'C' || e.key === 'P'))) { e.preventDefault(); return false; }
 });
-// Bloqueia seleção de texto
 document.addEventListener('selectstart', e => e.preventDefault());
-// Bloqueia PrintScreen
-document.addEventListener('keyup', function(e) {
-  if (e.key === 'PrintScreen') {
-    navigator.clipboard.writeText('Ação bloqueada');
-    alert('Captura de tela bloqueada!');
-  }
-});
-// Bloqueia impressão
-window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 </script>
 
-!-- Header / Nav -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WVMJV7G6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- Header / Nav -->
 <header class="nav-glass fixed top-0 left-0 right-0 z-40">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <!-- Logo -->
@@ -132,8 +191,9 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
     <nav class="hidden lg:flex items-center gap-1" aria-label="Navegação principal">
       <a href="/" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-home mr-1"></i>Início</a>
       <a href="/sobre.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
-      <a href="/guia.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-book-open mr-1"></i>Guia</a>
+      <a href="/guia.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors" style="color:var(--gold);"><i class="fas fa-book-open mr-1"></i>Guia</a>
       <a href="/quiz.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-dove mr-1"></i>Aves</a>
+      <a href="/jogos/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-gamepad mr-1"></i>Jogos</a>
       <a href="/desbrava_guines/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-trophy mr-1"></i>Guines</a>
       <a href="/astronomia/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-star mr-1"></i>Astronomia</a>
       <a href="/ordem_unida/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-users mr-1"></i>O. Unida</a>
@@ -145,7 +205,7 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
         <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
         <span class="tooltip-text">Alternar tema</span>
       </button>
-      <button onclick="toggleMenu()" class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
+      <button onclick="toggleMenu()" class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
         <i id="menuIcon" class="fas fa-bars"></i>
       </button>
       <a href="/quiz.html" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
@@ -158,12 +218,11 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 <!-- Mobile Menu -->
 <div id="mobileMenu" class="fixed inset-0 z-30 pt-16 nav-glass" aria-hidden="true">
   <nav class="flex flex-col p-6 gap-2">
-    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);">
-      <i class="fas fa-home w-5"></i><span class="font-medium">Início</span>
-    </a>
+    <a href="/" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-home w-5" style="color:var(--gold)"></i><span>Início</span></a>
     <a href="/sobre.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i><span>Sobre o Clube</span></a>
-    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i><span>Guia de Classes</span></a>
+    <a href="/guia.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);"><i class="fas fa-book-open w-5"></i><span class="font-medium">Guia de Classes</span></a>
     <a href="/quiz.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-dove w-5" style="color:var(--gold)"></i><span>Teste das Aves</span></a>
+    <a href="/jogos/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-gamepad w-5" style="color:var(--gold)"></i><span>Jogos Educativos</span></a>
     <a href="/desbrava_guines/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-trophy w-5" style="color:var(--gold)"></i><span>Águia Guines</span></a>
     <a href="/astronomia/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-star w-5" style="color:var(--gold)"></i><span>Astronomia</span></a>
     <a href="/ordem_unida/index.html" onclick="closeMenu()" class="flex items-center gap-3 p-4 rounded-xl transition hover:bg-gold/10" style="color:var(--text-light)"><i class="fas fa-users w-5" style="color:var(--gold)"></i><span>Ordem Unida</span></a>
@@ -194,7 +253,7 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
             <i class="fas fa-user-graduate text-xs" style="color:var(--gold)"></i>
             <span class="text-xs font-semibold" style="color:var(--gold)">Público: 16 anos ou mais · Aspirante a Líder / Líder Máster</span>
           </div>
-          <h1 class="font-display text-3xl md:text-4xl font-bold mb-3">Guia de Classes Agrupadas</h1>
+          <h1 class="font-display text-3xl md:text-4xl font-bold mb-3">Guia de <span class="text-gold-gradient">Classes Agrupadas</span></h1>
           <p class="font-body text-lg max-w-2xl" style="color:rgba(245,240,232,.7)">
             Planejamento completo para cumprimento dos requisitos em 15 encontros + 1 acampamento. Duração recomendada: 18 a 24 meses.
           </p>
@@ -218,15 +277,18 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
 
   <!-- Tabs Navigation -->
   <div class="max-w-6xl mx-auto px-4 mt-8">
-    <div class="flex flex-wrap gap-2 mb-8 p-1 rounded-2xl" style="background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.12);">
-      <button onclick="showTab('encontros')" id="tab-encontros" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all active-tab">
+    <div class="flex flex-wrap gap-2 mb-8 p-1.5 rounded-2xl" style="background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.12);">
+      <button onclick="showTab('aulas')" id="tab-aulas" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
+        <i class="fas fa-chalkboard-teacher mr-2"></i>Reuniões
+      </button>
+      <button onclick="showTab('encontros')" id="tab-encontros" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
         <i class="fas fa-calendar-alt mr-2"></i>15 Encontros
       </button>
       <button onclick="showTab('acampamento')" id="tab-acampamento" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
         <i class="fas fa-campground mr-2"></i>Acampamento
       </button>
       <button onclick="showTab('continuos')" id="tab-continuos" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
-        <i class="fas fa-sync-alt mr-2"></i>Requisitos Contínuos
+        <i class="fas fa-sync-alt mr-2"></i>Contínuos
       </button>
       <button onclick="showTab('especialidades')" id="tab-especialidades" class="tab-nav-btn flex-1 min-w-fit px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
         <i class="fas fa-award mr-2"></i>Especialidades
@@ -236,10 +298,46 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
       </button>
     </div>
 
+    <!-- TAB: AULAS (Reuniões) -->
+    <div id="panel-aulas" class="tab-content hidden">
+      <!-- Reuniões Header -->
+      <div class="mb-6 p-5 rounded-2xl" style="background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.2);">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-display text-xl font-bold mb-1"><i class="fas fa-chalkboard-teacher mr-2" style="color:var(--gold)"></i>Reuniões de Estudo</h2>
+            <p class="font-body text-base" style="color:rgba(245,240,232,.75)">Conteúdo programático dividido em 3 reuniões temáticas com todos os requisitos detalhados. Clique em cada reunião para expandir.</p>
+          </div>
+          <div class="flex gap-3">
+            <div class="stat-counter">
+              <span class="num">3</span>
+              <span class="label">Reuniões</span>
+            </div>
+            <div class="stat-counter">
+              <span class="num">9</span>
+              <span class="label">Áreas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold" style="color:var(--gold)">Progresso das Reuniões</span>
+          <span class="text-xs" style="color:#9CA3AF" id="aulasProgressLabel">0 / 3 concluídas</span>
+        </div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="aulasProgressBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Reuniões Grid -->
+      <div class="grid gap-5" id="aulasContainer"></div>
+    </div>
+
     <!-- TAB: ENCONTROS -->
-    <div id="panel-encontros" class="tab-content">
+    <div id="panel-encontros" class="tab-content hidden">
       <div class="grid gap-4">
-        <!-- Encontros data rendered via JS -->
         <div id="encontrosContainer"></div>
       </div>
     </div>
@@ -279,7 +377,7 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
   </div>
 </main>
 
-<!-- FOOTER -->
+<!-- Footer -->
 <footer style="background:rgba(13,17,23,0.98); border-top:1px solid rgba(201,168,76,0.2);">
   <div class="max-w-6xl mx-auto px-4 py-10">
     <div class="grid md:grid-cols-3 gap-8 mb-8">
@@ -294,7 +392,9 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
           </div>
         </div>
         <p class="text-sm" style="color:var(--text-muted-dark);">
-          Rua Guilherme Ihlenfeldt, 778<br>Tingui, Curitiba – PR<br>CEP: 82620-035
+          <i class="fas fa-map-marker-alt mr-1" style="color:var(--gold)"></i>Rua Guilherme Ihlenfeldt, 778<br>
+          <span class="ml-4">Tingui, Curitiba – PR</span><br>
+          <span class="ml-4">CEP: 82620-035</span>
         </p>
       </div>
       <div>
@@ -304,6 +404,7 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
           <li><a href="/sobre.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-info-circle mr-2"></i>Sobre o Clube</a></li>
           <li><a href="/guia.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-book-open mr-2"></i>Guia de Classes</a></li>
           <li><a href="/quiz.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-dove mr-2"></i>Teste das Aves</a></li>
+          <li><a href="/jogos/index.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-gamepad mr-2"></i>Jogos Educativos</a></li>
           <li><a href="/planejamento.html" class="hover:text-gold transition-colors" style="color:var(--text-muted-dark)"><i class="fas fa-file-pdf mr-2"></i>Planejamento PDF</a></li>
         </ul>
       </div>
@@ -317,64 +418,195 @@ window.onbeforeprint = () => { alert('Impressão bloqueada!'); return false; };
       </div>
     </div>
 
-    <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      
-    </div>
-      <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
-        <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8962; Início</a>
-        <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8505; Sobre</a>
-        <a href="/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128214; Guia</a>
-        <a href="/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128038; Aves</a>
-        <a href="/desbrava_guines/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127942; Guines</a>
-        <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
-        <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.2);color:#e8d8b2;text-decoration:none;">&#128101; Ordem Unida</a>
-        <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128193; Materiais</a>
-        <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
-      </nav>
-    </div>
+    <!-- Links rápidos -->
+    <nav class="flex flex-wrap gap-2 mb-6" aria-label="Links rápidos">
+      <a href="/" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-home"></i> Início</a>
+      <a href="/sobre.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-info-circle"></i> Sobre</a>
+      <a href="/guia.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.2); color:var(--gold);"><i class="fas fa-book-open"></i> Guia</a>
+      <a href="/quiz.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-dove"></i> Aves</a>
+      <a href="/jogos/index.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-gamepad"></i> Jogos</a>
+      <a href="/desbrava_guines/index.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-trophy"></i> Guines</a>
+      <a href="/astronomia/index.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-star"></i> Astronomia</a>
+      <a href="/ordem_unida/index.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-users"></i> Ordem Unida</a>
+      <a href="/materiais/index.html" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-gold/20" style="border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.08); color:#e8d8b2;"><i class="fas fa-folder-open"></i> Materiais</a>
+    </nav>
 
-    <div class="pt-6" style="border-top:1px solid rgba(201,168,76,0.15)">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="text-xs" style="color:var(--text-muted-dark)">
-          © 2025 Clube de Desbravadores Águia de Ouro. Todos os direitos reservados. Uso recreativo e educacional.
-        </p>
-        <p class="text-xs" style="color:var(--text-muted-dark)">
-          Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong>
-        </p>
-      </div>
+    <div class="divider mb-6"></div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs" style="color:var(--text-muted-dark)">
+        © 2025 Clube de Desbravadores Águia de Ouro. Todos os direitos reservados.
+      </p>
+      <p class="text-xs" style="color:var(--text-muted-dark)">
+        Desenvolvido por <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong>
+      </p>
     </div>
   </div>
-
 </footer>
+
+<!-- LGPD Cookie Banner -->
+<div id="cookieBanner" class="fixed bottom-0 left-0 right-0 z-50 transition-transform duration-500" style="background:rgba(13,17,23,0.97); border-top:1px solid rgba(201,168,76,0.3);">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center gap-4">
+    <p class="text-sm text-center sm:text-left" style="color:#9CA3AF">
+      <i class="fas fa-shield-alt mr-1" style="color:var(--gold)"></i>
+      Este site utiliza armazenamento local apenas para <strong style="color:var(--text-light)">preferências de tema</strong>. Nenhum dado pessoal é coletado.
+      <a href="#" onclick="showLGPD();return false;" class="underline" style="color:var(--gold)">Saiba mais</a>
+    </p>
+    <button onclick="acceptCookies()" class="btn-gold px-5 py-2 rounded-lg text-sm font-semibold flex-shrink-0 inline-flex items-center gap-2">
+      <i class="fas fa-check"></i> Entendi
+    </button>
+  </div>
+</div>
 
 <script>
 // ─── THEME ───────────────────────────────────────
 let isLight = localStorage.getItem('theme') === 'light';
-function applyTheme() { document.body.classList.toggle('light',isLight); document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon'; }
-function toggleTheme() { isLight = !isLight; localStorage.setItem('theme',isLight?'light':'dark'); applyTheme(); }
+function applyTheme() {
+  document.body.classList.toggle('light', isLight);
+  document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+}
+function toggleTheme() {
+  isLight = !isLight;
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  applyTheme();
+}
 applyTheme();
+
+// ─── MOBILE MENU ─────────────────────────────────
 let menuOpen = false;
-function toggleMenu() { menuOpen=!menuOpen; document.getElementById('mobileMenu').classList.toggle('open',menuOpen); document.getElementById('menuIcon').className=menuOpen?'fas fa-times':'fas fa-bars'; }
-function closeMenu() { menuOpen=false; document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('menuIcon').className='fas fa-bars'; }
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
+  document.getElementById('menuIcon').className = menuOpen ? 'fas fa-times' : 'fas fa-bars';
+  document.getElementById('mobileMenu').setAttribute('aria-hidden', !menuOpen);
+  document.body.classList.toggle('no-scroll', menuOpen);
+}
+function closeMenu() {
+  menuOpen = false;
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('menuIcon').className = 'fas fa-bars';
+  document.getElementById('mobileMenu').setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('no-scroll');
+}
 
 // ─── TAB SYSTEM ──────────────────────────────────
-const tabs = ['encontros','acampamento','continuos','especialidades','ideais'];
+const tabs = ['aulas','encontros','acampamento','continuos','especialidades','ideais'];
 function showTab(name) {
   tabs.forEach(t => {
-    document.getElementById('panel-'+t).classList.toggle('hidden', t!==name);
-    const btn = document.getElementById('tab-'+t);
-    if(btn) { btn.classList.toggle('active-tab', t===name); btn.classList.toggle('inactive-tab', t!==name); }
-  });
-  document.querySelectorAll('.tab-nav-btn').forEach(b => {
-    const active = b.id === 'tab-'+name;
-    b.style.background = active ? 'linear-gradient(135deg,#C9A84C,#F0C96B)' : 'transparent';
-    b.style.color = active ? '#0D1117' : '#9CA3AF';
+    const panel = document.getElementById('panel-' + t);
+    if (panel) panel.classList.toggle('hidden', t !== name);
+    const btn = document.getElementById('tab-' + t);
+    if (btn) {
+      btn.classList.toggle('active-tab', t === name);
+    }
   });
 }
-showTab('encontros');
+showTab('aulas');
+
+// ─── COOKIE BANNER ───────────────────────────────
+function acceptCookies() {
+  localStorage.setItem('lgpd_accepted', 'true');
+  const banner = document.getElementById('cookieBanner');
+  banner.style.transform = 'translateY(100%)';
+  setTimeout(() => { banner.style.display = 'none'; }, 500);
+}
+if (localStorage.getItem('lgpd_accepted') === 'true') {
+  document.getElementById('cookieBanner').style.display = 'none';
+}
 
 // ─── DATA ────────────────────────────────────────
+const reunioes = [
+  {
+    n: 1,
+    tema: 'Ideais e Sistema de Classes',
+    icon: 'fa-flag',
+    color: '#C9A84C',
+    descricao: 'Fundamentos do movimento desbravador: Voto, Lei, Alvo, Lema, Objetivo e Voto de Fidelidade à Bíblia.',
+    requisitos: [
+      { titulo: 'Ser membro ativo do Clube de Desbravadores', tipo: 'obrigatorio' },
+      { titulo: 'Memorizar e explicar o Voto e a Lei do Desbravador', tipo: 'obrigatorio' },
+      { titulo: 'Ilustrar de forma criativa o significado do Voto do Desbravador', tipo: 'criativo',
+        subitens: ['Pode ser cartaz, maquete, desenho, vídeo, teatro'] },
+      { titulo: 'Demonstrar sua compreensão do significado da Lei do Desbravador através de uma das seguintes atividades:', tipo: 'escolha',
+        subitens: ['Debate em grupo', 'Redação pessoal', 'Representação/dramatização'] },
+      { titulo: 'Memorizar e entender o Alvo e o Lema JA', tipo: 'obrigatorio',
+        subitens: ['Alvo: "A mensagem do advento a todo o mundo na minha geração"', 'Lema: "O amor de Cristo me motiva"'] },
+      { titulo: 'Memorizar e explicar o significado do Objetivo JA', tipo: 'obrigatorio',
+        subitens: ['Objetivo: "Salvar do pecado e guiar no serviço"'] },
+      { titulo: 'Memorizar e explicar o Voto de Fidelidade à Bíblia', tipo: 'obrigatorio',
+        subitens: ['"Prometo fidelidade à Bíblia, à sua mensagem de um Salvador crucificado, ressurreto e prestes a vir, doador de vida e liberdade a todos que nEle crêem."'] }
+    ]
+  },
+  {
+    n: 2,
+    tema: 'Discussões e Debates',
+    icon: 'fa-comments',
+    color: '#8B5CF6',
+    descricao: 'Atividades de discussão em grupo sobre cristianismo, evangelismo, relacionamentos, saúde e pressão de grupo.',
+    requisitos: [
+      { titulo: 'Conversar em seu clube ou unidade sobre:', tipo: 'discussao',
+        subitens: ['O que é cristianismo', 'Quais as características de um verdadeiro discípulo', 'O que fazer para ser um cristão verdadeiro'] },
+      { titulo: 'Em consulta com seu conselheiro, escolher um tema e demonstrar:', tipo: 'escolha',
+        subitens: ['Uma parábola de Jesus', 'Um milagre', 'O Sermão da Montanha', 'Sermão sobre a Segunda Vinda'] },
+      { titulo: 'Através de história bíblica escolhida, demonstrar compreensão:', tipo: 'escolha',
+        subitens: ['Nicodemos', 'Mulher samaritana', 'Bom samaritano', 'Filho pródigo', 'Zaqueu'] },
+      { titulo: 'Discutir com sua unidade os métodos de evangelismo pessoal e colocar alguns princípios em prática', tipo: 'discussao' },
+      { titulo: 'Discutir como os jovens adventistas devem se relacionar com as pessoas nas diferentes situações:', tipo: 'discussao',
+        subitens: ['Vizinhos', 'Escola', 'Atividades sociais', 'Atividades recreativas'] },
+      { titulo: 'Conversar com seu conselheiro ou unidade sobre como respeitar pessoas de diferentes culturas, raça e sexo', tipo: 'discussao' },
+      { titulo: 'Participar de um debate ou representação sobre a pressão de grupo e identificar a influência que isso exerce sobre as decisões', tipo: 'debate' },
+      { titulo: 'Participar de um debate e fazer uma avaliação pessoal sobre suas atitudes em dois temas:', tipo: 'debate',
+        subitens: ['Auto-estima', 'Amizade', 'Relacionamentos', 'Otimismo e pessimismo'] },
+      { titulo: 'Através de uma conversa em grupo ou avaliação pessoal, examinar suas atitudes em dois temas:', tipo: 'debate',
+        subitens: ['Auto-estima', 'Relacionamento familiar', 'Finanças pessoais', 'Pressão de grupo'] },
+      { titulo: 'Escolher uma atividade e escrever sobre vida livre do álcool:', tipo: 'escolha',
+        subitens: ['Participar de uma discussão em classe sobre os efeitos do álcool no organismo', 'Discutir as vantagens do estilo de vida Adventista de acordo com o que a Bíblia ensina'] },
+      { titulo: 'Após caminhada de 20km com anotações sobre terreno, flora e fauna, participar de uma discussão de grupo, dirigida por seu conselheiro', tipo: 'pratico' }
+    ]
+  },
+  {
+    n: 3,
+    tema: 'Conhecimentos Bíblicos para Memorizar',
+    icon: 'fa-bible',
+    color: '#3B82F6',
+    descricao: 'Leituras obrigatórias, memorização de conteúdos bíblicos, versículos e estudo aprofundado das Escrituras.',
+    requisitos: [
+      { titulo: 'Ler livros do Clube de Leitura e espirituais (resumir em 1 página cada):', tipo: 'leitura',
+        subitens: ['Livro do ano', 'Vaso de Barro', 'Caminho a Cristo', 'Além da Magia', 'A História da Vida', 'Nos Bastidores da Mídia', 'Nossa Herança'] },
+      { titulo: 'Participar ativamente da classe bíblica do seu clube', tipo: 'obrigatorio' },
+      { titulo: 'Conhecimentos Bíblicos para Memorizar:', tipo: 'memorizacao',
+        subitens: ['Criação: o que Deus criou em cada dia', '10 Pragas do Egito', '12 Tribos de Israel', '10 Mandamentos', 'Levítico 11: alimentos puros e impuros', 'Nome dos 12 apóstolos', 'Fruto do Espírito', '3 mensagens angélicas (Apoc. 14:6-12)', '7 Igrejas do Apocalipse', '12 pedras preciosas - fundamentos da Nova Jerusalém', 'Bem-Aventuranças - Sermão da Montanha'] },
+      { titulo: 'Versos para Ler e Explicar:', tipo: 'versiculo',
+        subitens: [
+          'João 3:16, Efésios 6:1-3, II Tim 3:16, Salmo 1',
+          'Isaías 41:9-10, Hebreus 13:5, Prov 22:6, I João 1:9, Salmo 8',
+          'Eclesiastes 12:13-14, Romanos 6:23, Apoc 1:3, Isaías 43:1-2, Salmo 51:10, Salmo 16',
+          'Isaías 26:3, Rom 12:12, João 14:1-3, Salmo 37:5, Fil 3:12-14, Salmo 23, I Sam 15:22',
+          'Rom 8:28, Apoc 21:1-3, II Pedro 1:20-21, I João 2:14, II Cron 20:20, Salmo 46',
+          'I Cor 13, II Cron 7:14, Apoc 22:18-20, II Tim 4:6-7, Rom 8:38-39, Mat 6:33-34'
+        ] },
+      { titulo: 'Leitura Bíblica por livros:', tipo: 'leitura',
+        subitens: ['Gênesis, Êxodo, Levítico, Números, Deuteronômio, Josué, Juízes, Rute, Samuel, Reis, Crônicas, Esdras, Neemias, Ester, Jó, Salmos, Provérbios, Eclesiastes, Isaías, Jeremias, Daniel, Profetas Menores, Mateus a Apocalipse'] },
+      { titulo: '39 livros do AT e saber encontrar', tipo: 'memorizacao' },
+      { titulo: '27 livros do NT e saber encontrar', tipo: 'memorizacao' },
+      { titulo: 'Conversar em seu clube ou unidade sobre:', tipo: 'discussao',
+        subitens: ['O que é cristianismo', 'Características de um verdadeiro discípulo', 'O que fazer para ser um cristão verdadeiro'] },
+      { titulo: 'Estudar e entender a pessoa do Espírito Santo, como Ele se relaciona e Seu papel no crescimento espiritual', tipo: 'estudo' },
+      { titulo: 'Descrever os dons espirituais de Paulo (Coríntios, Efésios, Filipenses) e seus objetivos para a igreja', tipo: 'estudo' },
+      { titulo: 'Escolher um tema e demonstrar conhecimento por troca de ideia, atividade em grupo ou redação:', tipo: 'escolha',
+        subitens: ['Uma parábola de Jesus', 'Um milagre', 'Sermão da Montanha', 'Sermão sobre a Segunda Vinda'] },
+      { titulo: 'Escolher uma história e demonstrar como Jesus salva:', tipo: 'escolha',
+        subitens: ['Nicodemos', 'Mulher samaritana', 'Bom samaritano', 'Filho pródigo', 'Zaqueu'] },
+      { titulo: 'Participar de um estudo sobre inspiração da Bíblia (inspiração, revelação e iluminação) com pastor', tipo: 'estudo' },
+      { titulo: 'Estudar com sua unidade os eventos finais e a segunda vinda de Cristo', tipo: 'estudo' },
+      { titulo: 'Estudar a estrutura e serviço do santuário do AT e relacionar com o ministério de Jesus e a cruz', tipo: 'estudo' },
+      { titulo: 'Convidar 3+ pessoas para classe bíblica ou pequeno grupo', tipo: 'pratico' },
+      { titulo: 'Descobrir o verdadeiro significado da observância do sábado pelo estudo da Bíblia', tipo: 'estudo' },
+      { titulo: 'Ler e resumir 3 histórias de pioneiros adventistas e contar no clube, JA ou Escola Sabatina', tipo: 'leitura' }
+    ]
+  }
+];
+
 const encontros = [
   { n:1, tema:'Fundamentos do Desbravador e Nós', area:'I / VI / VIII', icon:'fa-knot', color:'#F59E0B',
     requisitos:'I – Gerais: 1, 2, 3 · VIII – Acampar: 1 (Nós e Amarras), 14 (Nós Adicionais) · VI – Liderança: 7 (início do planejamento do acampamento)',
@@ -522,15 +754,127 @@ const ideais = [
   { nome:'Voto de Fidelidade à Bíblia', icon:'fa-bible', color:'#F59E0B',
     texto:'"Prometo fidelidade à Bíblia, à sua mensagem, de um Salvador crucificado ressurreto e prestes a vir, doador de vida e liberdade a todos que nEle crêem."',
     info:'Compromisso solene com as Escrituras.' },
-    { nome:'Hino', icon:'fa-music', color:'#22C55E',
-    texto:'Nós somos os Desbravadores, Os servos do Rei dos reis, Sempre avante assim marchamos, Fiéis às Suas leis. Devemos ao mundo anunciar, As novas da salvação, Que Cristo virá em breve dar o galardão' }
+  { nome:'Hino', icon:'fa-music', color:'#22C55E',
+    texto:'Nós somos os Desbravadores, Os servos do Rei dos reis, Sempre avante assim marchamos, Fiéis às Suas leis. Devemos ao mundo anunciar, As novas da salvação, Que Cristo virá em breve dar o galardão',
+    info:'Hino oficial dos Desbravadores, cantado em todas as solenidades.' }
 ];
 
-// ─── RENDER FUNCTIONS ────────────────────────────
+// ─── RENDER: REUNIÕES (Aulas Tab) ───────────────
+let completedReunioes = JSON.parse(localStorage.getItem('completedReunioes') || '[]');
+
+function toggleReuniaoComplete(n) {
+  const idx = completedReunioes.indexOf(n);
+  if (idx > -1) completedReunioes.splice(idx, 1);
+  else completedReunioes.push(n);
+  localStorage.setItem('completedReunioes', JSON.stringify(completedReunioes));
+  updateProgress();
+  renderAulas();
+}
+
+function updateProgress() {
+  const pct = Math.round((completedReunioes.length / 3) * 100);
+  document.getElementById('aulasProgressBar').style.width = pct + '%';
+  document.getElementById('aulasProgressLabel').textContent = completedReunioes.length + ' / 3 concluídas';
+}
+
+function getBadgeForTipo(tipo) {
+  const map = {
+    'obrigatorio': { cls: 'badge-gold', icon: 'fa-star', label: 'Obrigatório' },
+    'criativo': { cls: 'badge-purple', icon: 'fa-palette', label: 'Criativo' },
+    'escolha': { cls: 'badge-blue', icon: 'fa-hand-pointer', label: 'Escolha' },
+    'discussao': { cls: 'badge-green', icon: 'fa-comments', label: 'Discussão' },
+    'debate': { cls: 'badge-red', icon: 'fa-gavel', label: 'Debate' },
+    'pratico': { cls: 'badge-gold', icon: 'fa-hands', label: 'Prático' },
+    'leitura': { cls: 'badge-purple', icon: 'fa-book-open', label: 'Leitura' },
+    'memorizacao': { cls: 'badge-blue', icon: 'fa-brain', label: 'Memorização' },
+    'versiculo': { cls: 'badge-green', icon: 'fa-quote-right', label: 'Versículos' },
+    'estudo': { cls: 'badge-blue', icon: 'fa-graduation-cap', label: 'Estudo' }
+  };
+  return map[tipo] || { cls: 'badge-gold', icon: 'fa-circle', label: tipo };
+}
+
+function renderAulas() {
+  const c = document.getElementById('aulasContainer');
+  c.innerHTML = reunioes.map(r => {
+    const isCompleted = completedReunioes.includes(r.n);
+    return `
+    <div class="aula-card reveal ${isCompleted ? 'completed' : ''}" style="${isCompleted ? 'border-color:rgba(16,185,129,.4);' : ''}">
+      <span class="aula-number">${String(r.n).padStart(2,'0')}</span>
+
+      <!-- Accordion Header (clicável) -->
+      <div class="acc-header flex items-center gap-4 p-5 md:p-6 rounded-2xl" onclick="toggleAcc(this)">
+        <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:${r.color}18; border:1px solid ${r.color}40;">
+          <i class="fas ${r.icon} text-xl md:text-2xl" style="color:${r.color}"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <span class="badge" style="background:${r.color}18; color:${r.color}; border:1px solid ${r.color}40;"><i class="fas fa-bookmark mr-1"></i>Reunião ${r.n}</span>
+            <span class="badge badge-gold"><i class="fas fa-list-ol mr-1"></i>${r.requisitos.length} requisitos</span>
+            ${isCompleted ? '<span class="badge badge-green"><i class="fas fa-check mr-1"></i>Concluída</span>' : ''}
+          </div>
+          <h3 class="font-display font-bold text-lg md:text-xl leading-tight mb-1">${r.tema}</h3>
+          <p class="font-body text-sm hidden md:block" style="color:rgba(245,240,232,.6)">${r.descricao}</p>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button onclick="event.stopPropagation(); toggleReuniaoComplete(${r.n})" class="has-tooltip w-10 h-10 rounded-xl flex items-center justify-center transition-all" style="background:${isCompleted ? 'rgba(16,185,129,.15)' : 'rgba(201,168,76,.08)'}; border:1px solid ${isCompleted ? 'rgba(16,185,129,.4)' : 'rgba(201,168,76,.2)'};" aria-label="${isCompleted ? 'Marcar como pendente' : 'Marcar como concluída'}">
+            <i class="fas ${isCompleted ? 'fa-check-circle' : 'fa-circle'}" style="color:${isCompleted ? '#10B981' : 'var(--gold)'}"></i>
+            <span class="tooltip-text">${isCompleted ? 'Concluída!' : 'Marcar concluída'}</span>
+          </button>
+          <i class="fas fa-chevron-down text-sm transition-transform" style="color:var(--gold)"></i>
+        </div>
+      </div>
+
+      <!-- Accordion Body (expansível) -->
+      <div class="acc-body">
+        <div class="px-5 md:px-6 pb-6 pt-2">
+          <!-- Descrição mobile -->
+          <p class="font-body text-sm mb-4 md:hidden" style="color:rgba(245,240,232,.7)">${r.descricao}</p>
+
+          <div class="divider mb-5"></div>
+
+          <!-- Requisitos List -->
+          <div class="space-y-3">
+            ${r.requisitos.map((req, idx) => {
+              const badge = getBadgeForTipo(req.tipo);
+              return `
+              <div class="p-4 rounded-xl transition-all" style="background:rgba(255,255,255,.02); border:1px solid rgba(201,168,76,.08);">
+                <div class="flex items-start gap-3">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style="background:${r.color}12; border:1px solid ${r.color}30;">
+                    <span class="text-xs font-bold" style="color:${r.color}">${idx + 1}</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                      <p class="text-sm font-semibold leading-snug" style="color:rgba(245,240,232,.9)">${req.titulo}</p>
+                    </div>
+                    <span class="badge ${badge.cls} mt-1"><i class="fas ${badge.icon} mr-1"></i>${badge.label}</span>
+                    ${req.subitens ? `
+                      <ul class="mt-2 space-y-1.5 pl-1">
+                        ${req.subitens.map(sub => `
+                          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.7)">
+                            <i class="fas fa-chevron-right text-xs mt-1 flex-shrink-0" style="color:${r.color}"></i>
+                            <span class="font-body">${sub}</span>
+                          </li>
+                        `).join('')}
+                      </ul>
+                    ` : ''}
+                  </div>
+                </div>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  initReveal();
+}
+
+// ─── RENDER: ENCONTROS ───────────────────────────
 function renderEncontros() {
   const c = document.getElementById('encontrosContainer');
   c.innerHTML = encontros.map(e => `
-    <div class="enc-card mb-4">
+    <div class="enc-card mb-4 reveal">
       <div class="acc-header flex items-center gap-4 p-5 rounded-2xl" onclick="toggleAcc(this)">
         <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${e.color}22; border:1px solid ${e.color}44;">
           <span class="enc-num">${e.n}</span>
@@ -548,11 +892,11 @@ function renderEncontros() {
         <div class="px-5 pb-5 pt-2 grid md:grid-cols-2 gap-4">
           <div>
             <h4 class="font-semibold text-sm mb-2 flex items-center gap-2"><i class="fas fa-list-check" style="color:var(--gold)"></i>Requisitos Principais</h4>
-            <p class="text-sm" style="color:rgba(245,240,232,.75)">${e.requisitos}</p>
+            <p class="text-sm font-body" style="color:rgba(245,240,232,.75)">${e.requisitos}</p>
           </div>
           <div>
             <h4 class="font-semibold text-sm mb-2 flex items-center gap-2"><i class="fas fa-tasks" style="color:var(--gold)"></i>Atividades Sugeridas</h4>
-            <p class="text-sm" style="color:rgba(245,240,232,.75)">${e.atividades}</p>
+            <p class="text-sm font-body" style="color:rgba(245,240,232,.75)">${e.atividades}</p>
           </div>
         </div>
       </div>
@@ -560,10 +904,11 @@ function renderEncontros() {
   `).join('');
 }
 
+// ─── RENDER: ACAMPAMENTO ─────────────────────────
 function renderAcampamento() {
   const c = document.getElementById('acampamentoContainer');
   c.innerHTML = acampamento.map(a => `
-    <div class="enc-card rounded-2xl p-5">
+    <div class="enc-card rounded-2xl p-5 card-lift reveal">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${a.color}22; border:1px solid ${a.color}44;">
           <i class="fas ${a.icon}" style="color:${a.color}"></i>
@@ -571,21 +916,22 @@ function renderAcampamento() {
         <h3 class="font-display font-semibold text-sm">${a.area}</h3>
       </div>
       <div class="mb-3">
-        <span class="text-xs font-semibold" style="color:var(--gold)">REQUISITOS:</span>
-        <p class="text-sm mt-1" style="color:rgba(245,240,232,.75)">${a.requisitos}</p>
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Requisitos</span>
+        <p class="text-sm font-body mt-1" style="color:rgba(245,240,232,.75)">${a.requisitos}</p>
       </div>
       <div>
-        <span class="text-xs font-semibold" style="color:var(--gold)">ATIVIDADES:</span>
-        <p class="text-sm mt-1" style="color:rgba(245,240,232,.75)">${a.atividades}</p>
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:var(--gold)">Atividades</span>
+        <p class="text-sm font-body mt-1" style="color:rgba(245,240,232,.75)">${a.atividades}</p>
       </div>
     </div>
   `).join('');
 }
 
+// ─── RENDER: CONTÍNUOS ───────────────────────────
 function renderContinuos() {
   const c = document.getElementById('continuosContainer');
   c.innerHTML = continuos.map(g => `
-    <div class="enc-card rounded-2xl p-5">
+    <div class="enc-card rounded-2xl p-5 reveal">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:${g.color}22; border:1px solid ${g.color}44;">
           <i class="fas ${g.icon}" style="color:${g.color}"></i>
@@ -601,8 +947,8 @@ function renderContinuos() {
           </tr></thead>
           <tbody>${g.itens.map(i=>`<tr style="border-bottom:1px solid rgba(201,168,76,.07)">
             <td class="py-2 pr-3"><span class="badge badge-gold">${i.req}</span></td>
-            <td class="py-2 pr-3" style="color:rgba(245,240,232,.85)">${i.material}</td>
-            <td class="py-2" style="color:rgba(245,240,232,.6)">${i.detalhe}</td>
+            <td class="py-2 pr-3 font-body" style="color:rgba(245,240,232,.85)">${i.material}</td>
+            <td class="py-2 font-body" style="color:rgba(245,240,232,.6)">${i.detalhe}</td>
           </tr>`).join('')}</tbody>
         </table>
       </div>
@@ -610,10 +956,11 @@ function renderContinuos() {
   `).join('');
 }
 
+// ─── RENDER: ESPECIALIDADES ──────────────────────
 function renderEspecialidades() {
   const c = document.getElementById('especialidadesContainer');
   c.innerHTML = `
-    <div class="enc-card rounded-2xl p-5 mb-5">
+    <div class="enc-card rounded-2xl p-5 mb-5 reveal">
       <h3 class="font-display font-bold mb-4 flex items-center gap-2"><i class="fas fa-lock text-sm" style="color:#EF4444"></i>Especialidades Obrigatórias</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
@@ -627,23 +974,23 @@ function renderEspecialidades() {
             <td class="py-2 pr-3"><span class="badge badge-red">${e.sec}</span></td>
             <td class="py-2 pr-3" style="color:rgba(245,240,232,.75)">${e.req}</td>
             <td class="py-2 pr-3 font-medium" style="color:#F5F0E8">${e.nome}</td>
-            <td class="py-2" style="color:rgba(245,240,232,.6)">${e.area}</td>
+            <td class="py-2 font-body" style="color:rgba(245,240,232,.6)">${e.area}</td>
           </tr>`).join('')}</tbody>
         </table>
       </div>
     </div>
     <div class="grid md:grid-cols-2 gap-4">
       ${especialidadesOpc.map(g=>`
-        <div class="enc-card rounded-2xl p-5">
+        <div class="enc-card rounded-2xl p-5 card-lift reveal">
           <h3 class="font-display font-semibold text-sm mb-3 flex items-center gap-2"><i class="fas fa-unlock-alt" style="color:var(--gold)"></i>${g.area}</h3>
           <div class="space-y-3">${g.itens.map(i=>`
             <div>
               <span class="badge badge-blue mb-1">${i.req}</span>
-              <p class="text-xs" style="color:rgba(245,240,232,.7)">${i.opcoes}</p>
+              <p class="text-xs font-body" style="color:rgba(245,240,232,.7)">${i.opcoes}</p>
             </div>`).join('')}</div>
         </div>`).join('')}
     </div>
-    <div class="enc-card rounded-2xl p-5 mt-4" style="background:rgba(201,168,76,.06); border-color:rgba(201,168,76,.3);">
+    <div class="enc-card rounded-2xl p-5 mt-4 reveal" style="background:rgba(201,168,76,.06); border-color:rgba(201,168,76,.3);">
       <p class="text-sm" style="color:rgba(245,240,232,.85)">
         <i class="fas fa-info-circle mr-2" style="color:var(--gold)"></i>
         <strong style="color:var(--gold-light)">Resumo:</strong> O aspirante deverá completar um total de <strong>6 especialidades obrigatórias</strong> + <strong>7 de escolha</strong> + <strong>2 adicionais de Natureza</strong> = mínimo de <strong>15 especialidades</strong>.
@@ -651,10 +998,11 @@ function renderEspecialidades() {
     </div>`;
 }
 
+// ─── RENDER: IDEAIS ──────────────────────────────
 function renderIdeais() {
   const c = document.getElementById('ideaisContainer');
   c.innerHTML = `<div class="grid md:grid-cols-2 gap-5">${ideais.map(id=>`
-    <div class="enc-card rounded-2xl p-6">
+    <div class="enc-card rounded-2xl p-6 card-lift reveal">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:${id.color}22; border:1px solid ${id.color}44;">
           <i class="fas ${id.icon} text-xl" style="color:${id.color}"></i>
@@ -662,7 +1010,7 @@ function renderIdeais() {
         <h3 class="font-display font-bold text-xl">${id.nome}</h3>
       </div>
       <p class="font-body text-base italic leading-relaxed mb-3" style="color:rgba(245,240,232,.85)">${id.texto}</p>
-      <p class="text-xs" style="color:#9CA3AF">${id.info}</p>
+      ${id.info ? `<p class="text-xs" style="color:#9CA3AF">${id.info}</p>` : ''}
     </div>`).join('')}</div>`;
 }
 
@@ -671,41 +1019,83 @@ function toggleAcc(header) {
   const body = header.nextElementSibling;
   const icon = header.querySelector('.fa-chevron-down');
   const isOpen = body.classList.toggle('open');
-  if(icon) icon.style.transform = isOpen ? 'rotate(180deg)' : '';
+  if (icon) icon.style.transform = isOpen ? 'rotate(180deg)' : '';
+}
+
+// ─── SCROLL REVEAL ───────────────────────────────
+function initReveal() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
 }
 
 // ─── INIT ────────────────────────────────────────
+renderAulas();
 renderEncontros();
 renderAcampamento();
 renderContinuos();
 renderEspecialidades();
 renderIdeais();
+updateProgress();
+initReveal();
 
 // ─── HELP ────────────────────────────────────────
 function showHelp() {
-  Swal.fire({ title:'Como usar este Guia', html:`
-    <div class="text-left text-sm space-y-3">
-      <p><i class="fas fa-calendar-alt mr-2" style="color:#C9A84C"></i><strong>15 Encontros:</strong> Clique em cada encontro para expandir e ver os requisitos e atividades.</p>
-      <p><i class="fas fa-campground mr-2" style="color:#C9A84C"></i><strong>Acampamento:</strong> Atividades práticas de final de semana.</p>
-      <p><i class="fas fa-sync-alt mr-2" style="color:#C9A84C"></i><strong>Requisitos Contínuos:</strong> Leituras e serviços que devem ser feitos fora dos encontros.</p>
-      <p><i class="fas fa-award mr-2" style="color:#C9A84C"></i><strong>Especialidades:</strong> Lista completa de obrigatórias e opcionais.</p>
-      <p><i class="fas fa-praying-hands mr-2" style="color:#C9A84C"></i><strong>Ideais:</strong> Voto, Lei, Alvo, Lema e mais.</p>
-      <hr class="my-3" style="border-color:rgba(201,168,76,.2)">
-      <p class="text-xs" style="color:#9CA3AF">Duração recomendada: 18 a 24 meses. Público: 16 anos ou mais.</p>
-    </div>`, icon:'info', confirmButtonText:'Entendi', confirmButtonColor:'#C9A84C' });
+  Swal.fire({
+    title: 'Como usar este Guia',
+    html: `
+      <div class="text-left text-sm space-y-3">
+        <p><i class="fas fa-chalkboard-teacher mr-2" style="color:#C9A84C"></i><strong>Reuniões:</strong> 3 reuniões temáticas com todos os requisitos detalhados. Marque as concluídas para acompanhar seu progresso!</p>
+        <p><i class="fas fa-calendar-alt mr-2" style="color:#C9A84C"></i><strong>15 Encontros:</strong> Clique em cada encontro para expandir e ver os requisitos e atividades.</p>
+        <p><i class="fas fa-campground mr-2" style="color:#C9A84C"></i><strong>Acampamento:</strong> Atividades práticas de final de semana.</p>
+        <p><i class="fas fa-sync-alt mr-2" style="color:#C9A84C"></i><strong>Requisitos Contínuos:</strong> Leituras e serviços que devem ser feitos fora dos encontros.</p>
+        <p><i class="fas fa-award mr-2" style="color:#C9A84C"></i><strong>Especialidades:</strong> Lista completa de obrigatórias e opcionais.</p>
+        <p><i class="fas fa-praying-hands mr-2" style="color:#C9A84C"></i><strong>Ideais:</strong> Voto, Lei, Alvo, Lema e mais.</p>
+        <hr class="my-3" style="border-color:rgba(201,168,76,.2)">
+        <p class="text-xs" style="color:#9CA3AF">Duração recomendada: 18 a 24 meses. Público: 16 anos ou mais.</p>
+      </div>`,
+    icon: 'info',
+    confirmButtonText: 'Entendi',
+    confirmButtonColor: '#C9A84C'
+  });
 }
 
-// ─── LEGAL ───────────────────────────────────────
-function showLGPD() { Swal.fire({title:'Conformidade LGPD',text:'Este sistema não coleta dados pessoais. Todas as informações são de uso local e educacional.',icon:'info',confirmButtonColor:'#C9A84C'}); }
-function showTerms() { Swal.fire({title:'Termos de Uso',text:'Plataforma de caráter recreativo e educacional. Resultados e conteúdos sem fins lucrativos.',icon:'info',confirmButtonColor:'#C9A84C'}); }
-function showPrivacy() { Swal.fire({title:'Privacidade',text:'Nenhum dado pessoal é armazenado em servidores. Cookies apenas para preferências de tema.',icon:'info',confirmButtonColor:'#C9A84C'}); }
-
-// ─── GOLD GRADIENTS ──────────────────────────────
-document.querySelectorAll('.text-gold-gradient').forEach(el => {
-  el.style.background = 'linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';
-  el.style.webkitBackgroundClip = 'text'; el.style.webkitTextFillColor = 'transparent'; el.style.backgroundClip = 'text';
-});
+// ─── LEGAL MODALS ────────────────────────────────
+function showLGPD() {
+  Swal.fire({ title:'Conformidade LGPD', html:'<div class="text-left text-sm"><p>Este sistema não coleta dados pessoais. Todas as informações são de uso local e educacional.</p><p class="mt-2">Utilizamos apenas <strong>localStorage</strong> para salvar preferências de tema e progresso de aulas. Nenhum dado é enviado a servidores externos.</p></div>', icon:'info', confirmButtonColor:'#C9A84C' });
+}
+function showTerms() {
+  Swal.fire({ title:'Termos de Uso', html:'<div class="text-left text-sm"><p>Plataforma de caráter recreativo e educacional.</p><p class="mt-2">Todo o conteúdo é de uso institucional do Clube de Desbravadores Águia de Ouro. Resultados e conteúdos sem fins lucrativos.</p></div>', icon:'info', confirmButtonColor:'#C9A84C' });
+}
+function showPrivacy() {
+  Swal.fire({ title:'Política de Privacidade', html:'<div class="text-left text-sm"><p>Nenhum dado pessoal é coletado, armazenado ou compartilhado.</p><p class="mt-2">Cookies e armazenamento local são utilizados apenas para preferências visuais (tema claro/escuro) e progresso de estudo.</p></div>', icon:'info', confirmButtonColor:'#C9A84C' });
+}
 </script>
 
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Guia de Classes Agrupadas",
+  "description": "Planejamento completo de 15 encontros para Classes Agrupadas do Clube de Desbravadores Águia de Ouro.",
+  "url": "https://aguiadeouro.com.br/guia.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Águia de Ouro - Desbravadores",
+    "url": "https://aguiadeouro.com.br"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://aguiadeouro.com.br/" },
+      { "@type": "ListItem", "position": 2, "name": "Guia de Classes Agrupadas", "item": "https://aguiadeouro.com.br/guia.html" }
+    ]
+  }
+}
+</script>
 </body>
 </html>

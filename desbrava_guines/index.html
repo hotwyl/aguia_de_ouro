@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Desbrava Guines - O registro oficial de recordes e conquistas dos Clubes de Desbravadores. Marque o nome do seu clube na história.">
-    <meta name="keywords" content="Desbravadores, Recordes, Guines, Igreja Adventista, Clube, Acampamento, Conquistas">
-    <meta name="author" content="Arquiteto de Software Web">
-    <title>Desbrava Guines | O Topo da História dos Desbravadores</title>
+    <meta name="description" content="Desbrava Guines - O registro oficial de recordes e conquistas do Clube de Desbravadores Águia de Ouro. Curitiba-PR.">
+    <meta name="keywords" content="Desbravadores, Recordes, Guines, Igreja Adventista, Clube, Acampamento, Conquistas, Águia de Ouro, Curitiba">
+    <meta name="author" content="HOTWYL | WILLFROMBRASIL">
+    <meta name="geo.region" content="BR-PR">
+    <meta name="geo.placename" content="Curitiba">
+    <meta name="geo.position" content="-25.4284;-49.2733">
+    <meta name="ICBM" content="-25.4284, -49.2733">
+    <title>Desbrava Guines | Águia de Ouro – Desbravadores</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +21,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            light: '#fde047', // Amarelo Desbravador
+                            light: '#fde047',
                             DEFAULT: '#eab308',
                             dark: '#a16207',
                         },
@@ -34,35 +38,50 @@
         }
     </script>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- Google Tag Manager -->
+    <script>
+    ;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WVMJV7G6');
+    </script>
+
     <style>
-        /* CSS Customizado para Tooltips e Ajustes Finos */
-        .tooltip-container { position: relative; display: inline-block; }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 200px;
-            background-color: #1f2937;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 10px;
-            position: absolute;
-            z-index: 50;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.875rem;
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #F0C96B;
+            --gold-dark: #8B6914;
+            --ink: #0D1117;
+            --ink-2: #161B22;
+            --ink-3: #21262D;
+            --parchment: #F5F0E8;
+            --text-light: #F5F0E8;
+            --text-muted-dark: #9CA3AF;
         }
-        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
-        .dark .tooltip-container .tooltip-text { background-color: #e5e7eb; color: #111827; }
-        
+        .font-display { font-family: 'Cinzel', serif; }
+        .nav-glass { background: rgba(13,17,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+        body.light .nav-glass, .dark .nav-glass-light { background: rgba(245,240,232,0.85); border-bottom: 1px solid rgba(201,168,76,0.3); }
+        .text-gold { color: var(--gold); }
+        .text-gold-gradient {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #C9A84C, #F0C96B, #C9A84C);
+            background-size: 200% auto; color: #0D1117; font-weight: 700;
+            transition: all 0.4s ease;
+        }
+        .btn-gold:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(201,168,76,0.5); }
+        #mobileMenuGuines { transform: translateX(-100%); transition: transform 0.35s ease; }
+        #mobileMenuGuines.open { transform: translateX(0); }
+
         /* Ocultar barra de rolagem mas manter funcionalidade */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -73,59 +92,75 @@
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans antialiased">
 
-    <!-- Navbar -->
-    <header class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md z-40 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='../index.html'">
-                    <i class="fa-solid fa-trophy text-brand text-3xl mr-2"></i>
-                    <span class="font-extrabold text-2xl tracking-tight text-gray-900 dark:text-white">Desbrava<span class="text-brand">Guines</span></span>
+    <!-- Header / Nav (padrão Águia de Ouro) -->
+    <header class="nav-glass fixed top-0 left-0 right-0 z-40" style="height:64px;">
+        <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--gold-dark), var(--gold));">
+                    <i class="fas fa-feather-alt text-lg" style="color:var(--ink)"></i>
                 </div>
-
-                <!-- Desktop Menu -->
-                <nav class="hidden md:flex space-x-6 items-center font-medium">
-                    <a href="../index.html" class="hover:text-brand transition-colors">Principal</a>
-                    <a href="#home" class="hover:text-brand transition-colors">Guines</a>
-                    <a href="#ferramentas" class="hover:text-brand transition-colors">Recordes</a>
-                    <a href="../guia.html" class="hover:text-brand transition-colors">Guia</a>
-                    <a href="../astronomia/index.html" class="hover:text-brand transition-colors">Astronomia</a>
-                    <a href="../ordem_unida/index.html" class="hover:text-brand transition-colors">Ordem Unida</a>
-                    
-                    <!-- Dark Mode Toggle -->
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" aria-label="Alternar Tema">
-                        <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
-                    </button>
-                    
-                    <a href="#ferramentas" class="px-5 py-2.5 bg-brand text-white font-bold rounded-lg hover:bg-brand-dark shadow-lg shadow-brand/30 transition transform hover:-translate-y-0.5">
-                        Ver Recordes
-                    </a>
-                </nav>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="theme-toggle-mobile" class="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" aria-label="Alternar Tema">
-                        <i id="theme-icon-mobile" class="fa-solid fa-moon text-lg"></i>
-                    </button>
-                    <button id="mobile-menu-btn" class="text-gray-900 dark:text-white focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
+                <div>
+                    <div class="font-display font-bold text-base leading-tight text-gold-gradient">Águia de Ouro</div>
+                    <div class="text-xs" style="color: var(--text-muted-dark)">Desbravadores · Curitiba</div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 shadow-lg absolute w-full">
-            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
-                <a href="../index.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Principal</a>
-                <a href="#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Guines Home</a>
-                <a href="#ferramentas" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Recordes</a>
-                <a href="../guia.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Guia de Especialidades</a>
-                <a href="../astronomia/index.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Astronomia</a>
-                <a href="../ordem_unida/index.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Ordem Unida</a>
+            </a>
+            <nav class="hidden lg:flex items-center gap-1" aria-label="Navegação principal">
+                <a href="/" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-home mr-1"></i>Início</a>
+                <a href="/sobre.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
+                <a href="/guia.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-book-open mr-1"></i>Guia</a>
+                <a href="/quiz.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-dove mr-1"></i>Aves</a>
+                <a href="/desbrava_guines/index.html" class="px-2 py-2 rounded-lg text-sm font-medium" style="color:var(--gold);"><i class="fas fa-trophy mr-1"></i>Guines</a>
+                <a href="/astronomia/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-star mr-1"></i>Astronomia</a>
+                <a href="/ordem_unida/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-users mr-1"></i>O. Unida</a>
+                <a href="/materiais/index.html" class="px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold" style="color:var(--text-muted-dark);"><i class="fas fa-folder-open mr-1"></i>Materiais</a>
+            </nav>
+            <div class="flex items-center gap-2">
+                <button id="theme-toggle" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-yellow-100 dark:hover:bg-gray-700" aria-label="Alternar tema">
+                    <i id="theme-icon" class="fas fa-moon" style="color:var(--gold)"></i>
+                </button>
+                <button onclick="toggleMobileMenuGuines()" class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center" style="color:var(--gold)" aria-label="Menu">
+                    <i id="menuIconGuines" class="fas fa-bars"></i>
+                </button>
+                <a href="/quiz.html" class="hidden md:flex btn-gold px-4 py-2 rounded-lg text-sm items-center gap-2">
+                    <i class="fas fa-feather"></i> Fazer o Teste
+                </a>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenuGuines" class="fixed inset-0 z-30 pt-16 nav-glass" aria-hidden="true">
+        <nav class="flex flex-col p-6 gap-2 text-sm">
+            <a href="/" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-home w-5" style="color:var(--gold)"></i>Início</a>
+            <a href="/sobre.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-info-circle w-5" style="color:var(--gold)"></i>Sobre o Clube</a>
+            <a href="/guia.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-book-open w-5" style="color:var(--gold)"></i>Guia de Classes</a>
+            <a href="/quiz.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-dove w-5" style="color:var(--gold)"></i>Teste das Aves</a>
+            <a href="/desbrava_guines/index.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl" style="background:rgba(201,168,76,0.1); color:var(--gold);"><i class="fas fa-trophy w-5"></i>Águia Guines</a>
+            <a href="/astronomia/index.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-star w-5" style="color:var(--gold)"></i>Astronomia</a>
+            <a href="/ordem_unida/index.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-users w-5" style="color:var(--gold)"></i>Ordem Unida</a>
+            <a href="/materiais/index.html" onclick="closeMobileMenuGuines()" class="flex items-center gap-3 p-4 rounded-xl hover:bg-yellow-50 dark:hover:bg-gray-800" style="color:var(--text-light)"><i class="fas fa-folder-open w-5" style="color:var(--gold)"></i>Materiais</a>
+            <div class="mt-4 pt-4" style="border-top:1px solid rgba(201,168,76,0.2)">
+                <a href="#ferramentas" onclick="closeMobileMenuGuines()" class="btn-gold w-full py-3 rounded-xl text-center font-semibold block">
+                    <i class="fas fa-trophy mr-2"></i>Ver Recordes
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+    // Mobile menu for Guines page
+    let guinesMenuOpen = false;
+    function toggleMobileMenuGuines() {
+        guinesMenuOpen = !guinesMenuOpen;
+        document.getElementById('mobileMenuGuines').classList.toggle('open', guinesMenuOpen);
+        document.getElementById('menuIconGuines').className = guinesMenuOpen ? 'fas fa-times' : 'fas fa-bars';
+    }
+    function closeMobileMenuGuines() {
+        guinesMenuOpen = false;
+        document.getElementById('mobileMenuGuines').classList.remove('open');
+        document.getElementById('menuIconGuines').className = 'fas fa-bars';
+    }
+    </script>
 
     <!-- Main Content -->
     <main>
@@ -465,9 +500,7 @@
             
             // --- 1. DARK MODE LOGIC ---
             const themeToggleBtn = document.getElementById('theme-toggle');
-            const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
             const themeIcon = document.getElementById('theme-icon');
-            const themeIconMobile = document.getElementById('theme-icon-mobile');
             
             // Check LocalStorage or OS preference
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -481,11 +514,8 @@
             function setIcons(theme) {
                 const iconClass = theme === 'dark' ? 'fa-sun' : 'fa-moon';
                 const removeClass = theme === 'dark' ? 'fa-moon' : 'fa-sun';
-                
                 themeIcon.classList.add(iconClass);
                 themeIcon.classList.remove(removeClass);
-                themeIconMobile.classList.add(iconClass);
-                themeIconMobile.classList.remove(removeClass);
             }
 
             function toggleTheme() {
@@ -501,33 +531,9 @@
             }
 
             themeToggleBtn.addEventListener('click', toggleTheme);
-            themeToggleBtnMobile.addEventListener('click', toggleTheme);
 
 
-            // --- 2. MOBILE MENU LOGIC ---
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                const icon = mobileMenuBtn.querySelector('i');
-                if(mobileMenu.classList.contains('hidden')){
-                    icon.classList.remove('fa-xmark');
-                    icon.classList.add('fa-bars');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-xmark');
-                }
-            });
-
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuBtn.querySelector('i').classList.remove('fa-xmark');
-                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                });
-            });
+            // --- 2. MOBILE MENU LOGIC (legacy references removed - now handled by toggleMobileMenuGuines) ---
 
 
             // --- 3. DADOS DE RECORDES (Mock API via Clean Architecture) ---

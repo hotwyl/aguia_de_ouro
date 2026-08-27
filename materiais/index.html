@@ -8,6 +8,7 @@
   <title>Materiais | Águia de Ouro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <style>
@@ -225,6 +226,31 @@
   </style>
 </head>
 <body>
+
+<!-- Navigation Header -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(13,17,23,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,0.15);height:56px;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 16px;height:100%;display:flex;align-items:center;justify-content:space-between;">
+    <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+      <div style="width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8B6914,#C9A84C);">
+        <i class="fas fa-feather-alt" style="color:#0D1117;font-size:14px;"></i>
+      </div>
+      <div>
+        <div style="font-family:'Cinzel',serif;font-weight:700;font-size:14px;background:linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Águia de Ouro</div>
+        <div style="font-size:11px;color:#9CA3AF;">Desbravadores · Curitiba</div>
+      </div>
+    </a>
+    <nav style="display:flex;align-items:center;gap:4px;" aria-label="Navegação principal">
+      <a href="/" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-home" style="margin-right:4px"></i>Início</a>
+      <a href="/guia.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-book-open" style="margin-right:4px"></i>Guia</a>
+      <a href="/quiz.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-dove" style="margin-right:4px"></i>Aves</a>
+      <a href="/jogos/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-gamepad" style="margin-right:4px"></i>Jogos</a>
+      <a href="/ordem_unida/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-users" style="margin-right:4px"></i>O. Unida</a>
+      <a href="/materiais/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#C9A84C;text-decoration:none;"><i class="fas fa-folder-open" style="margin-right:4px"></i>Materiais</a>
+    </nav>
+  </div>
+</header>
+
+<div style="padding-top:56px;">
 
 <!-- LOADING -->
 <div id="loadingOverlay">
@@ -613,6 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('canvasWrap').appendChild(lock);
 });
 </script>
+</div><!-- /padding-top wrapper -->
 
 <!-- FOOTER -->
 <footer style="border-top:1px solid rgba(212,171,86,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
@@ -626,13 +653,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8505; Sobre</a>
       <a href="/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128214; Guia</a>
       <a href="/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128038; Aves</a>
+      <a href="/jogos/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127918; Jogos</a>
       <a href="/desbrava_guines/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127942; Guines</a>
       <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
       <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128101; Ordem Unida</a>
       <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.2);color:#e8d8b2;text-decoration:none;">&#128193; Materiais</a>
       <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
     </nav>
-    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(212,171,86,.1);">© 2026 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados</p>
+    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(212,171,86,.1);">© 2025 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados · <strong style="color:#d4ab56;">HOTWYL | WILLFROMBRASIL</strong></p>
   </div>
 </footer>
 </body>

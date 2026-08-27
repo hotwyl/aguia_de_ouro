@@ -38,44 +38,20 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/app.css">
 </head>
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
-    
+<body class="flex flex-col min-h-screen" style="background:#0D1117;color:#F5F0E8;">
     <!-- Header -->
-    <header class="bg-white shadow sticky top-0 z-50">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 justify-between items-center">
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="flex flex-shrink-0 items-center">
-                        <i class="fa-solid fa-book-bible text-primary-600 text-3xl"></i>
-                        <span class="ml-2 text-xl font-bold tracking-tight text-gray-900 hidden sm:block">Jogos Bíblicos</span>
-                    </a>
-                </div>
-                <nav class="hidden md:ml-6 md:flex md:space-x-8">
-                    <a href="index.html" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Início</a>
-                    <a href="index.html#games" class="inline-flex items-center border-b-2 border-primary-500 px-1 pt-1 text-sm font-medium text-gray-900">Jogos</a>
-                    
-                </nav>
-                <div class="flex items-center space-x-4">
-                    <button onclick="app.showHelp('O objetivo do jogo é tentar descobrir qual é a palavra secreta a partir das dicas fornecidas. Clique nas letras do teclado virtual ou digite no seu teclado físico. Cuidado com o limite de erros!')" class="text-gray-400 hover:text-primary-600 transition-colors" title="Ajuda">
-                        <i class="fa-solid fa-circle-question text-xl"></i>
-                    </button>
-                    <!-- Mobile menu button -->
-                    <div class="flex items-center md:hidden">
-                        <button type="button" id="mobile-menu-btn" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500" aria-controls="mobile-menu" aria-expanded="false">
-                            <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="hidden md:hidden" id="mobile-menu">
-            <div class="space-y-1 pb-3 pt-2">
-                <a href="index.html" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">Início</a>
-                <a href="index.html#games" class="block border-l-4 border-primary-500 bg-primary-50 py-2 pl-3 pr-4 text-base font-medium text-primary-700">Jogos</a>
-                
-            </div>
+    <header style="position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.15);">
+        <div style="max-width:1200px;margin:0 auto;padding:0 16px;display:flex;height:56px;align-items:center;justify-content:space-between;">
+            <a href="/jogos/index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+                <div style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8B6914,#C9A84C);"><i class="fas fa-feather-alt" style="color:#0D1117;font-size:13px;"></i></div>
+                <span style="font-size:14px;font-weight:700;color:#C9A84C;font-family:'Cinzel',serif;">Águia de Ouro</span>
+            </a>
+            <nav style="display:flex;align-items:center;gap:4px;">
+                <a href="/" style="padding:6px 10px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;border-radius:6px;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-home" style="margin-right:4px"></i>Início</a>
+                <a href="/jogos/index.html" style="padding:6px 10px;font-size:12px;font-weight:500;color:#C9A84C;text-decoration:none;border-radius:6px;"><i class="fas fa-gamepad" style="margin-right:4px"></i>Jogos</a>
+                <a href="/guia.html" style="padding:6px 10px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;border-radius:6px;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-book-open" style="margin-right:4px"></i>Guia</a>
+                <a href="/quiz.html" style="padding:6px 10px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;border-radius:6px;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-dove" style="margin-right:4px"></i>Aves</a>
+            </nav>
         </div>
     </header>
 
@@ -139,12 +115,17 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-auto">
-        <div class="mx-auto max-w-7xl px-4 py-6">
-            <p class="text-center text-xs text-gray-400">
-                &copy; <span id="current-year"></span> Jogos Bíblicos.
-            </p>
-        </div>
+    <footer style="background:#0D1117;border-top:1px solid rgba(201,168,76,0.15);padding:16px;text-align:center;margin-top:auto;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:8px;">
+        <a href="/" style="font-size:11px;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'">Início</a>
+        <span style="color:#4B5563;">·</span>
+        <a href="/jogos/index.html" style="font-size:11px;color:#C9A84C;text-decoration:none;">Jogos</a>
+        <span style="color:#4B5563;">·</span>
+        <a href="/guia.html" style="font-size:11px;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'">Guia</a>
+        <span style="color:#4B5563;">·</span>
+        <a href="/quiz.html" style="font-size:11px;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'">Aves</a>
+      </div>
+      <p style="font-size:10px;color:#6B7280;">© 2025 Águia de Ouro · <strong style="color:#C9A84C;">HOTWYL | WILLFROMBRASIL</strong></p>
     </footer>
 
     <!-- App Scripts -->
