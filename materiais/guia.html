@@ -560,6 +560,36 @@ const reunioes = [
   },
   {
     n: 3,
+    tema: 'Planejamentos',
+    icon: 'fa-calendar-alt',
+    color: '#0EA5E9',
+    descricao: 'Elaboração dos planejamentos do clube: acampamentos e atividades externas, classes progressiva e bíblica, e o calendário anual.',
+    requisitos: [
+      { titulo: 'Planejamento de Acampamentos e atividades externas', tipo: 'planejamento',
+        subitens: ['Definir locais, datas e logística', 'Lista de materiais e equipamentos', 'Programação de atividades e segurança'] },
+      { titulo: 'Planejamento de Classe Progressiva e Classe Bíblica', tipo: 'planejamento',
+        subitens: ['Cronograma de requisitos da Classe Progressiva', 'Organização da Classe Bíblica', 'Definição de conselheiros e instrutores'] },
+      { titulo: 'Planejamento do calendário anual do clube', tipo: 'planejamento',
+        subitens: ['Reuniões, investiduras e cerimônias', 'Camporis, campais e eventos regionais', 'Projetos missionários e comunitários'] }
+    ]
+  },
+  {
+    n: 4,
+    tema: 'Especialidades',
+    icon: 'fa-award',
+    color: '#8B5CF6',
+    descricao: 'Desenvolvimento das especialidades ligadas ao evangelismo e ao testemunho cristão.',
+    requisitos: [
+      { titulo: 'Especialidade de Evangelismo', tipo: 'especialidade',
+        subitens: ['Cumprir os requisitos da especialidade', 'Colocar em prática ações de evangelismo pessoal'] },
+      { titulo: 'Especialidade de Mensageira de Deus', tipo: 'especialidade',
+        subitens: ['Cumprir os requisitos da especialidade', 'Estudo sobre o dom de profecia e Ellen G. White'] },
+      { titulo: 'Especialidade de Arte de Contar Histórias Cristãs', tipo: 'especialidade',
+        subitens: ['Cumprir os requisitos da especialidade', 'Preparar e apresentar histórias bíblicas/cristãs'] }
+    ]
+  },
+  {
+    n: 5,
     tema: 'Conhecimentos Bíblicos para Memorizar',
     icon: 'fa-bible',
     color: '#3B82F6',
@@ -782,7 +812,9 @@ function getBadgeForTipo(tipo) {
     'leitura': { cls: 'badge-purple', icon: 'fa-book-open', label: 'Leitura' },
     'memorizacao': { cls: 'badge-blue', icon: 'fa-brain', label: 'Memorização' },
     'versiculo': { cls: 'badge-green', icon: 'fa-quote-right', label: 'Versículos' },
-    'estudo': { cls: 'badge-blue', icon: 'fa-graduation-cap', label: 'Estudo' }
+    'estudo': { cls: 'badge-blue', icon: 'fa-graduation-cap', label: 'Estudo' },
+    'planejamento': { cls: 'badge-blue', icon: 'fa-calendar-alt', label: 'Planejamento' },
+    'especialidade': { cls: 'badge-purple', icon: 'fa-award', label: 'Especialidade' }
   };
   return map[tipo] || { cls: 'badge-gold', icon: 'fa-circle', label: tipo };
 }
