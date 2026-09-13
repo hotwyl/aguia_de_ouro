@@ -1,0 +1,3 @@
+[submodule "canal-esperanca"]
+	path = canal-esperanca
+	url = https://github.com/hotwyl/Projeto_Esperanca.git
