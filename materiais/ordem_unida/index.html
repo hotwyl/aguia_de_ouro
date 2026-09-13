@@ -14,14 +14,14 @@
       --iron: #151a21;
       --slate: #1d2530;
       --slate-soft: #263140;
-      --brass: #d4ab56;
+      --brass: #C9A84C;
       --brass-soft: #f0ce8d;
       --ink: #0a0d12;
       --mist: #c8d2de;
       --snow: #f6f7f8;
       --danger: #f25f5c;
       --ok: #4cc38a;
-      --ring: rgba(212, 171, 86, 0.38);
+      --ring: rgba(201, 168, 76, 0.38);
     }
 
     * {
@@ -35,7 +35,7 @@
       color: var(--snow);
       min-height: 100vh;
       background:
-        radial-gradient(circle at 12% 20%, rgba(212, 171, 86, 0.18) 0%, rgba(212, 171, 86, 0) 46%),
+        radial-gradient(circle at 12% 20%, rgba(201, 168, 76, 0.18) 0%, rgba(201, 168, 76, 0) 46%),
         radial-gradient(circle at 88% 80%, rgba(76, 195, 138, 0.12) 0%, rgba(76, 195, 138, 0) 42%),
         linear-gradient(160deg, #0b1119, #151d29 40%, #0f1622 100%);
       user-select: none;
@@ -52,7 +52,7 @@
     .frame {
       width: min(1220px, 100% - 2rem);
       margin: 1.1rem auto 1.5rem;
-      border: 1px solid rgba(212, 171, 86, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.3);
       border-radius: 24px;
       background: linear-gradient(165deg, rgba(15, 21, 31, 0.92), rgba(11, 16, 24, 0.92));
       box-shadow: 0 22px 48px rgba(0, 0, 0, 0.35);
@@ -66,7 +66,7 @@
       justify-content: space-between;
       gap: 0.8rem;
       padding: 1rem 1.15rem;
-      border-bottom: 1px solid rgba(212, 171, 86, 0.24);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.24);
       background: linear-gradient(180deg, rgba(23, 31, 44, 0.9), rgba(16, 22, 33, 0.9));
     }
 
@@ -80,7 +80,7 @@
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      background: linear-gradient(140deg, #81642b, #d4ab56 56%, #f0ce8d);
+      background: linear-gradient(140deg, #81642b, #C9A84C 56%, #f0ce8d);
       display: grid;
       place-items: center;
       color: #0d131c;
@@ -110,8 +110,8 @@
     }
 
     .btn {
-      border: 1px solid rgba(212, 171, 86, 0.42);
-      background: rgba(212, 171, 86, 0.08);
+      border: 1px solid rgba(201, 168, 76, 0.42);
+      background: rgba(201, 168, 76, 0.08);
       color: var(--brass-soft);
       border-radius: 10px;
       font-weight: 600;
@@ -124,7 +124,7 @@
 
     .btn:hover,
     .btn:focus-visible {
-      background: rgba(212, 171, 86, 0.16);
+      background: rgba(201, 168, 76, 0.16);
       transform: translateY(-1px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
       outline: none;
@@ -137,7 +137,7 @@
     }
 
     .sidebar {
-      border-right: 1px solid rgba(212, 171, 86, 0.2);
+      border-right: 1px solid rgba(201, 168, 76, 0.2);
       padding: 1rem;
       background: linear-gradient(180deg, rgba(32, 42, 56, 0.72), rgba(22, 29, 40, 0.72));
     }
@@ -155,7 +155,7 @@
 
     .search {
       width: 100%;
-      border: 1px solid rgba(212, 171, 86, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.3);
       background: rgba(8, 12, 19, 0.56);
       color: var(--snow);
       border-radius: 12px;
@@ -166,7 +166,7 @@
 
     .search:focus {
       outline: 2px solid var(--ring);
-      border-color: rgba(212, 171, 86, 0.65);
+      border-color: rgba(201, 168, 76, 0.65);
     }
 
     .filter-row {
@@ -177,9 +177,9 @@
 
     .chip {
       flex: 1;
-      border: 1px solid rgba(212, 171, 86, 0.3);
-      background: rgba(212, 171, 86, 0.06);
-      color: #e8d8b2;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      background: rgba(201, 168, 76, 0.06);
+      color: #F0C96B;
       font-weight: 600;
       font-size: 0.82rem;
       border-radius: 10px;
@@ -188,8 +188,8 @@
     }
 
     .chip.active {
-      border-color: rgba(212, 171, 86, 0.85);
-      background: rgba(212, 171, 86, 0.21);
+      border-color: rgba(201, 168, 76, 0.85);
+      background: rgba(201, 168, 76, 0.21);
       color: var(--snow);
     }
 
@@ -213,13 +213,13 @@
     }
 
     .items::-webkit-scrollbar-thumb {
-      background: rgba(212, 171, 86, 0.44);
+      background: rgba(201, 168, 76, 0.44);
       border-radius: 999px;
     }
 
     .item {
       width: 100%;
-      border: 1px solid rgba(212, 171, 86, 0.2);
+      border: 1px solid rgba(201, 168, 76, 0.2);
       background: rgba(14, 21, 31, 0.76);
       color: #f4f6f8;
       border-radius: 12px;
@@ -235,15 +235,15 @@
 
     .item:hover,
     .item:focus-visible {
-      border-color: rgba(212, 171, 86, 0.5);
+      border-color: rgba(201, 168, 76, 0.5);
       transform: translateX(2px);
       outline: none;
     }
 
     .item.active {
-      border-color: rgba(212, 171, 86, 0.92);
-      background: linear-gradient(160deg, rgba(212, 171, 86, 0.16), rgba(212, 171, 86, 0.05));
-      box-shadow: inset 0 0 0 1px rgba(212, 171, 86, 0.5);
+      border-color: rgba(201, 168, 76, 0.92);
+      background: linear-gradient(160deg, rgba(201, 168, 76, 0.16), rgba(201, 168, 76, 0.05));
+      box-shadow: inset 0 0 0 1px rgba(201, 168, 76, 0.5);
     }
 
     .item .icon {
@@ -279,7 +279,7 @@
       gap: 0.8rem;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid rgba(212, 171, 86, 0.24);
+      border: 1px solid rgba(201, 168, 76, 0.24);
       border-radius: 14px;
       padding: 0.8rem 0.9rem;
       background: rgba(18, 25, 35, 0.74);
@@ -320,7 +320,7 @@
 
     .canvas {
       position: relative;
-      border: 1px solid rgba(212, 171, 86, 0.28);
+      border: 1px solid rgba(201, 168, 76, 0.28);
       border-radius: 18px;
       background: linear-gradient(160deg, rgba(11, 15, 22, 0.95), rgba(21, 27, 38, 0.95));
       overflow: hidden;
@@ -333,7 +333,7 @@
       right: 0.8rem;
       background: rgba(10, 13, 18, 0.65);
       color: rgba(246, 247, 248, 0.85);
-      border: 1px solid rgba(212, 171, 86, 0.28);
+      border: 1px solid rgba(201, 168, 76, 0.28);
       border-radius: 999px;
       padding: 0.35rem 0.62rem;
       font-size: 0.72rem;
@@ -353,10 +353,10 @@
 
     .empty .inner {
       max-width: 540px;
-      border: 1px dashed rgba(212, 171, 86, 0.35);
+      border: 1px dashed rgba(201, 168, 76, 0.35);
       border-radius: 14px;
       padding: 1.2rem;
-      background: rgba(212, 171, 86, 0.05);
+      background: rgba(201, 168, 76, 0.05);
     }
 
     .empty h3 {
@@ -385,7 +385,7 @@
       left: 50%;
       bottom: 1rem;
       transform: translateX(-50%) translateY(24px);
-      border: 1px solid rgba(212, 171, 86, 0.42);
+      border: 1px solid rgba(201, 168, 76, 0.42);
       background: rgba(9, 13, 19, 0.94);
       color: #f3dfb4;
       border-radius: 10px;
@@ -436,7 +436,7 @@
 
       .sidebar {
         border-right: 0;
-        border-bottom: 1px solid rgba(212, 171, 86, 0.2);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
       }
 
       .items {
@@ -493,12 +493,12 @@
         <div style="font-size:11px;color:#9CA3AF;">Desbravadores · Curitiba</div>
       </div>
     </a>
-    <nav style="display:flex;align-items:center;gap:4px;" aria-label="Navegação principal">
+    <nav style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;" aria-label="Navegação principal">
       <a href="/" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-home" style="margin-right:4px"></i>Início</a>
-      <a href="/guia.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-book-open" style="margin-right:4px"></i>Guia</a>
-      <a href="/quiz.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-dove" style="margin-right:4px"></i>Aves</a>
-      <a href="/jogos/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-gamepad" style="margin-right:4px"></i>Jogos</a>
-      <a href="/ordem_unida/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#C9A84C;text-decoration:none;"><i class="fas fa-users" style="margin-right:4px"></i>O. Unida</a>
+      <a href="/sobre.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-info-circle" style="margin-right:4px"></i>Sobre</a>
+      <a href="/evangelismo/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-bullhorn" style="margin-right:4px"></i>Evangelismo</a>
+      <a href="/banco/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-coins" style="margin-right:4px"></i>Banco</a>
+      <a href="/recordes/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-trophy" style="margin-right:4px"></i>Recordes</a>
       <a href="/materiais/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-folder-open" style="margin-right:4px"></i>Materiais</a>
     </nav>
   </div>
@@ -941,24 +941,24 @@
 </div><!-- /padding-top wrapper -->
 
 <!-- FOOTER -->
-<footer style="border-top:1px solid rgba(212,171,86,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
+<footer style="border-top:1px solid rgba(201,168,76,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
   <div style="max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
     <div style="display:flex;align-items:center;gap:10px;">
-      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(140deg,#81642b,#d4ab56 56%,#f0ce8d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;color:#0d131c;font-weight:800;font-size:11px;">AO</div>
-      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#d4ab56;">Águia de Ouro</div><div style="font-size:11px;color:rgba(246,247,248,.6);">Clube de Desbravadores · Curitiba</div></div>
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(140deg,#81642b,#C9A84C 56%,#f0ce8d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;color:#0d131c;font-weight:800;font-size:11px;">AO</div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#C9A84C;">Águia de Ouro</div><div style="font-size:11px;color:rgba(246,247,248,.6);">Clube de Desbravadores · Curitiba</div></div>
     </div>
     <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
-      <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8962; Início</a>
-      <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8505; Sobre</a>
-      <a href="/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128214; Guia</a>
-      <a href="/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128038; Aves</a>
-      <a href="/desbrava_guines/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127942; Guines</a>
-      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
-      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.2);color:#e8d8b2;text-decoration:none;">&#128101; Ordem Unida</a>
-      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128193; Materiais</a>
-      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
+      <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#8962; Início</a>
+      <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#8505; Sobre</a>
+      <a href="/materiais/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128214; Guia</a>
+      <a href="/materiais/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128038; Aves</a>
+      <a href="/recordes/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#127942; Guines</a>
+      <a href="/materiais/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#9733; Astronomia</a>
+      <a href="/materiais/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.2);color:#F0C96B;text-decoration:none;">&#128101; Ordem Unida</a>
+      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128193; Materiais</a>
+      <a href="/materiais/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128196; Planejamento</a>
     </nav>
-    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(212,171,86,.1);">© 2025 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados · <strong style="color:#d4ab56;">HOTWYL | WILLFROMBRASIL</strong></p>
+    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);">© 2025 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados · <strong style="color:#C9A84C;">HOTWYL | WILLFROMBRASIL</strong></p>
   </div>
 </footer>
 </body>

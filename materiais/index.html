@@ -16,20 +16,20 @@
       --iron: #151a21;
       --slate: #1d2530;
       --slate-soft: #263140;
-      --brass: #d4ab56;
+      --brass: #C9A84C;
       --brass-soft: #f0ce8d;
       --ink: #0a0d12;
       --mist: #c8d2de;
       --snow: #f6f7f8;
       --danger: #f25f5c;
       --ok: #4cc38a;
-      --ring: rgba(212,171,86,.38);
+      --ring: rgba(201,168,76,.38);
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     body{
       font-family:'DM Sans',sans-serif;color:var(--snow);min-height:100vh;
       background:
-        radial-gradient(circle at 12% 20%,rgba(212,171,86,.18) 0%,rgba(212,171,86,0) 46%),
+        radial-gradient(circle at 12% 20%,rgba(201,168,76,.18) 0%,rgba(201,168,76,0) 46%),
         radial-gradient(circle at 88% 80%,rgba(76,195,138,.12) 0%,rgba(76,195,138,0) 42%),
         linear-gradient(160deg,#0b1119,#151d29 40%,#0f1622 100%);
       user-select:none;-webkit-user-select:none;overflow-x:hidden;
@@ -39,7 +39,7 @@
     .frame{
       width:min(1300px,100% - 2rem);
       margin:1.1rem auto 1.5rem;
-      border:1px solid rgba(212,171,86,.3);
+      border:1px solid rgba(201,168,76,.3);
       border-radius:24px;
       background:linear-gradient(165deg,rgba(15,21,31,.92),rgba(11,16,24,.92));
       box-shadow:0 22px 48px rgba(0,0,0,.35);
@@ -51,13 +51,13 @@
     .topbar{
       display:flex;align-items:center;justify-content:space-between;
       gap:.8rem;padding:1rem 1.15rem;
-      border-bottom:1px solid rgba(212,171,86,.24);
+      border-bottom:1px solid rgba(201,168,76,.24);
       background:linear-gradient(180deg,rgba(23,31,44,.9),rgba(16,22,33,.9));
     }
     .brand{display:flex;align-items:center;gap:.85rem;}
     .crest{
       width:42px;height:42px;border-radius:12px;
-      background:linear-gradient(140deg,#81642b,#d4ab56 56%,#f0ce8d);
+      background:linear-gradient(140deg,#81642b,#C9A84C 56%,#f0ce8d);
       display:grid;place-items:center;color:#0d131c;font-weight:800;
       font-family:'Cinzel',serif;font-size:13px;
       box-shadow:inset 0 0 0 1px rgba(18,23,33,.4);
@@ -65,18 +65,18 @@
     .brand h1{font-family:'Cinzel',serif;letter-spacing:.04em;font-size:clamp(1rem,1.5vw,1.3rem);color:var(--brass-soft);line-height:1.1;}
     .brand p{color:rgba(246,247,248,.75);font-size:.82rem;margin-top:.12rem;}
     .btn{
-      border:1px solid rgba(212,171,86,.42);background:rgba(212,171,86,.08);
+      border:1px solid rgba(201,168,76,.42);background:rgba(201,168,76,.08);
       color:var(--brass-soft);border-radius:10px;font-weight:600;font-size:.86rem;
       text-decoration:none;padding:.55rem .9rem;cursor:pointer;transition:all .22s;
     }
-    .btn:hover,.btn:focus-visible{background:rgba(212,171,86,.16);transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.25);outline:none;}
+    .btn:hover,.btn:focus-visible{background:rgba(201,168,76,.16);transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.25);outline:none;}
 
     /* ── LAYOUT ────────────────────────────── */
     .layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 120px);}
 
     /* ── SIDEBAR ───────────────────────────── */
     .sidebar{
-      border-right:1px solid rgba(212,171,86,.2);padding:1rem;
+      border-right:1px solid rgba(201,168,76,.2);padding:1rem;
       background:linear-gradient(180deg,rgba(32,42,56,.72),rgba(22,29,40,.72));
     }
     .secure-note{
@@ -85,23 +85,23 @@
       font-size:.8rem;line-height:1.4;margin-bottom:.85rem;
     }
     .search{
-      width:100%;border:1px solid rgba(212,171,86,.3);background:rgba(8,12,19,.56);
+      width:100%;border:1px solid rgba(201,168,76,.3);background:rgba(8,12,19,.56);
       color:var(--snow);border-radius:12px;padding:.65rem .78rem;
       font-size:.9rem;margin-bottom:.7rem;font-family:'DM Sans',sans-serif;
     }
-    .search:focus{outline:2px solid var(--ring);border-color:rgba(212,171,86,.65);}
+    .search:focus{outline:2px solid var(--ring);border-color:rgba(201,168,76,.65);}
     .counter{color:rgba(246,247,248,.7);font-size:.8rem;margin-bottom:.45rem;}
     .items{display:flex;flex-direction:column;gap:.43rem;max-height:calc(100vh - 280px);overflow:auto;padding-right:.2rem;}
     .items::-webkit-scrollbar{width:6px;}
-    .items::-webkit-scrollbar-thumb{background:rgba(212,171,86,.44);border-radius:999px;}
+    .items::-webkit-scrollbar-thumb{background:rgba(201,168,76,.44);border-radius:999px;}
     .item{
-      width:100%;border:1px solid rgba(212,171,86,.2);background:rgba(14,21,31,.76);
+      width:100%;border:1px solid rgba(201,168,76,.2);background:rgba(14,21,31,.76);
       color:#f4f6f8;border-radius:12px;text-align:left;padding:.72rem .8rem;
       display:grid;grid-template-columns:26px 1fr;align-items:start;gap:.45rem;
       cursor:pointer;transition:all .22s;
     }
-    .item:hover,.item:focus-visible{border-color:rgba(212,171,86,.5);transform:translateX(2px);outline:none;}
-    .item.active{border-color:rgba(212,171,86,.92);background:linear-gradient(160deg,rgba(212,171,86,.16),rgba(212,171,86,.05));box-shadow:inset 0 0 0 1px rgba(212,171,86,.5);}
+    .item:hover,.item:focus-visible{border-color:rgba(201,168,76,.5);transform:translateX(2px);outline:none;}
+    .item.active{border-color:rgba(201,168,76,.92);background:linear-gradient(160deg,rgba(201,168,76,.16),rgba(201,168,76,.05));box-shadow:inset 0 0 0 1px rgba(201,168,76,.5);}
     .item .icon{font-size:1.1rem;line-height:1.2;margin-top:1px;}
     .item .name{font-size:.87rem;line-height:1.25;font-weight:600;color:#f4f7fa;}
     .item .meta{font-size:.74rem;color:rgba(246,247,248,.65);margin-top:.15rem;display:block;}
@@ -112,7 +112,7 @@
     /* Toolbar PDF */
     #pdfToolbar{
       display:flex;align-items:center;gap:6px;flex-wrap:wrap;
-      border:1px solid rgba(212,171,86,.24);border-radius:14px;
+      border:1px solid rgba(201,168,76,.24);border-radius:14px;
       padding:.6rem .9rem;background:rgba(18,25,35,.74);
       user-select:none;
     }
@@ -120,19 +120,19 @@
       display:inline-flex;align-items:center;justify-content:center;gap:4px;
       padding:5px 11px;border-radius:8px;border:none;cursor:pointer;
       font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;
-      background:rgba(212,171,86,.08);color:#e8d8b2;
-      border:1px solid rgba(212,171,86,.22);transition:all .2s;
+      background:rgba(201,168,76,.08);color:#F0C96B;
+      border:1px solid rgba(201,168,76,.22);transition:all .2s;
     }
-    .tbtn:hover{background:rgba(212,171,86,.18);color:var(--brass-soft);}
+    .tbtn:hover{background:rgba(201,168,76,.18);color:var(--brass-soft);}
     .tbtn:disabled{opacity:.3;cursor:not-allowed;}
-    .tbtn.active{background:rgba(212,171,86,.18);color:var(--brass-soft);border-color:rgba(212,171,86,.6);}
+    .tbtn.active{background:rgba(201,168,76,.18);color:var(--brass-soft);border-color:rgba(201,168,76,.6);}
     #pageInfo{font-size:12px;color:rgba(246,247,248,.65);min-width:60px;text-align:center;font-family:'DM Sans',sans-serif;}
     #zoomSelect{
-      background:rgba(8,12,19,.7);color:#e8d8b2;
-      border:1px solid rgba(212,171,86,.3);border-radius:8px;
+      background:rgba(8,12,19,.7);color:#F0C96B;
+      border:1px solid rgba(201,168,76,.3);border-radius:8px;
       padding:5px 8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;
     }
-    .sep{width:1px;height:18px;background:rgba(212,171,86,.2);flex-shrink:0;}
+    .sep{width:1px;height:18px;background:rgba(201,168,76,.2);flex-shrink:0;}
     .protect-badge{
       margin-left:auto;display:inline-flex;align-items:center;gap:5px;
       padding:4px 12px;border-radius:999px;background:rgba(242,95,92,.1);
@@ -141,14 +141,14 @@
 
     /* Canvas area */
     #canvasWrap{
-      position:relative;border:1px solid rgba(212,171,86,.28);border-radius:18px;
+      position:relative;border:1px solid rgba(201,168,76,.28);border-radius:18px;
       background:linear-gradient(160deg,rgba(11,15,22,.95),rgba(21,27,38,.95));
       overflow:hidden;min-height:clamp(300px,66vh,760px);
     }
     .watermark{
       position:absolute;top:.8rem;right:.8rem;z-index:3;
       background:rgba(10,13,18,.65);color:rgba(246,247,248,.85);
-      border:1px solid rgba(212,171,86,.28);border-radius:999px;
+      border:1px solid rgba(201,168,76,.28);border-radius:999px;
       padding:.35rem .62rem;font-size:.72rem;letter-spacing:.02em;
       pointer-events:none;backdrop-filter:blur(2px);
     }
@@ -178,8 +178,8 @@
       text-align:center;padding:1.5rem;
     }
     .empty-state .inner{
-      max-width:520px;border:1px dashed rgba(212,171,86,.35);border-radius:14px;
-      padding:1.5rem;background:rgba(212,171,86,.05);
+      max-width:520px;border:1px dashed rgba(201,168,76,.35);border-radius:14px;
+      padding:1.5rem;background:rgba(201,168,76,.05);
     }
     .empty-state h3{font-family:'Cinzel',serif;color:var(--brass-soft);margin-bottom:.5rem;font-size:1.1rem;}
     .empty-state p{color:rgba(246,247,248,.7);line-height:1.5;font-size:.92rem;}
@@ -190,9 +190,9 @@
       background:rgba(11,17,25,.97);
       display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
     }
-    .spinner{width:44px;height:44px;border:3px solid rgba(212,171,86,.15);border-top-color:var(--brass);border-radius:50%;animation:spin 1s linear infinite;}
+    .spinner{width:44px;height:44px;border:3px solid rgba(201,168,76,.15);border-top-color:var(--brass);border-radius:50%;animation:spin 1s linear infinite;}
     @keyframes spin{to{transform:rotate(360deg);}}
-    #loadProgress{width:200px;height:3px;background:rgba(212,171,86,.15);border-radius:999px;overflow:hidden;}
+    #loadProgress{width:200px;height:3px;background:rgba(201,168,76,.15);border-radius:999px;overflow:hidden;}
     #loadBar{height:100%;background:linear-gradient(90deg,#81642b,var(--brass));border-radius:999px;width:0%;transition:width .3s;}
 
     /* Tooltip */
@@ -201,7 +201,7 @@
       content:attr(data-tip);visibility:hidden;opacity:0;
       position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
       background:#21262D;color:#F5F0E8;padding:4px 10px;border-radius:6px;
-      font-size:11px;white-space:nowrap;border:1px solid rgba(212,171,86,.25);
+      font-size:11px;white-space:nowrap;border:1px solid rgba(201,168,76,.25);
       transition:all .15s;z-index:100;pointer-events:none;font-family:'DM Sans',sans-serif;
     }
     .tip:hover::after{visibility:visible;opacity:1;}
@@ -209,11 +209,11 @@
     *:focus-visible{outline:2px solid var(--ring);outline-offset:2px;}
     ::-webkit-scrollbar{width:5px;height:5px;}
     ::-webkit-scrollbar-track{background:rgba(10,13,20,.6);}
-    ::-webkit-scrollbar-thumb{background:rgba(212,171,86,.4);border-radius:3px;}
+    ::-webkit-scrollbar-thumb{background:rgba(201,168,76,.4);border-radius:3px;}
 
     @media(max-width:980px){
       .layout{grid-template-columns:1fr;}
-      .sidebar{border-right:0;border-bottom:1px solid rgba(212,171,86,.2);}
+      .sidebar{border-right:0;border-bottom:1px solid rgba(201,168,76,.2);}
       .items{max-height:250px;}
       .frame{width:min(1300px,100% - 1rem);}
     }
@@ -239,12 +239,12 @@
         <div style="font-size:11px;color:#9CA3AF;">Desbravadores · Curitiba</div>
       </div>
     </a>
-    <nav style="display:flex;align-items:center;gap:4px;" aria-label="Navegação principal">
+    <nav style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;" aria-label="Navegação principal">
       <a href="/" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-home" style="margin-right:4px"></i>Início</a>
-      <a href="/guia.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-book-open" style="margin-right:4px"></i>Guia</a>
-      <a href="/quiz.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-dove" style="margin-right:4px"></i>Aves</a>
-      <a href="/jogos/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-gamepad" style="margin-right:4px"></i>Jogos</a>
-      <a href="/ordem_unida/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-users" style="margin-right:4px"></i>O. Unida</a>
+      <a href="/sobre.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-info-circle" style="margin-right:4px"></i>Sobre</a>
+      <a href="/evangelismo/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-bullhorn" style="margin-right:4px"></i>Evangelismo</a>
+      <a href="/banco/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-coins" style="margin-right:4px"></i>Banco</a>
+      <a href="/recordes/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#9CA3AF;text-decoration:none;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#9CA3AF'"><i class="fas fa-trophy" style="margin-right:4px"></i>Recordes</a>
       <a href="/materiais/index.html" style="padding:6px 8px;border-radius:8px;font-size:12px;font-weight:500;color:#C9A84C;text-decoration:none;"><i class="fas fa-folder-open" style="margin-right:4px"></i>Materiais</a>
     </nav>
   </div>
@@ -403,7 +403,7 @@ async function openDoc(idx) {
   updateNavButtons();
 
   try {
-    const task = pdfjsLib.getDocument(doc.file);
+    const task = pdfjsLib.getDocument('gerais/' + doc.file);
     task.onProgress = p => { if (p.total) setLoadBar(10 + Math.round((p.loaded / p.total) * 80)); };
     pdfDoc = await task.promise;
     totalPages = pdfDoc.numPages;
@@ -570,7 +570,7 @@ function showProtMsg() {
     text: 'Este material é de uso exclusivo para visualização. Download, impressão e cópia não são permitidos.',
     icon: 'warning',
     confirmButtonText: 'Entendido',
-    confirmButtonColor: '#d4ab56',
+    confirmButtonColor: '#C9A84C',
     background: '#161B22',
     color: '#F5F0E8'
   });
@@ -642,25 +642,25 @@ document.addEventListener('DOMContentLoaded', () => {
 </div><!-- /padding-top wrapper -->
 
 <!-- FOOTER -->
-<footer style="border-top:1px solid rgba(212,171,86,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
+<footer style="border-top:1px solid rgba(201,168,76,.2);background:rgba(10,14,20,.97);padding:24px 16px;">
   <div style="max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
     <div style="display:flex;align-items:center;gap:10px;">
-      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(140deg,#81642b,#d4ab56 56%,#f0ce8d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;color:#0d131c;font-weight:800;font-size:11px;">AO</div>
-      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#d4ab56;">Águia de Ouro</div><div style="font-size:11px;color:rgba(246,247,248,.6);">Clube de Desbravadores · Curitiba</div></div>
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(140deg,#81642b,#C9A84C 56%,#f0ce8d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;color:#0d131c;font-weight:800;font-size:11px;">AO</div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#C9A84C;">Águia de Ouro</div><div style="font-size:11px;color:rgba(246,247,248,.6);">Clube de Desbravadores · Curitiba</div></div>
     </div>
     <nav style="display:flex;flex-wrap:wrap;gap:8px;" aria-label="Links rápidos">
-      <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8962; Início</a>
-      <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#8505; Sobre</a>
-      <a href="/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128214; Guia</a>
-      <a href="/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128038; Aves</a>
-      <a href="/jogos/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127918; Jogos</a>
-      <a href="/desbrava_guines/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#127942; Guines</a>
-      <a href="/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#9733; Astronomia</a>
-      <a href="/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128101; Ordem Unida</a>
-      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.2);color:#e8d8b2;text-decoration:none;">&#128193; Materiais</a>
-      <a href="/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(212,171,86,.3);background:rgba(212,171,86,.08);color:#e8d8b2;text-decoration:none;" onmouseover="this.style.background='rgba(212,171,86,.2)'" onmouseout="this.style.background='rgba(212,171,86,.08)'">&#128196; Planejamento</a>
+      <a href="/" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#8962; Início</a>
+      <a href="/sobre.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#8505; Sobre</a>
+      <a href="/materiais/guia.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128214; Guia</a>
+      <a href="/materiais/quiz.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128038; Aves</a>
+      <a href="/jogos/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#127918; Jogos</a>
+      <a href="/recordes/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#127942; Guines</a>
+      <a href="/materiais/astronomia/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#9733; Astronomia</a>
+      <a href="/materiais/ordem_unida/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128101; Ordem Unida</a>
+      <a href="/materiais/index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.2);color:#F0C96B;text-decoration:none;">&#128193; Materiais</a>
+      <a href="/materiais/planejamento.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);color:#F0C96B;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(201,168,76,.08)'">&#128196; Planejamento</a>
     </nav>
-    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(212,171,86,.1);">© 2025 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados · <strong style="color:#d4ab56;">HOTWYL | WILLFROMBRASIL</strong></p>
+    <p style="font-size:11px;color:rgba(246,247,248,.5);width:100%;text-align:center;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);">© 2025 Clube de Desbravadores Águia de Ouro · Todos os direitos reservados · <strong style="color:#C9A84C;">HOTWYL | WILLFROMBRASIL</strong></p>
   </div>
 </footer>
 </body>

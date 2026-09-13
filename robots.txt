@@ -1,0 +1,15 @@
+# Clube de Desbravadores Águia de Ouro
+# robots.txt
+
+User-agent: *
+Allow: /
+
+# Áreas de visualização protegida / uso interno (não indexar)
+Disallow: /materiais/index.html
+Disallow: /materiais/gerais/
+Disallow: /materiais/ordem_unida/
+Disallow: /materiais/planejamento.html
+Disallow: /materiais/astronomia/simulador.html
+
+# Sitemap
+Sitemap: https://aguiadeouro.com.br/sitemap.xml

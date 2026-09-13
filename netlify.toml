@@ -1,0 +1,32 @@
+# Netlify — Clube de Desbravadores Águia de Ouro
+# Site estático (HTML/CSS/JS). Sem etapa de build.
+
+[build]
+  publish = "."
+  command = ""
+
+# ── Headers de segurança (recomendados na spec) ──────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-XSS-Protection = "1; mode=block"
+
+# Cache longo para PDFs e mídias (conteúdo estável)
+# Cobre materiais/, materiais/astronomia/ e materiais/ordem_unida/
+[[headers]]
+  for = "/materiais/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Mídias do Canal Esperança (vídeo e imagens)
+[[headers]]
+  for = "/evangelismo/src/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# ── Página de erro 404 personalizada ─────────────────────────────────────────
+# O Netlify serve automaticamente /404.html para rotas não encontradas.

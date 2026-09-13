@@ -8,8 +8,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--ink:#0D1117;}
+    :root{--gold:#C9A84C;--gold-light:#F0C96B;--ink:#0D1117;--parchment:#F5F0E8;--parchment-2:#EDE6D6;--text-dark:#1C1917;}
     body{font-family:'DM Sans',sans-serif;background:var(--ink);color:#F5F0E8;min-height:100vh;display:flex;flex-direction:column;}
+    body.light{background:var(--parchment);color:var(--text-dark);}
+    body.light .nav-glass{background:rgba(245,240,232,.88);border-bottom:1px solid rgba(201,168,76,.3);}
+    body.light footer{background:rgba(237,230,214,.98)!important;}
     .font-display{font-family:'Cinzel',serif;}
     .text-gold-gradient{background:linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
     @keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
@@ -34,13 +37,14 @@
       <nav class="hidden md:flex gap-2 text-sm">
         <a href="/" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Início</a>
         <a href="/sobre.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Sobre</a>
-        <a href="/guia.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Guia</a>
-        <a href="/quiz.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Aves</a>
-        <a href="/jogos/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Jogos</a>
-        <a href="/astronomia/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Astronomia</a>
-        <a href="/ordem_unida/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">O. Unida</a>
+        <a href="/evangelismo/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Evangelismo</a>
+        <a href="/banco/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Banco</a>
+        <a href="/recordes/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Recordes</a>
         <a href="/materiais/index.html" class="px-3 py-1.5 rounded-lg hover:bg-gold/10">Materiais</a>
       </nav>
+      <button onclick="toggleTheme()" id="themeBtn" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-gold/10" aria-label="Alternar tema">
+        <i id="themeIcon" class="fas fa-moon" style="color:var(--gold)"></i>
+      </button>
     </div>
   </header>
 
@@ -67,11 +71,14 @@
       <div class="flex flex-wrap items-center justify-center gap-4 text-xs mb-3">
         <a href="/" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-home mr-1"></i>Início</a>
         <a href="/sobre.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-info-circle mr-1"></i>Sobre</a>
-        <a href="/guia.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia</a>
-        <a href="/quiz.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Aves</a>
+        <a href="/materiais/guia.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-book-open mr-1"></i>Guia</a>
+        <a href="/materiais/quiz.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-dove mr-1"></i>Aves</a>
         <a href="/jogos/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-gamepad mr-1"></i>Jogos</a>
-        <a href="/astronomia/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-star mr-1"></i>Astronomia</a>
-        <a href="/ordem_unida/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-users mr-1"></i>O. Unida</a>
+        <a href="/evangelismo/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-bullhorn mr-1"></i>Evangelismo</a>
+        <a href="/banco/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-coins mr-1"></i>Banco</a>
+        <a href="/recordes/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-trophy mr-1"></i>Guines</a>
+        <a href="/materiais/astronomia/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-star mr-1"></i>Astronomia</a>
+        <a href="/materiais/ordem_unida/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-users mr-1"></i>O. Unida</a>
         <a href="/materiais/index.html" class="hover:text-gold transition-colors" style="color:#9CA3AF"><i class="fas fa-folder-open mr-1"></i>Materiais</a>
       </div>
       <p class="text-xs" style="color:#9CA3AF">Sistema desenvolvido pelo desenvolvedor <strong style="color:var(--gold)">HOTWYL | WILLFROMBRASIL</strong></p>
@@ -82,6 +89,11 @@
       el.style.background='linear-gradient(135deg,#F0C96B,#C9A84C,#8B6914)';
       el.style.webkitBackgroundClip='text';el.style.webkitTextFillColor='transparent';el.style.backgroundClip='text';
     });
+    // Tema claro/escuro (padrão do site)
+    let isLight = localStorage.getItem('theme') === 'light';
+    function applyTheme(){ document.body.classList.toggle('light', isLight); document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon'; }
+    function toggleTheme(){ isLight = !isLight; localStorage.setItem('theme', isLight ? 'light' : 'dark'); applyTheme(); }
+    applyTheme();
   </script>
 </body>
 </html>
